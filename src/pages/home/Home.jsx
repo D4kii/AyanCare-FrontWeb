@@ -4,14 +4,17 @@ import { Link } from 'react-router-dom';
 const Home = () =>{
   return (
     <div>
-      <h1>Página Inicial</h1>
+      <h1>Home</h1>
       <nav>
         <ul>
           <li>
-            <Link to="/sobre">Sobre</Link>
+            <Link to="/agenda">Agenda</Link>
           </li>
           <li>
-            <Link to="/usuario">Usuario</Link>
+            <Link to="/relatorios">Relatorios</Link>
+          </li>
+          <li>
+            <Link to="/pacientes">Pacientes</Link>
           </li>
         </ul>
       </nav>
