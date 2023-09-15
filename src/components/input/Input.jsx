@@ -1,16 +1,18 @@
 import React from "react";
-import '../css/components/input.css'
+import './input.css'
 
-function input(placeholder) {
+function Input(description) {
 
-    const placeholder = placeholder
+    const placeholder = description
     return (
         <div>
             <div className="user-box">
                 <input type="text" />
-                <label>`${placeholder}`</label>
+                <label>`${description}`</label>
               </div>
         </div>
     )
 
 }
+
+export default Input;
