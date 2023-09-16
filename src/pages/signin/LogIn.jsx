@@ -1,14 +1,14 @@
 import React from "react";
-import Input from "../../components/input/Input";
+import { Input, Form } from "antd";
 
 function SignIn() {
-    
-    return(
+
+    return (
         <div className="LoginScreen">
             <h1>LOGIN</h1>
         </div>
     )
-    
+
 }
 
 export default SignIn;
