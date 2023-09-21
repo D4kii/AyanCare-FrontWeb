@@ -1,8 +1,9 @@
 
 .input{
     width: 30rem;
+
+    font-family: 'Poppins', sans-serif;
 }
 
 .textFieldTitle{
-    font-family: 'Poppins', sans-serif;
 }
