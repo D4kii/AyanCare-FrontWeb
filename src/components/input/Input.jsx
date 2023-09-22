@@ -6,8 +6,8 @@ const InputComponent = ({textFielName} ) =>{
   return (
     
     <div className="input">
-      <span className="textFiledTitle">{textFielName}</span>
-      <Input />
+      <p className="text-field-title">{textFielName}</p>
+      <Input className='text-field'/>
     </div>
   
   )

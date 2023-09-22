@@ -63,6 +63,14 @@ const Routes = () => {
             element: <SignIn/>
         }
     ];
+    //  if (!routesForPublic && !routesForAuthenticatedOnly && !routesForNotAuthenticatedOnly) {
+    //     const anotherRoutes = [
+    //         {
+    //             path: "/*",
+    //             element: <LandingPage/>
+    //         }
+    //     ]
+    //  }
 
     //Combina e inclue condicionalmente as rotas com base no status de autenticação
     const router = createBrowserRouter([

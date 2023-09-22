@@ -1,3 +1,4 @@
-.Forms{
-    width: 50%;
+.forms{
+    width: max-content;
+    font-family: 'Poppins', sans-serif;
 }

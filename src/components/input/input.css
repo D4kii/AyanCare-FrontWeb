@@ -1,9 +1,15 @@
 
 .input{
     width: 30rem;
-
     font-family: 'Poppins', sans-serif;
+
 }
 
-.textFieldTitle{
+.text-field-title{
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 11px;
+}
+.text-field{
+    height: 3.2rem;
 }
