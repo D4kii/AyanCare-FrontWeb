@@ -1,7 +1,7 @@
 import React from "react";
 import "../forms/forms.css";
 import InputComponent from '../input/Input.jsx';
-import CheckboxField from '../checkbox/checkbox.jsx';
+import CheckboxField from '../checkbox/Checkbox.jsx';
 import ForgotPassword from "../forgot-password/forgotPassword.jsx";
 
 
