@@ -1,0 +1,7 @@
+container-field {
+    width: 709px;
+    height: 100vh;
+    flex-shrink: 0;
+    background: var(--blue-gray-900, #35225F);
+    position: absolute;
+}

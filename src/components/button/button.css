@@ -1,0 +1,25 @@
+.default-button {
+    display: flex;
+    width: 180.261px;
+    height: 57.692px;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 9px;
+    background: #35225F;
+}
+
+.field-button{
+    width: max-content;
+}
+
+.default-button span {
+    color: var(--base-white, #FFF);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 300;
+}

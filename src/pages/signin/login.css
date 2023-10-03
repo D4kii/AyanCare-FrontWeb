@@ -1,7 +1,29 @@
 .login-screen{
     font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    /* background: linear-gradient(117deg, #FFF 29.42%, #F8F0EC 72.74%); */
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .login-screen h1{
     font-size: 3.3rem;
+}
+
+.forms-organization{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+.forms-field{
+    width: 55vw;
+    display: flex;
+    justify-content: center;
+}
+
+.forms-field_title{
+    width: 45rem;
 }
