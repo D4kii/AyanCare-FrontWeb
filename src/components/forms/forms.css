@@ -1,6 +1,9 @@
 .forms{
     width: max-content;
     font-family: 'Poppins', sans-serif;
+    gap: 1.3rem;
+    display: flex;
+    flex-direction: column;
 }
 .forms-check-field{
     display: flex;

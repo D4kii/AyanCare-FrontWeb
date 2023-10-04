@@ -1,0 +1,15 @@
+.link-cadastro-login_field {
+    display: flex;
+    gap: 5px;
+    
+}
+
+.link-cadastro-login_field li {
+    list-style-type: none;
+    font-weight: 600;
+}
+
+.link-cadastro-login_field a {
+    text-decoration: none;
+    color: #35225F;
+}

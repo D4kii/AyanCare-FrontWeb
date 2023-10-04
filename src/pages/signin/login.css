@@ -1,4 +1,4 @@
-.login-screen{
+.login-screen {
     font-family: 'Poppins', sans-serif;
     height: 100vh;
     width: 100vw;
@@ -7,23 +7,22 @@
     flex-direction: row-reverse;
 }
 
-.login-screen h1{
-    font-size: 3.3rem;
-}
 
-.forms-organization{
+
+.forms-organization {
     display: flex;
     flex-direction: column;
+    height: 90vh;
     justify-content: space-evenly;
-
 }
 
 .forms-field{
-    width: 55vw;
+    height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2rem;
+    width: 55vw;
 }
 
-.forms-field_title{
-    width: 45rem;
-}

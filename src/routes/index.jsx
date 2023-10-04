@@ -7,6 +7,7 @@ import Agenda from "../pages/home/Agenda";
 import Pacientes from "../pages/home/Pacientes";
 import Relatorios from "../pages/home/Relatorios";
 import SignIn from "../pages/signin/LogIn";
+import Signup from "../pages/signup/CadastroEmail";
 
 const Routes = () => {
 
@@ -61,6 +62,10 @@ const Routes = () => {
         {
             path: "/login",
             element: <SignIn/>
+        },
+        {
+            path: "/signup",
+            element: <Signup/>
         }
     ];
     //  if (!routesForPublic && !routesForAuthenticatedOnly && !routesForNotAuthenticatedOnly) {

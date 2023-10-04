@@ -1,0 +1,17 @@
+.forms-field_title {
+    width: 40rem;
+}
+.forms-field_title h2 {
+    color: var(--base-02, #090914);
+    font-size: 3.4rem;
+    font-weight: 600;
+    letter-spacing: -2px;}
+
+.forms-field_title h3 {
+    color: #676D75;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}

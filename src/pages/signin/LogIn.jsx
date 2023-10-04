@@ -2,27 +2,31 @@ import React from "react";
 import '../signin/login.css';
 import Forms from "../../components/forms/forms";
 import Button from "../../components/button/button";
-import WelcomeContainer from "../../components/welcome-container/Welcome_Conainer";
-
+import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
+import image from "../../images/logo.png"
+import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtile";
+import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
 
 function SignIn() {
 
-    console.log(Forms);
+    const welcomeLoginTitle = 'Bem vindo de Volta!'
+    const welcomeLoginSubtitle = 'AyanCare é tudo que você precisa para administrar, de forma eficiente e prática, sua rotina com seus pacientes e seus compromissos do cotidiano.'
+
+    const welcomeContainerTitle = 'Bem vindo ao nosso Aplicativo'
+    const welcomeContainerSubtitle = 'Transforme o cuidado em uma jornada gratificante.'
 
     return (
         <div className="login-screen">
             <div className="forms-field">
                 <div className="forms-organization">
-                    <div className="forms-field_title">
-                        <h1>Bem vindo de Volta!</h1>
-                        <h3>AyanCare é tudo que você precisa para administrar, de forma eficiente e prática, sua rotina com seus pacientes e seus compromissos do cotidiano.</h3>
-                    </div>
+                    <TitleAndSubtitle title={welcomeLoginTitle} subtitle={welcomeLoginSubtitle} />
                     <Forms />
                     <Button nameButton={'Entrar'} />
+                    <LinkCadastroLogin caminho={'login'} />
                 </div>
             </div>
             <div className="welcome-field">
-                <WelcomeContainer title={'Bem vindo ao nosso Aplicativo'} text={'Transforme o cuidado em uma jornada gratificante.'} />
+                <WelcomeContainer title={welcomeContainerTitle} text={welcomeContainerSubtitle} logo={image} />
             </div>
         </div>
     )

@@ -1,7 +1,45 @@
-container-field {
-    width: 709px;
+.container-field {
+    width: 45vw;
     height: 100vh;
     flex-shrink: 0;
-    background: var(--blue-gray-900, #35225F);
-    position: absolute;
+    background-color: #35225F;
+    display: flex;   
+    gap: 2rem;
 }
+
+.components_container-field {
+    width: 45vw;
+    color: #fff;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 4rem;
+    justify-content: center;    
+
+}
+
+.components_container-field span {
+    font-size: 18px;
+    font-weight: 100;
+    width: 40vw;
+}
+
+.components_container-field h1 {
+    font-family: Poppins;
+    font-size: 4.5rem;
+    width: 40vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 66px;
+    letter-spacing: -1px;
+}
+
+.text_components_container-field{
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
