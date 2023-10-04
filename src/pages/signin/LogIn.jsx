@@ -20,7 +20,7 @@ function SignIn() {
             <div className="forms-field">
                 <div className="forms-organization">
                     <TitleAndSubtitle title={welcomeLoginTitle} subtitle={welcomeLoginSubtitle} />
-                    <Forms />
+                    <Forms page={'login'} />
                     <Button nameButton={'Entrar'} />
                     <LinkCadastroLogin caminho={'login'} />
                 </div>

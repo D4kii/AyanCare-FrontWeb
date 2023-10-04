@@ -15,7 +15,7 @@ function LinkCadastroLogin({caminho}) {
     }else if(caminho == 'cadastro'){
         textLink = 'Faça Login';
         textQuestion = 'Já tem uma Conta?';
-        routesWay = "/sigin";
+        routesWay = "/login";
     }
     
 
