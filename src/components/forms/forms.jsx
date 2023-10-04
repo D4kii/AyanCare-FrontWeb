@@ -1,44 +1,20 @@
 import React from "react";
 import "../forms/forms.css";
-import InputComponent from '../input/Input.jsx';
-import CheckboxField from '../checkbox/Checkbox.jsx';
-import ForgotPassword from "../forgot-password/ForgotPassword.jsx";
-
+import SignInForms from "./SignInForms";
+import SignUpForms from "./SignUpForms";
 
 const Forms = ({ page }) => {
 
     const pagePlace = page;
 
-    const fieldSenha = 'Senha'
-    const fieldConfirmationSenha = 'Confirme a senha'
-    const fieldEmail = 'E-mail'
-    const checkboxText = 'Lembrar de mim.'
-
-    if (page == 'login') {
+    if (pagePlace == 'login') {
         return (
-            <div className="forms">
-                <div>
-                    <InputComponent textFielName={fieldEmail}></InputComponent>
-                    <InputComponent textFielName={fieldSenha}></InputComponent>
-                </div>
-                <div className="forms-check-field">
-                    <CheckboxField checkBoxName={checkboxText} />
-                    <ForgotPassword />
-                </div>
-            </div>
-
+            <SignInForms/>
         )
-    } else if (page == 'cadastro') {
+    } else if (pagePlace == 'cadastro') {
 
         return (
-            <div className="forms">
-                <div>
-                    <InputComponent textFielName={fieldEmail}></InputComponent>
-                    <InputComponent textFielName={fieldSenha}></InputComponent>
-                    <InputComponent textFielName={fieldConfirmationSenha}></InputComponent>
-                </div>
-            </div>
-
+            <SignUpForms/>
         )
 
     }
