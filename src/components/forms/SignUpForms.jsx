@@ -1,5 +1,6 @@
 import React from "react";
 import InputComponent from '../input/Input.jsx';
+import Button from "../button/button.jsx";
 
 function SignUpForms() {
     const fieldSenha = 'Senha'
@@ -13,6 +14,7 @@ function SignUpForms() {
                 <InputComponent textFielName={fieldSenha} typeInput={'password'} idName={'senhaCadastro'}></InputComponent>
                 <InputComponent textFielName={fieldConfirmationSenha} typeInput={'password'} idName={'confirmacaoSenhaCadastro'}></InputComponent>
             </div>
+            <Button nameButton={'Próximo'}></Button>
         </div>
 
     )
