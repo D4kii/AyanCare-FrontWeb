@@ -1,6 +1,7 @@
 import React from "react";
 import InputComponent from '../input/Input.jsx';
 import Button from "../button/button.jsx";
+import './forms.css';
 
 function SignUpForms() {
     const fieldSenha = 'Senha'

@@ -1,6 +1,6 @@
 import React from "react";
 import '../signin/login.css';
-import Forms from "../../components/forms/forms";
+import SignUpForms from "../../components/forms/SignUpForms";
 import Button from "../../components/button/button";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
 import image from "../../images/logo.png"
@@ -20,7 +20,7 @@ function Signup() {
             <div className="forms-field">
                 <div className="forms-organization">
                     <TitleAndSubtitle title={welcomeSingUpTitle} subtitle={welcomeSingUpSubtitle} />
-                    <Forms page={'cadastro'} />
+                    <SignUpForms />
                     <LinkCadastroLogin caminho={'cadastro'} />
                 </div>
             </div>

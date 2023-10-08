@@ -3,21 +3,21 @@ import InputComponent from '../input/Input.jsx';
 import CheckboxField from '../checkbox/Checkbox.jsx';
 import ForgotPassword from "../forgot-password/ForgotPassword.jsx";
 import Button from "../button/button.jsx";
+import './forms.css';
 
-function SignInForms() {
+function SignInForms(handleSubmitFunction, setStatePasswordParameter, setStateEmailParameter, emailUseState, passwordUseState) {
     const fieldSenha = 'Senha'
     const fieldConfirmationSenha = 'Confirme a senha'
     const fieldEmail = 'E-mail'
     const checkboxText = 'Lembrar de mim.'
 
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const setStateEmail = setStateEmailParameter;
+    const setStatePassword = setStatePasswordParameter;
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const email = emailUseState;
+    const password = passwordUseState;
 
-        console.log("submit", {email, password});
-    }
+    const handleSubmit = handleSubmitFunction;
 
     return (
         <form className="forms" onSubmit={handleSubmit}>
@@ -27,7 +27,7 @@ function SignInForms() {
                                 idName={'emailLogin'} 
                                 inputUseStartValue={email} 
                                 setStateFunction={
-                                    (event) => setEmail(event.target.value)
+                                    setStateEmail
                                     }/>
 
                 <InputComponent textFielName={fieldSenha} 
@@ -35,7 +35,7 @@ function SignInForms() {
                                 idName={'senhaLogin'}
                                 inputUseStartValue={password} 
                                 setStateFunction={
-                                    (event) => setPassword(event.target.value)
+                                    setStatePassword
                                     }/>
             </div>
             <div className="forms-check-field">
