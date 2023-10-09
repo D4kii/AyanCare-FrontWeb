@@ -2,6 +2,8 @@ import React, { createContext, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { api, createSessionUsuarioAutenticar } from "../services/api";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -21,13 +23,13 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = (email, password) => {
-        console.log('login auth', { email, password });
+    const login = async (email, password) => {
+        
+        const response = await createSessionUsuarioAutenticar(email, password);
+        
+        console.log('login auth', response.data);
 
-        const loggedUser = {
-            id: '123',
-            email,
-        };
+        const loggedUser = response.data.cuidador;
 
         //localStorage só aceita strings e não objetos
         // JSON.stringfy() para fazer essa conversão, já que loggedUser é um objeto
