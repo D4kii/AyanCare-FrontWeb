@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = () =>{
+import { AuthContext } from '../../contexts/auth';
+
+const Home = () => {
+  const { authenticated, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+
+  }
+
   return (
     <div>
       <h1>Home</h1>
@@ -18,6 +27,8 @@ const Home = () =>{
           </li>
         </ul>
       </nav>
+      <span>{String(authenticated)}</span>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }

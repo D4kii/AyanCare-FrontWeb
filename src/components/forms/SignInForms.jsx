@@ -5,9 +5,8 @@ import ForgotPassword from "../forgot-password/ForgotPassword.jsx";
 import Button from "../button/button.jsx";
 import './forms.css';
 
-function SignInForms(handleSubmitFunction, setStatePasswordParameter, setStateEmailParameter, emailUseState, passwordUseState) {
+function SignInForms({handleSubmitFunction, setStatePasswordParameter, setStateEmailParameter, emailUseState, passwordUseState}) {
     const fieldSenha = 'Senha'
-    const fieldConfirmationSenha = 'Confirme a senha'
     const fieldEmail = 'E-mail'
     const checkboxText = 'Lembrar de mim.'
 
@@ -19,13 +18,14 @@ function SignInForms(handleSubmitFunction, setStatePasswordParameter, setStateEm
 
     const handleSubmit = handleSubmitFunction;
 
+
     return (
         <form className="forms" onSubmit={handleSubmit}>
             <div>
                 <InputComponent textFielName={fieldEmail}
                                 typeInput={'email'} 
                                 idName={'emailLogin'} 
-                                inputUseStartValue={email} 
+                                inputUseStateValue={email} 
                                 setStateFunction={
                                     setStateEmail
                                     }/>

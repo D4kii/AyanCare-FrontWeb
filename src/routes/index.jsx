@@ -4,7 +4,7 @@ import {
     Routes,
     Navigate
 } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import LandingPage from "../pages/LandingPage";
 import Home from "../pages/home/Home.jsx";
 import Agenda from "../pages/home/Agenda";
@@ -13,112 +13,72 @@ import Relatorios from "../pages/home/Relatorios";
 import SignIn from "../pages/signin/LogIn.jsx";
 import Signup from "../pages/signup/CadastroEmail.jsx";
 
-import { AuthContext } from "../contexts/auth";
+import { AuthContext, AuthProvider } from "../contexts/auth";
 
 const AppRoutes = () => {
 
-    const [user, setUser] = useState(null);
+    //Função que avalia se o valor do contexto é autenticado ou não, redirecionando para suas respectivas páginas
+    const Private = ({ children }) => {
+        const { authenticated, loading } = useContext(AuthContext);
 
-    const login = (email, password) => {
-        console.log('login auth', {email, password});
-        setUser({id: "123", email})
-    };
+        if (loading) {
+            return (
+                <div className="loading">Carregando...</div>
+            )
+        }
 
-    const logout = () => {
-        console.log('logout');
-    };
+        if (!authenticated) {
+            return <Navigate to="/login" />
+        }
+
+        return children;
+    }
 
     return (
         <Router>
-            <AuthContext.Provider value={{authenticated:!! user, user, login, logout}}>
+            <AuthProvider>
                 <Routes>
-                    <Route exact path="/signin" element={<SignIn />} />
-                    <Route exact path="/login" element={<SignIn />} />
-                    <Route exact path="/" element={<LandingPage />} />
-                    <Route exact path="/signup" element={<Signup />} />
+                    <Route
+                        exact path="/login"
+                        element={<SignIn />}
+                    />
+                    <Route
+                        exact path="/"
+                        element={<LandingPage />}
+                    />
+                    <Route
+                        exact path="/signup"
+                        element={<Signup />}
+                    />
+                    <Route
+                        exact path="/home"
+                        element={
+                            <Private>
+                                <Home />
+                            </Private>} />
+                    <Route
+                        exact path="/agenda"
+                        element={
+                            <Private>
+                                <Agenda />
+                            </Private>} />
+                    <Route
+                        exact path="/pacientes"
+                        element={
+                            <Private>
+                                <Pacientes />
+                            </Private>} />
+                    <Route
+                        exact path="/relatorios"
+                        element={
+                            <Private>
+                                <Relatorios />
+                            </Private>} />
                 </Routes>
-            </AuthContext.Provider>
+            </AuthProvider>
         </Router>
     )
 };
-
-// const { token } = useAuth();
-
-// //Define as rotas que serão acessíveis a todos os usuários
-// const routesForPublic = [
-//     {
-//         path: "/landing-page",
-//         element: <LandingPage/>,
-//     }
-
-// ];
-
-// //Define rotas que serão acessíveis somente a usuários autenticados 
-// const routesForAuthenticatedOnly = [
-//     {
-//         path: "/",
-//         element: <ProtectedRoute />,
-//         children: [
-//             {
-//                 path: "/home",
-//                 element: <Home/>,
-//             },
-//             {
-//                 path: "/agenda",
-//                 element: <Agenda/>,
-//             },
-//             {
-//                 path: "/pacientes",
-//                 element: <Pacientes/>,
-//             },
-//             {
-//                 path: "/relatorios",
-//                 element: <Relatorios/>,
-//             },
-//             {
-//                 path: "/logout",
-//                 element: <div>Logout</div>,
-//             }
-//         ]
-//     }
-// ];
-
-// //Define rotas acessíveis somente a usuários não autenticados
-// const routesForNotAuthenticatedOnly = [
-//     {
-//         path: "/",
-//         element: <LandingPage/>
-//     },
-//     {
-//         path: "/login",
-//         element: <SignIn/>
-//     },
-//     {
-//         path: "/signup",
-//         element: <Signup/>
-//     }
-// ];
-// //  if (!routesForPublic && !routesForAuthenticatedOnly && !routesForNotAuthenticatedOnly) {
-// //     const anotherRoutes = [
-// //         {
-// //             path: "/*",
-// //             element: <LandingPage/>
-// //         }
-// //     ]
-// //  }
-
-// //Combina e inclue condicionalmente as rotas com base no status de autenticação
-// const router = createBrowserRouter([
-//     ...routesForPublic,
-//     ...(!token ? routesForNotAuthenticatedOnly : []),
-//     ...routesForAuthenticatedOnly,
-// ]);
-
-// //Fornece a configuração das rotas usando o RouterProvider
-// return <RouterProvider router={router} />;
-
-
-
 
 export default AppRoutes;
 

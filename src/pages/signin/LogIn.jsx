@@ -9,7 +9,7 @@ import { AuthContext } from "../../contexts/auth";
 
 function SignIn() {
 
-    const { authenticated, login } = useContext(AuthContext)
+    const { authenticated, login } = useContext(AuthContext);
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -17,7 +17,7 @@ function SignIn() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("submit", { email, password });
-        login(email, password)
+        login(email, password); // integração com meu contexto / API
     }
 
     const welcomeLoginTitle = 'Bem-vindo de Volta!'
@@ -26,16 +26,19 @@ function SignIn() {
     const welcomeContainerTitle = 'Bem-vindo ao nosso Aplicativo'
     const welcomeContainerSubtitle = 'Transforme o cuidado em uma jornada gratificante.'
 
+    
+
     return (
         <div className="login-screen">
             <div className="forms-field">
                 <div className="forms-organization">
                     <TitleAndSubtitle title={welcomeLoginTitle} subtitle={welcomeLoginSubtitle} />
+                    <p>{String(authenticated)}</p>
                     <SignInForms
                         emailUseState={email}
-                        passworduseState={password}
-                        handleSubmitPasswordParameter={(event) => setEmail(event.target.value)}
-                        handleSubmitEmaildParameter={(event) => setPassword(event.target.value)}
+                        passwordUseState={password}
+                        setStatePasswordParameter={(event) => setPassword(event.target.value)}
+                        setStateEmailParameter={(event) => setEmail(event.target.value)}
                         handleSubmitFunction={handleSubmit}
                     />
                     <LinkCadastroLogin caminho={'login'} />
