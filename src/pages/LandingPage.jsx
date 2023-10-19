@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MenuLandingPage from '../components/menu-landing-page/MenuLanding';
 
 const LandingPage = () => {
     return (
         <div>
-            <h1>Landing page</h1>
+            <MenuLandingPage/>
+               
         </div>
     );
 }
