@@ -1,5 +1,6 @@
 .landing-page_section {
     width: 100vw;
+    background-color:#35225F;
 }
 
 .landing-page_home {
@@ -18,6 +19,30 @@
 .landing-page_platforms,
 .landing-page_contacts {
     height: 100vh;
+    display: flex;
+    width: 90vw;
+    flex-direction: column;
+}
+
+.landing-page-home_cards-field{
+    display: flex;
+    gap: 3rem;
     width: 100vw;
-    background-color: blue;
+    justify-content: center;
+}
+
+.landing-page_sections-aboutus-field{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.landing-page_section-border{
+    border: 1px solid #fff;
+    width: 90vw;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
 }

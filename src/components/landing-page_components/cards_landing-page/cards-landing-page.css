@@ -1,0 +1,65 @@
+.landing-page_cards-about-us {
+    display: flex;
+    height: 40vh;
+    width: 24vw;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    border-radius: 12px;
+    background: var(--White, #FFF);
+    /* Shadow/lg */
+    box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08);
+    margin-bottom: -18rem;
+    margin-top: -16rem;
+}
+
+.landing-page_cards-about-us img {
+    margin-top: 32px;
+    width: 22vw;
+    height: 18vh;
+}
+
+.landing-page_cards-about-us_text-field {
+    gap: .7rem;
+    width: 22vw;
+    height: 12vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+}
+
+
+.landing-page_cards-about-us_text-field h4 {
+    color: var(--gray-900, #101828);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    /* 133.333% */
+}
+
+.landing-page_cards-about-us_text-field span {
+    color: #35225F;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    /* 142.857% */
+}
+
+.landing-page_cards-about-us_text-field p {
+    color: var(--gray-500, #667085);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 150% */
+}
