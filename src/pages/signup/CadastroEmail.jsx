@@ -3,7 +3,7 @@ import '../signin/login.css';
 import SignUpForms from "../../components/forms/SignUpForms";
 import Button from "../../components/button/button";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
-import image from "../../images/logo.png"
+import image from "../../images/logo-branca.png"
 import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtile";
 import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
 

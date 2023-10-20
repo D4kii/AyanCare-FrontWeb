@@ -1,0 +1,65 @@
+.field-menu {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    font-size: 3.5rem;
+    background: rgba(51, 27, 106, 0.60);
+    backdrop-filter: blur(2px);
+    width: 100vw;
+    height: 10vh;
+    font-family: 'Poppins', sans-serif;
+    position: fixed;
+    align-items: center;
+    z-index: 10;
+}
+
+.nome-logo {
+    color: var(--base-white, #FFF);
+    font-family: Poppins;
+    font-weight: 100;
+}
+
+.landing-page_field-menu nav ul {
+    list-style: none;
+}
+
+.menu_logo {
+    display: flex;
+    font-size: 1rem;
+    align-items: end;
+    height: max-content;
+    margin-left: 1.2rem;
+}
+
+.menu_logo img {
+    width: 3rem;
+}
+
+.landing-page_field-menu nav ul li a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.landing-page_field-menu nav ul li button {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    transition: 2s;
+}
+
+.menu a:hover{
+    border-bottom: .1rem solid #FFF;
+    transition: 2s;
+}

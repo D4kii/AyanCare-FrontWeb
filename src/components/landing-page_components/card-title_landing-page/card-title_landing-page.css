@@ -1,0 +1,44 @@
+.landing-page_home-card {
+    width: 45rem;
+    height: 25rem;
+    border-radius: 12px;
+    background: rgba(51, 27, 106, 0.60);
+    backdrop-filter: blur(2px);
+    margin-right: 1.3rem;
+}
+
+.landing-page_home-card-field {
+    display: flex;
+    padding: 0px 20px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    position: absolute;
+    top: 36px;
+}
+
+.landing-page_home-card-text {
+    display: flex;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.80);
+    text-align: right;
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 30px; /* 150% */
+}
+
+.landing-page_home-card-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #FFF;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90px;
+    /* 140.625% */
+}

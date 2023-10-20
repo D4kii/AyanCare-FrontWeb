@@ -6,7 +6,7 @@ function ForgotPassword(params) {
     return (
         <div className="forgot-password-field">
             <li>
-                <a href="">Esqueceu a senha?</a>
+                <a href="/recover-password">Esqueceu a senha?</a>
             </li>
         </div>
     )

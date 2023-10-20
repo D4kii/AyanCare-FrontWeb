@@ -5,13 +5,14 @@ import {
     Navigate
 } from "react-router-dom";
 import React, { useContext } from "react";
-import LandingPage from "../pages/LandingPage";
+import LandingPage from "../pages/landing-page/LandingPage";
 import Home from "../pages/home/Home.jsx";
 import Agenda from "../pages/home/Agenda";
 import Pacientes from "../pages/home/Pacientes";
 import Relatorios from "../pages/home/Relatorios";
 import SignIn from "../pages/signin/LogIn.jsx";
 import Signup from "../pages/signup/CadastroEmail.jsx";
+import RecoverPassword from "../pages/recover-password/RecoverPassword.jsx";
 
 import { AuthContext, AuthProvider } from "../contexts/auth";
 
@@ -41,6 +42,10 @@ const AppRoutes = () => {
                     <Route
                         exact path="/login"
                         element={<SignIn />}
+                    />
+                    <Route
+                        exact path="/recover-password"
+                        element={<RecoverPassword />}
                     />
                     <Route
                         exact path="/"

@@ -1,6 +1,6 @@
 import React from "react";
 import './menu-landing-page.css'
-import image from '../../images/logo.png'
+import image from '../../../images/logo-branca.png'
 import ButtonsLandingPage from "../buttons-landing-page/ButtonsLandingPage";
 
 function MenuLandingPage() {
@@ -8,21 +8,19 @@ function MenuLandingPage() {
     return (
         <div className="landing-page_field-menu">
             <nav>
-                <a href="#" className="container-barra">
-                    <i className="menu-barra"></i>
-                </a>
                 <ul className="menu">
-                    <div className="logo">
+                    <div className="menu_logo">
                         <img src={image} alt="AyanCare" />
+                        <span className="nome-logo">AyanCare</span>
                     </div>
                     <li>
-                        <a href="#">Sobre Nós</a>
+                        <a href="#about-us">Sobre Nós</a>
                     </li>
                     <li>
-                        <a href="#">Plataformas</a>
+                        <a href="#platforms">Plataformas</a>
                     </li>
                     <li>
-                        <a href="#">Contato</a>
+                        <a href="#contacts">Contato</a>
                     </li>
                 <ButtonsLandingPage nameButtonLogin={'Fazer Login'} nameButtonSignup={'Cadastrar-se'} />
                 </ul>

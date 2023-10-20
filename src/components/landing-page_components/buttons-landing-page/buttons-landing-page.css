@@ -1,0 +1,70 @@
+.landing-page_button-signup {
+    text-decoration: none;
+    height: 3.3rem;
+    width: 9rem;
+    display: flex;
+    border-radius: inherit;
+    border: none;
+    border-radius: 4px;
+    background: #FBF5F2;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-page_button-login span {
+    text-align: right;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px;
+    /* 162.5% */
+    background:  #FBF5F2 ;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.landing-page_button-login-field{
+    border-radius: 10px;
+    height: 3.3rem;
+    width: 9rem;
+}
+
+.landing-page_button-login {
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border-radius: 4px;
+    border-width: .2rem;
+    border-style: solid;
+    border: .2rem solid #FBF5F2 ;
+    
+}
+
+.landing-page_button-signup span {
+
+    font-size: 1.2rem;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    background: rgba(51, 27, 106, 0.97) ;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.landing-page_buttons-field {
+    margin-right: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+}
