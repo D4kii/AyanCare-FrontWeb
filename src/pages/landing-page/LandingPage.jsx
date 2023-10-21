@@ -13,6 +13,9 @@ const LandingPage = () => {
     const titleCardHeader = 'Auxiliando Cuidadores em sua jornada diária '
     const textCardHeader = 'Nos dedicamos a melhorar a vida de cuidadores e enfermeiros domiciliares servindo nossa aplicação  como uma ferramenta, que simplifica o planejamento, aprimora a comunicação e permite que se concentrem no cuidado e nas conexões com os pacientes. Buscamos tornar o cuidado domiciliar mais eficiente, humano e gratificante. '
 
+    const sobreNosTitulo = 'Sobre nós';
+    const sobreNosTexto = ' A missão da AyanCare é simplificar e melhorar a vida dos cuidadores e enfermeiros domiciliares, usando a tecnologia para tornar o cuidado em casa mais eficiente e humano. Seu aplicativo oferece ferramentas para planejamento, comunicação e permitir que os profissionais dediquem mais tempo aos pacientes. A empresa valoriza a gratidão pelos cuidadores e busca capacitar aqueles que se dedicam ao cuidado dos outros, com base em valores de inovação, ética e responsabilidade social. Eles estão empenhados em transformar o cuidado domiciliar em uma experiência mais gratificante e significativa, convidando outros a se juntarem à sua missão na comunidade AyanCare.';
+
     return (
         <div className='landing-page_section'>
             <MenuLandingPage />
@@ -46,19 +49,30 @@ const LandingPage = () => {
             </div>
             <div className="landing-page_sections-aboutus-field">
 
-            <div className="landing-page_section-border">
-                <section className='landing-page_about-us' id='about-us'>
+                <div className="landing-page_section-border">
+                    <section className='landing-page_about-us' id='about-us'>
+                        <div className="landing-page_about-us-field">
+                            <h2 className='landing-page_section-about-us_title'>{sobreNosTitulo}</h2>
+                            <span className='landing-page_section-about-us_text'>{sobreNosTexto}</span>
+                        </div>
+                    </section>
+                    <section className='landing-page_platforms' id='platforms'>
+                        <h2 className='landing-page_section-about-us_title'>Plataformas</h2>
+                    </section>
+                    <section className='landing-page_valores' id='valores'>
+                        <h2 className='landing-page_section-about-us_title'>Valores</h2>
+                        <div className="landing-page_valores-text-field">
+                            <p className='landing-page_section-about-us_text'>Inovação Tecnológica: Abraçamos a inovação como parte fundamental do nosso trabalho. Estamos empenhados em explorar constantemente novas soluções tecnológicas e práticas de desenvolvimento para criar aplicativos de saúde de vanguarda.
+                                Excelência Técnica: Buscamos constantemente a excelência em nosso trabalho de desenvolvimento, impulsionando a qualidade e a eficácia de nossos aplicativos.</p>
+                            <p className='landing-page_section-about-us_text'>Colaboração e Parcerias: Valorizamos parcerias estratégicas e colaborações com outras empresas e profissionais de saúde para criar soluções holísticas e eficazes.
+                                Compromisso com a Saúde:  Nosso compromisso é melhorar a saúde e o bem-estar das pessoas por meio de tecnologia. Valorizamos profundamente a responsabilidade de criar aplicativos que promovam a saúde e a qualidade de vida.</p>
+                        </div>
+                    </section>
 
-                    <h2>Sobre nós</h2>
-                </section>
-                <section className='landing-page_platforms' id='platforms'>
-                    <h2>Plataformas</h2>
-                </section>
-
-            </div>
+                </div>
             </div>
             <section className='landing-page_contacts' id='contacts'>
-                <h2>Contatos</h2>
+                <h2 className='landing-page_section-title'>Contatos</h2>
 
             </section>
         </div>

@@ -1,13 +1,13 @@
 .landing-page_section {
     width: 100vw;
-    background-color:#35225F;
+    background-color: #35225F;
 }
 
 .landing-page_home {
     background-image: url('../../images/background-image.png');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    height: 140vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -17,32 +17,76 @@
 
 .landing-page_about-us,
 .landing-page_platforms,
-.landing-page_contacts {
+.landing-page_contacts,
+.landing-page_valores {
     height: 100vh;
     display: flex;
     width: 90vw;
     flex-direction: column;
 }
 
-.landing-page-home_cards-field{
+.landing-page-home_cards-field {
     display: flex;
     gap: 3rem;
     width: 100vw;
     justify-content: center;
 }
 
-.landing-page_sections-aboutus-field{
+.landing-page_sections-aboutus-field {
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 15rem;
 }
 
-.landing-page_section-border{
+.landing-page_section-border {
     border: 1px solid #fff;
     width: 90vw;
     height: min-content;
     display: flex;
     flex-direction: column;
+}
+
+.landing-page_section-about-us_title {
+    color: #FFF;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 44px;
+    /* 122.222% */
+}
+
+.landing-page_section-about-us_text {
+    color: var(--roxo-do-botao, #9986BD);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 48px;
+    /* 300% */
+}
+
+.landing-page_about-us-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 80vw;
+}
+
+.landing-page_about-us{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-page_valores-text-field{
+    display: flex;
+    align-items: flex-start;
+    text-align: start;
 }
