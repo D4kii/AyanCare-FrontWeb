@@ -5,7 +5,13 @@ import ForgotPassword from "../forgot-password/ForgotPassword.jsx";
 import Button from "../button/button.jsx";
 import './forms.css';
 
-function SignInForms({ handleSubmitFunction, setStatePasswordParameter, setStateEmailParameter, emailUseState, passwordUseState }) {
+function SignInForms({
+    handleSubmitFunction,
+    setStatePasswordParameter,
+    setStateEmailParameter,
+    emailUseState,
+    passwordUseState
+}) {
 
     const widthForBiggestInputs = '41vw'
 
@@ -37,7 +43,7 @@ function SignInForms({ handleSubmitFunction, setStatePasswordParameter, setState
                 <InputComponent textFielName={fieldSenha}
                     typeInput={'password'}
                     idName={'senhaLogin'}
-                    inputUseStartValue={password}
+                    inputUseStateValue={password}
                     setStateFunction={
                         setStatePassword
                     }

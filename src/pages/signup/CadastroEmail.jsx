@@ -6,8 +6,17 @@ import WelcomeContainer from "../../components/welcome-container/Welcome_Contain
 import image from "../../images/logo-branca.png"
 import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtile";
 import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
+import { useState } from "react";
 
 function Signup() {
+
+    const [name, setName] = useState();
+    const [birth, setBith] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [nome, setNome] = useState();
+    const [idGenero, setIdGenero] = useState();
+    const [descricaoExperiencia, setDescricaoExperiencia] = useState();
 
     const welcomeSingUpTitle = 'Cadastre-se.'
     const welcomeSingUpSubtitle = 'Bem-vindo a tela de cadastro! Insira seu e-mail e senha para seguirmos para a próxima etapa.'
