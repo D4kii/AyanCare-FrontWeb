@@ -1,7 +1,8 @@
 .link-cadastro-login_field {
     display: flex;
     gap: 5px;
-    
+    margin-top: 1rem;
+    margin-bottom: 3rem;
 }
 
 .link-cadastro-login_field li {

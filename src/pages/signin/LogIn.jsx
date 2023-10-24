@@ -7,6 +7,33 @@ import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtil
 import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
 import { AuthContext } from "../../contexts/auth";
 
+
+const SubmitButton = ({ form }) => {
+  const [submittable, setSubmittable] = React.useState(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+  React.useEffect(() => {
+    form
+      .validateFields({
+        validateOnly: true,
+      })
+      .then(
+        () => {
+          setSubmittable(true);
+        },
+        () => {
+          setSubmittable(false);
+        },
+      );
+  }, [values]);
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      Submit
+    </Button>
+  );
+};
+
 function SignIn() {
 
     const { authenticated, login } = useContext(AuthContext);

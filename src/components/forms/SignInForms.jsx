@@ -2,8 +2,50 @@ import React, { useState } from "react";
 import InputComponent from '../input/Input.jsx';
 import CheckboxField from '../checkbox/Checkbox.jsx';
 import ForgotPassword from "../forgot-password/ForgotPassword.jsx";
-import Button from "../button/button.jsx";
+import Buttonn from "../button/button.jsx";
 import './forms.css';
+import { Button, Form, Input, Space } from 'antd';
+import SubmitButton from "../button/SubmitButton.jsx";
+
+
+// const SubmitButton = ({ form, nameButton }) => {
+//     const [submittable, setSubmittable] = useState(false);
+
+//     // Watch all values
+//     const values = Form.useWatch([], form);
+//     React.useEffect(() => {
+//         form
+//             .validateFields({
+//                 validateOnly: true,
+//             })
+//             .then(
+//                 () => {
+//                     setSubmittable(true);
+//                 },
+//                 () => {
+//                     setSubmittable(false);
+//                 },
+//             );
+//     }, [values]);
+//     return (
+//         <Button
+//             type="primary"
+//             htmlType="submit"
+//             disabled={!submittable}
+
+//             style={{
+//                 width: '180px',
+//                 height:'57px',
+//                 background: '#35225F',
+//                 color: '#FFF',
+//                 fontFamily: 'Poppins'
+//             }}
+//         >
+//             Submit
+//         </Button>
+//     );
+// };
+
 
 function SignInForms({
     handleSubmitFunction,
@@ -12,8 +54,11 @@ function SignInForms({
     emailUseState,
     passwordUseState
 }) {
+    const [form] = Form.useForm();
 
     const widthForBiggestInputs = '41vw'
+    const heightForInputs = '3.2rem'
+    const fontSizeLabel = '.9rem'
 
     const fieldSenha = 'Senha'
     const fieldEmail = 'E-mail'
@@ -29,33 +74,86 @@ function SignInForms({
 
 
     return (
-        <form className="forms" onSubmit={handleSubmit}>
+        <Form className="forms" onSubmit={handleSubmit} form={form} name="validateOnly" layout="vertical" autoComplete="off">
             <div>
-                <InputComponent textFielName={fieldEmail}
-                    typeInput={'email'}
-                    idName={'emailLogin'}
-                    inputUseStateValue={email}
-                    setStateFunction={
-                        setStateEmail
-                    }
-                    width={widthForBiggestInputs} />
+                <Form.Item
+                    name="email"
+                    label={fieldEmail}
+                    validateTrigger="onBlur"
+                    rules={[
+                        {
+                          type: 'email',
+                          message: 'Valor inválido!',
+                        },
+                        {
+                            required: true,
+                            message: "Por favor, insira seu E-mail",
+                            max: 255
+                        }
+                    ]}
+                    style={{
+                        fontWeight: 500,
+                        fontSize: fontSizeLabel,
 
-                <InputComponent textFielName={fieldSenha}
-                    typeInput={'password'}
-                    idName={'senhaLogin'}
-                    inputUseStateValue={password}
-                    setStateFunction={
-                        setStatePassword
-                    }
-                    width={widthForBiggestInputs}
-                />
+                    }}
+                    hasFeedback
+                >
+
+
+                    <Input
+                        placeholder="Ex: seuEmail@gmail.com"
+                        type="email"
+                        id="emailLogin"
+                        value={email}
+                        onChange={setStateEmail}
+                        style={{
+                            height: heightForInputs,
+                            width: widthForBiggestInputs
+                        }}
+                    />
+
+                </Form.Item>
+
+                <Form.Item
+                    label={fieldSenha}
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Por favor, insira sua senha"
+                        },
+                    ]}
+                    style={{
+                        fontWeight: 500,
+                        fontSize: fontSizeLabel,
+
+                    }}
+                >
+                    <Input.Password
+                        id="senhaLogin"
+                        value={password}
+                        width={widthForBiggestInputs}
+                        onChange={setStatePassword}
+                        style={{
+                            height: heightForInputs
+                        }}
+                    />
+
+                </Form.Item>
             </div>
             <div className="forms-check-field">
                 <CheckboxField checkBoxName={checkboxText} />
                 <ForgotPassword />
             </div>
-            <Button nameButton={'Entrar'}></Button>
-        </form>
+            <Form.Item>
+                <Space>
+                    <SubmitButton nameButton={'Entrar'} form={form}>
+
+                    </SubmitButton>
+
+                </Space>
+            </Form.Item>
+        </Form>
 
     )
 }

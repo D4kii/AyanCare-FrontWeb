@@ -1,5 +1,5 @@
 import React from "react";
-import '../signin/login.css';
+import '../signup/signup.css';
 import SignUpForms from "../../components/forms/SignUpForms";
 import Button from "../../components/button/button";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
@@ -27,10 +27,13 @@ function Signup() {
     return (
         <div className="login-screen">
             <div className="forms-field">
-                <div className="forms-organization">
-                    <TitleAndSubtitle title={welcomeSingUpTitle} subtitle={welcomeSingUpSubtitle} />
-                    <SignUpForms />
-                    <LinkCadastroLogin caminho={'cadastro'} />
+                <div className="forms-field_space">
+
+                    <div className="forms-organization">
+                        <div className="register-field">
+                            <SignUpForms />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="welcome-field">
