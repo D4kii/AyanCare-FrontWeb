@@ -5,7 +5,7 @@ const Agenda = () => {
     return (
         <div>
             <h1>Agenda</h1>
-            <Link to="/">retornar a página inicial</Link>
+            <Link to="/Home">retornar a página inicial</Link>
         </div>
     );
 }

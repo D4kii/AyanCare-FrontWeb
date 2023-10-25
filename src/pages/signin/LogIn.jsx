@@ -6,33 +6,8 @@ import image from "../../images/logo-branca.png"
 import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtile";
 import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
 import { AuthContext } from "../../contexts/auth";
+import SubmitButton from "../../components/button/SubmitButton";
 
-
-const SubmitButton = ({ form }) => {
-  const [submittable, setSubmittable] = React.useState(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-  React.useEffect(() => {
-    form
-      .validateFields({
-        validateOnly: true,
-      })
-      .then(
-        () => {
-          setSubmittable(true);
-        },
-        () => {
-          setSubmittable(false);
-        },
-      );
-  }, [values]);
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      Submit
-    </Button>
-  );
-};
 
 function SignIn() {
 

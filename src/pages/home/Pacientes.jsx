@@ -5,7 +5,7 @@ const Pacientes = () => {
     return (
         <div>
             <h1>Pacientes</h1>
-            <Link to="/">retornar a página inicial</Link>
+            <Link to="/Home">retornar a página inicial</Link>
         </div>
     );
 }

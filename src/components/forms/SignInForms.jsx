@@ -8,44 +8,6 @@ import { Button, Form, Input, Space } from 'antd';
 import SubmitButton from "../button/SubmitButton.jsx";
 
 
-// const SubmitButton = ({ form, nameButton }) => {
-//     const [submittable, setSubmittable] = useState(false);
-
-//     // Watch all values
-//     const values = Form.useWatch([], form);
-//     React.useEffect(() => {
-//         form
-//             .validateFields({
-//                 validateOnly: true,
-//             })
-//             .then(
-//                 () => {
-//                     setSubmittable(true);
-//                 },
-//                 () => {
-//                     setSubmittable(false);
-//                 },
-//             );
-//     }, [values]);
-//     return (
-//         <Button
-//             type="primary"
-//             htmlType="submit"
-//             disabled={!submittable}
-
-//             style={{
-//                 width: '180px',
-//                 height:'57px',
-//                 background: '#35225F',
-//                 color: '#FFF',
-//                 fontFamily: 'Poppins'
-//             }}
-//         >
-//             Submit
-//         </Button>
-//     );
-// };
-
 
 function SignInForms({
     handleSubmitFunction,
@@ -74,7 +36,7 @@ function SignInForms({
 
 
     return (
-        <Form className="forms" onSubmit={handleSubmit} form={form} name="validateOnly" layout="vertical" autoComplete="off">
+        <Form className="forms" onSubmitCapture={handleSubmit} form={form} name="validateOnly" layout="vertical" autoComplete="off">
             <div>
                 <Form.Item
                     name="email"
@@ -147,10 +109,7 @@ function SignInForms({
             </div>
             <Form.Item>
                 <Space>
-                    <SubmitButton nameButton={'Entrar'} form={form}>
-
-                    </SubmitButton>
-
+                    <SubmitButton nameButton={'Entrar'} form={form}/>
                 </Space>
             </Form.Item>
         </Form>
