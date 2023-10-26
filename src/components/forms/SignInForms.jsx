@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import InputComponent from '../input/Input.jsx';
 import CheckboxField from '../checkbox/checkbox.jsx';
-import ForgotPassword from "../forgot-password/ForgotPassword.jsx";
-import Buttonn from "../button/button.jsx";
+import ForgotPassword from "../forgot-password/forgotPassword.jsx";
 import './forms.css';
 import { Button, Form, Input, Space, Checkbox } from 'antd';
 import SubmitButton from "../button/SubmitButton.jsx";
