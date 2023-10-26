@@ -1,5 +1,5 @@
 import React from "react";
-import '../checkbox/checkbox.css'
+import './checkbox.css'
 import { Checkbox } from "antd";
 
 function CheckboxField({checkBoxName}) {
