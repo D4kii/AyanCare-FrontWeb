@@ -18,6 +18,11 @@ function Signup() {
     const [idGenero, setIdGenero] = useState();
     const [descricaoExperiencia, setDescricaoExperiencia] = useState();
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("submit", { email, password, });
+    }
+
     const welcomeSingUpTitle = 'Cadastre-se.'
     const welcomeSingUpSubtitle = 'Bem-vindo a tela de cadastro! Insira seu e-mail e senha para seguirmos para a próxima etapa.'
 

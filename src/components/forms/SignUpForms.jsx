@@ -66,6 +66,8 @@ function SignUpForms({
 }) {
     const [form] = Form.useForm();
 
+    const { Option } = Select;
+
     //use state
 
     const setStateName = setStateNameParameter;
@@ -138,6 +140,7 @@ function SignUpForms({
                                 whitespace: true,
                             },
                         ]}>
+                        
                         <Input
                             name={nameUser}
                             type={typeText}
@@ -309,7 +312,7 @@ function SignUpForms({
                         }} />
                 </Form.Item>
             </div>
-            <SubmitButton form={form} nameButton={'Próximo'}/>
+            <SubmitButton form={form} nameButton={'Próximo'} />
 
             <LinkCadastroLogin caminho={'cadastro'} />
         </Form>
