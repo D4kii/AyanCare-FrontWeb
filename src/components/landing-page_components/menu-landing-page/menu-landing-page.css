@@ -18,6 +18,7 @@
     position: fixed;
     align-items: center;
     z-index: 10;
+    margin: 0;
 }
 
 .nome-logo {
