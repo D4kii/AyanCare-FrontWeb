@@ -8,37 +8,6 @@ import SubmitButton from "../button/SubmitButton.jsx";
 import image from '../../images/background-image.png'
 
 
-
-
-const formItemLayout = {
-    labelCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 8,
-        },
-    },
-    wrapperCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 16,
-        },
-    },
-};
-
-const config = {
-    rules: [
-        {
-            type: 'object',
-            required: true,
-            message: 'Por favor, selecione uma data!',
-        },
-    ],
-};
-
 function SignUpForms({
     handleSubmitFunction,
     onFinish,
@@ -57,6 +26,80 @@ function SignUpForms({
     idGeneroUseState,
     descricaoExperienciaState
 }) {
+
+    const validateAge = (rule, value) => {
+        return new Promise((resolve, reject) => {
+          if (value) {
+            const dob = new Date(value);
+            const today = new Date();
+            const age = today.getFullYear() - dob.getFullYear();
+        
+            if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+              age--; // Ainda não fez aniversário neste ano
+            }
+        
+            if (age < 16) {
+              reject('Você deve ter pelo menos 16 anos de idade.');
+            } else {
+              resolve();
+            }
+          } else {
+            reject('Por favor, insira sua data de nascimento.');
+          }
+        });
+      };
+
+    const formItemLayout = {
+        labelCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 8,
+            },
+        },
+        wrapperCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 16,
+            },
+        },
+    };
+
+    const config = {
+        rules: [
+            {
+                type: 'object',
+                required: true,
+                message: 'Por favor, selecione uma data!',
+            },
+        ],
+    };
+
+    const validatePassword = (rule, value, resolve) => {
+        if (value) {
+            if (value.length < 8) {
+                resolve('A senha deve ter pelo menos 8 caracteres.');
+            }
+
+            else if (!/[!@#$%^&*(),.?":{}|<>]/.test(value) || !/\d/.test(value)) {
+
+                resolve('A senha deve conter pelo menos um caractere especial e um número.');
+            }
+
+            else {
+
+
+                resolve();
+            }
+        } else {
+            resolve('Por favor, insira sua senha.');
+        }
+    };
+
+
     const [form] = Form.useForm();
 
     const { Option } = Select;
@@ -82,6 +125,7 @@ function SignUpForms({
     const widthForSmallInputs = '20vw';
     const widthForBiggestInputs = '41vw';
     const maxWidthForBiggestInputs = '600px';
+    const maxWidthForSmallInputs = '300px';
     const heightForTextArea = '21vh';
     const heightForInputs = '3.2rem';
 
@@ -130,12 +174,17 @@ function SignUpForms({
                         label="Primeiro e último Nome"
                         rules={[
                             {
+                                type: "string",
+                                min: 3,
+                                message: 'Insira um nome válido!'
+                            },
+                            {
                                 required: true,
                                 message: 'Por favor, insira seu nome!',
                                 whitespace: true,
                             },
                         ]}>
-                        
+
                         <Input
                             name={nameUser}
                             type={typeText}
@@ -158,9 +207,15 @@ function SignUpForms({
                         name="data_nascimento"
                         label={bithUser}
                         {...config}
+                        rules={[
+                            {
+                            validator: validateAge
+                            }
+                        ]}
                         style={{
                             wordWrap: 'none'
                         }}
+                        
                     >
                         <DatePicker
                             format={"DD-MM-YYYY"}
@@ -170,7 +225,7 @@ function SignUpForms({
 
                             style={{
                                 width: widthForSmallInputs,
-                                maxWidth: '300px',
+                                maxWidth: maxWidthForSmallInputs,
                                 height: heightForInputs
                             }}
                         />
@@ -192,7 +247,8 @@ function SignUpForms({
                             onChange={setStateIdGenero}
                             style={{
                                 width: widthForSmallInputs,
-                                height: heightForInputs
+                                height: heightForInputs,
+                                maxWidth: maxWidthForSmallInputs
                             }}
                         >
                             <Option value="1">Homem</Option>
@@ -261,9 +317,9 @@ function SignUpForms({
                     label={fieldSenha}
                     rules={[
                         {
-                            required: true,
-                            message: 'Por favor, insira sua senha!',
-                        },
+                            validator: validatePassword,
+
+                        }
                     ]}
                     hasFeedback
                 >

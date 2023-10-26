@@ -7,28 +7,23 @@ const SubmitButton = ({ form, nameButton }) => {
     // Watch all values
     const values = Form.useWatch([], form);
     React.useEffect(() => {
-        form
-            .validateFields({
-                validateOnly: true,
+        form.validateFields()
+            .then(() => {
+                setSubmittable(true);
             })
-            .then(
-                () => {
-                    setSubmittable(true);
-                },
-                () => {
-                    setSubmittable(false);
-                },
-            );
+            .catch(() => {
+                setSubmittable(false);
+            });
     }, [values]);
+
     return (
         <Button
             type="primary"
             htmlType="submit"
             disabled={!submittable}
-
             style={{
                 width: '180px',
-                height:'57px',
+                height: '57px',
                 background: '#35225F',
                 color: '#FFF',
                 fontFamily: 'Poppins'

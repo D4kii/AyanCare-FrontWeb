@@ -3,12 +3,10 @@ import '../signup/signup.css';
 import SignUpForms from "../../components/forms/SignUpForms";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
 import image from "../../images/logo-branca.png"
-import { RegisterContext } from "../../contexts/registerUser";
+import { createSessionUsuarioAutenticar } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
-
-    const { logup } = useContext(RegisterContext);
-
 
     const [name, setName] = useState();
     const [birth, setBith] = useState();
@@ -17,23 +15,40 @@ function Signup() {
     const [idGenero, setIdGenero] = useState();
     const [descricaoExperiencia, setDescricaoExperiencia] = useState();
 
+    const navigate = useNavigate();
+
+
     const onFinish = (fieldsValue) => {
         const values = {
-            "nome" : fieldsValue.nome,
+            "nome": fieldsValue.nome,
             'data_nascimento': fieldsValue['data_nascimento'].format('YYYY-MM-DD'),
             "email": fieldsValue.email,
             "senha": fieldsValue.password,
             "id_genero": fieldsValue.gender
         };
-        logup(values)
         console.log('submit', values);
+    
+        fetch('http://localhost:8080/v1/ayan/cuidador', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na solicitação');
+                }
+                return response.json(); // Aqui leia o JSON da resposta
+            })
+            .then(data => { // Use os dados retornados
+                navigate('/login')
+            })
+            .catch(error => { // Use catch para tratar erros
+                console.error('Erro:', error);
+            });
     };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log("submit", { name, birth, email, password, idGenero, descricaoExperiencia });
-    }
-
+        
     const welcomeSingUpTitle = 'Cadastre-se.'
     const welcomeSingUpSubtitle = 'Bem-vindo a tela de cadastro! Insira seu e-mail e senha para seguirmos para a próxima etapa.'
 
@@ -49,7 +64,6 @@ function Signup() {
                         <div className="register-field">
                             <SignUpForms 
                             onFinish={onFinish}
-                            handleSubmitFunction={handleSubmit}
                             nomeUseState={name}
                             setStateNameParameter={setName}
                             birthUseState={birth}

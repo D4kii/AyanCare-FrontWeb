@@ -1,28 +1,48 @@
 import React from "react";
 import './modal.css'
+import React, { useState } from 'react';
+import { Button, Modal } from 'antd';
 
 function ModalComponent() {
-
-    //DEIXANDO PRONTO PARA TESTAR
-
-    // return (
-    //     <Modal
-    //         open={open}
-    //         onClose={handleClose}
-    //         aria-labelledby="modal-modal-title"
-    //         aria-describedby="modal-modal-description"
-    //     >
-    //         <Box sx={style}>
-    //             <Typography id="modal-modal-title" variant="h6" component="h2">
-    //                 Text in a modal
-    //             </Typography>
-    //             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-    //                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    //             </Typography>
-    //         </Box>
-    //     </Modal>
-
-    // )
+    const [modal1Open, setModal1Open] = useState(false);
+    const [modal2Open, setModal2Open] = useState(false);
+    return (
+      <>
+        <Button type="primary" onClick={() => setModal1Open(true)}>
+          Display a modal dialog at 20px to Top
+        </Button>
+        <Modal
+          title="20px to Top"
+          style={{
+            top: 20,
+          }}
+          open={modal1Open}
+          onOk={() => setModal1Open(false)}
+          onCancel={() => setModal1Open(false)}
+        >
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+        </Modal>
+        <br />
+        <br />
+        <Button type="primary" onClick={() => setModal2Open(true)}>
+          Vertically centered modal dialog
+        </Button>
+        <Modal
+          title="Vertically centered modal dialog"
+          centered
+          open={modal2Open}
+          onOk={() => setModal2Open(false)}
+          onCancel={() => setModal2Open(false)}
+        >
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+        </Modal>
+      </>
+    );
 }
 
 export default ModalComponent;
+
