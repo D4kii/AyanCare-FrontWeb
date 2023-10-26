@@ -8,3 +8,7 @@
     justify-content: end;
     margin-bottom: 2rem;
 }
+
+.file-cam{
+    cursor: pointer;
+}

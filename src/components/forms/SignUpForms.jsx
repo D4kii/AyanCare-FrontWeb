@@ -5,15 +5,10 @@ import TitleAndSubtitle from "../title-and-subtitle/TitleAndSubtile.jsx";
 import LinkCadastroLogin from "../link-cadastro-login/LinkCadastroLogin.jsx";
 import { Form, Input, DatePicker, Select } from "antd";
 import SubmitButton from "../button/SubmitButton.jsx";
+import image from '../../images/background-image.png'
 
 
-const onFinish = (fieldsValue) => {
-    const values = {
-        ...fieldsValue,
-        'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD')
-    };
-    console.log('Received values of form: ', values);
-};
+
 
 const formItemLayout = {
     labelCol: {
@@ -46,6 +41,7 @@ const config = {
 
 function SignUpForms({
     handleSubmitFunction,
+    onFinish,
 
     setStateNameParameter,
     setStateBirthParameter,
@@ -94,6 +90,7 @@ function SignUpForms({
 
     const bithUser = 'Data de Nascimento'
     const genderUser = 'Gênero'
+    const idGenderUser = 1
 
     const typeEmail = 'email'
     const typeText = 'text'
@@ -115,6 +112,7 @@ function SignUpForms({
                 fontSize: '.9rem',
                 fontFamily: 'Poppins'
             }}
+            onSubmitCapture={handleSubmitFunction}
             scrollToFirstError>
             <div className="forms-title">
 
@@ -124,7 +122,7 @@ function SignUpForms({
                 />
             </div>
             <div className='form_inputs-field'>
-                <ProfilePicture></ProfilePicture>
+                <ProfilePicture enderecoImage={image} />
 
                 <div className="form_name-user">
                     <Form.Item
@@ -142,7 +140,7 @@ function SignUpForms({
                             name={nameUser}
                             type={typeText}
                             id="nomeCadastro"
-                            value={nome}
+                            value={nomeUseState}
                             onChange={setStateName}
 
                             style={{
@@ -157,7 +155,7 @@ function SignUpForms({
                 <div className="form_gender-and-birth-user">
 
                     <Form.Item
-                        name="date-picker"
+                        name="data_nascimento"
                         label={bithUser}
                         {...config}
                         style={{
@@ -165,6 +163,7 @@ function SignUpForms({
                         }}
                     >
                         <DatePicker
+                            format={"DD-MM-YYYY"}
                             id="nascimentoCadastro"
                             value={birth}
                             onChange={setStateBirth}
@@ -196,9 +195,9 @@ function SignUpForms({
                                 height: heightForInputs
                             }}
                         >
-                            <Option value="homem">Homem</Option>
-                            <Option value="mulher">Mulher</Option>
-                            <Option value="outro">Outro</Option>
+                            <Option value="1">Homem</Option>
+                            <Option value="2">Mulher</Option>
+                            <Option value="3">Outro</Option>
                         </Select>
                     </Form.Item>
 

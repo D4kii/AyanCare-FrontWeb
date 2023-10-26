@@ -15,6 +15,7 @@ import Signup from "../pages/signup/CadastroEmail.jsx";
 import RecoverPassword from "../pages/recover-password/RecoverPassword.jsx";
 
 import { AuthContext, AuthProvider } from "../contexts/auth";
+import ServidorError from "../pages/erros/error-500";
 
 const AppRoutes = () => {
 
@@ -42,6 +43,10 @@ const AppRoutes = () => {
                     <Route
                         exact path="/login"
                         element={<SignIn />}
+                    />
+                    <Route
+                        exact path="/error-500"
+                        element={<ServidorError />}
                     />
                     <Route
                         exact path="/recover-password"

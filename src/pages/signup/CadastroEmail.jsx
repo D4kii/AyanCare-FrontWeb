@@ -1,23 +1,37 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import '../signup/signup.css';
 import SignUpForms from "../../components/forms/SignUpForms";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
 import image from "../../images/logo-branca.png"
-import { useState } from "react";
+import { RegisterContext } from "../../contexts/registerUser";
 
 function Signup() {
+
+    const { logup } = useContext(RegisterContext);
+
 
     const [name, setName] = useState();
     const [birth, setBith] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [nome, setNome] = useState();
     const [idGenero, setIdGenero] = useState();
     const [descricaoExperiencia, setDescricaoExperiencia] = useState();
 
+    const onFinish = (fieldsValue) => {
+        const values = {
+            "nome" : fieldsValue.nome,
+            'data_nascimento': fieldsValue['data_nascimento'].format('YYYY-MM-DD'),
+            "email": fieldsValue.email,
+            "senha": fieldsValue.password,
+            "id_genero": fieldsValue.gender
+        };
+        logup(values)
+        console.log('submit', values);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit", { email, password, });
+        console.log("submit", { name, birth, email, password, idGenero, descricaoExperiencia });
     }
 
     const welcomeSingUpTitle = 'Cadastre-se.'
@@ -33,7 +47,22 @@ function Signup() {
 
                     <div className="forms-organization">
                         <div className="register-field">
-                            <SignUpForms />
+                            <SignUpForms 
+                            onFinish={onFinish}
+                            handleSubmitFunction={handleSubmit}
+                            nomeUseState={name}
+                            setStateNameParameter={setName}
+                            birthUseState={birth}
+                            setStateBirthParameter={setBith}
+                            emailUseState={email}
+                            setStateEmailParameter={setEmail}
+                            passwordUseState={password}
+                            setStatePasswordParameter={setPassword}
+                            idGeneroUseState={idGenero}
+                            setStateIdGeneroParameter={setIdGenero}
+                            descricaoExperienciaState={descricaoExperiencia}
+                            setStateExperienceDescriptionParameter={setDescricaoExperiencia}
+                            />
                         </div>
                     </div>
                 </div>
