@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CheckboxField from '../checkbox/checkbox.jsx';
 import ForgotPassword from "../forgot-password/forgotPassword.jsx";
 import './forms.css';
-import { Button, Form, Input, Space, Checkbox } from 'antd';
+import { Form, Input, Space } from 'antd';
 import SubmitButton from "../button/SubmitButton.jsx";
 
 
@@ -42,8 +42,8 @@ function SignInForms({
                     validateTrigger="onBlur"
                     rules={[
                         {
-                          type: 'email',
-                          message: 'Valor inválido!',
+                            type: 'email',
+                            message: 'Valor inválido!',
                         },
                         {
                             required: true,
@@ -102,13 +102,12 @@ function SignInForms({
                 </Form.Item>
             </div>
             <div className="forms-check-field">
-            <Checkbox title={checkboxText}></Checkbox>
                 <CheckboxField checkBoxName={checkboxText} />
                 <ForgotPassword />
             </div>
             <Form.Item>
                 <Space>
-                    <SubmitButton nameButton={'Entrar'} form={form}/>
+                    <SubmitButton nameButton={'Entrar'} form={form} />
                 </Space>
             </Form.Item>
         </Form>
