@@ -6,7 +6,6 @@ import image from "../../images/logo-branca.png"
 import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtile";
 import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
 import { AuthContext } from "../../contexts/auth";
-import SubmitButton from "../../components/button/SubmitButton";
 
 
 function SignIn() {
