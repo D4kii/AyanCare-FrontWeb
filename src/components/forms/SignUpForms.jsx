@@ -1,7 +1,4 @@
 import React from "react";
-import InputComponent from '../input/Input.jsx';
-import TextArea from "antd/es/input/TextArea.js";
-import Button from "../button/button.jsx";
 import ProfilePicture from "../profile-picture/ProfilePicture.jsx";
 import './forms.css';
 import TitleAndSubtitle from "../title-and-subtitle/TitleAndSubtile.jsx";
