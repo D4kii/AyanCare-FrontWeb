@@ -35,7 +35,7 @@ function SignUpForms({
             const age = today.getFullYear() - dob.getFullYear();
         
             if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
-              age--; // Ainda não fez aniversário neste ano
+              age; // Ainda não fez aniversário neste ano
             }
         
             if (age < 16) {
@@ -291,7 +291,7 @@ function SignUpForms({
                     rules={[
                         {
                             type: 'email',
-                            message: 'O valor inserido não é um E-mail valido!',
+                            message: 'O valor inserido não é um E-mail válido!',
                         },
                         {
                             required: true,
