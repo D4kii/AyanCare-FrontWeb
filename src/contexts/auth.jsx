@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     
     useEffect(() => {
         //usuário existente ou não no localStorage
-        const recoveredUser = localStorage.getItem("user");
+        const recoveredUser = localStorage.getItem("cuidador");
         
         if (recoveredUser) {
             setUser(JSON.parse(recoveredUser));

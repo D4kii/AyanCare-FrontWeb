@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import React, { useContext } from "react";
 import LandingPage from "../pages/landing-page/LandingPage";
-import Home from "../pages/home/Home.jsx";
-import Agenda from "../pages/home/Agenda";
-import Pacientes from "../pages/home/Pacientes";
-import Relatorios from "../pages/home/Relatorios";
+import Home from "../pages/home/home-page/Home.jsx";
+import Agenda from "../pages/home/agenda-page/Agenda";
+import Pacientes from "../pages/home/pacientes-page/Pacientes";
+import Relatorios from "../pages/home/relatorios-page/Relatorios";
 import SignIn from "../pages/signin/LogIn.jsx";
 import Signup from "../pages/signup/CadastroEmail.jsx";
 import RecoverPassword from "../pages/recover-password/RecoverPassword.jsx";

@@ -1,0 +1,110 @@
+.menu-lateral {
+    display: flex;
+    height: 90vh;
+    width: 120px;
+    margin: 1.2vh 3rem;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid #DBD7E2;
+    justify-content: space-between;
+    background: #FFF;
+    z-index: 10;
+    padding: 10px;
+    gap: 10px;
+    font-family: Poppins;
+}
+.menu-lateral-field{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+}
+
+.p-menu {
+    color: #64748B;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.btn-conectar {
+    display: flex;
+    width: 80%;
+    min-width: max-content;
+    height: 5%;
+    max-height: 40px;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    border: #35225F;
+    color: #35225F;
+    border-radius: 4px;
+    background: #D6C0FF;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.navigation-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30vh;
+    justify-content: space-evenly;
+    gap: 30px;
+    color: #35225F;
+    width: 100%;
+}
+
+img {
+    width: 70px;
+}
+
+.home-icon,
+.agenda-icon,
+.pacientes-icon,
+.relatorios-icon{
+    height: 40px;
+    width: 40px;
+
+}
+
+.icons-notification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+}
+.configuration-icons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    color: #35225F;
+    width: 100%;
+}
+
+.icons-notification{
+    height: 25px;
+    width: 25px;
+}
+
+.picture-profile{
+    height: 5vh;
+    width: 5vh;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.profile-field{
+    border-top: 1px solid #D0D5DD;
+    height: 12vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}

@@ -1,6 +1,5 @@
 import axios from "axios";
 import './profile-picture.css'
-import vector from '../../images/Vector.png'
 import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
