@@ -8,7 +8,8 @@ export const api = axios.create({
 export const createSessionUsuarioAutenticar = async (email, senha) => {
 
     console.log({ email, senha });
-    return await api.post("/usuario/autenticar", { email, senha })
+    return (await api.post("/usuario/autenticar", { email, senha })
+    )
 
 }
 

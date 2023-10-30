@@ -5,6 +5,7 @@ import WelcomeContainer from "../../components/welcome-container/Welcome_Contain
 import image from "../../images/logo-branca.png"
 import { createSessionUsuarioAutenticar } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "antd";
 
 function Signup() {
 
@@ -27,7 +28,7 @@ function Signup() {
             "id_genero": fieldsValue.gender
         };
         console.log('submit', values);
-    
+
         fetch('http://localhost:8080/v1/ayan/cuidador', {
             method: 'POST',
             headers: {
@@ -42,13 +43,26 @@ function Signup() {
                 return response.json(); // Aqui leia o JSON da resposta
             })
             .then(data => { // Use os dados retornados
-                navigate('/login')
+                Modal.success({
+                    content: 'Cadastro realizado com sucesso!',
+                    okText: 'Logar',
+                    onOk: () => {
+                        // Navegar para a página de home após o usuário confirmar a modal
+                        navigate('/login');
+                    },
+                });  
             })
             .catch(error => { // Use catch para tratar erros
                 console.error('Erro:', error);
+                if (error.response && error.response.status === 409) {
+                    Modal.error({
+                      title: 'Erro de Conflito',
+                      content: 'Já existe um cadastro com esses dados. Por favor, verifique suas informações e tente novamente.',
+                    });
+                  }
             });
     };
-        
+
     const welcomeSingUpTitle = 'Cadastre-se.'
     const welcomeSingUpSubtitle = 'Bem-vindo a tela de cadastro! Insira seu e-mail e senha para seguirmos para a próxima etapa.'
 
@@ -62,20 +76,20 @@ function Signup() {
 
                     <div className="forms-organization">
                         <div className="register-field">
-                            <SignUpForms 
-                            onFinish={onFinish}
-                            nomeUseState={name}
-                            setStateNameParameter={setName}
-                            birthUseState={birth}
-                            setStateBirthParameter={setBith}
-                            emailUseState={email}
-                            setStateEmailParameter={setEmail}
-                            passwordUseState={password}
-                            setStatePasswordParameter={setPassword}
-                            idGeneroUseState={idGenero}
-                            setStateIdGeneroParameter={setIdGenero}
-                            descricaoExperienciaState={descricaoExperiencia}
-                            setStateExperienceDescriptionParameter={setDescricaoExperiencia}
+                            <SignUpForms
+                                onFinish={onFinish}
+                                nomeUseState={name}
+                                setStateNameParameter={setName}
+                                birthUseState={birth}
+                                setStateBirthParameter={setBith}
+                                emailUseState={email}
+                                setStateEmailParameter={setEmail}
+                                passwordUseState={password}
+                                setStatePasswordParameter={setPassword}
+                                idGeneroUseState={idGenero}
+                                setStateIdGeneroParameter={setIdGenero}
+                                descricaoExperienciaState={descricaoExperiencia}
+                                setStateExperienceDescriptionParameter={setDescricaoExperiencia}
                             />
                         </div>
                     </div>

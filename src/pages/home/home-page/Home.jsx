@@ -21,6 +21,7 @@ const Home = () => {
 
   return (
     <div>
+    <button onClick={handleLogout}>Logout</button>
       <Menu></Menu>
 
       <div className="bem-vindo">
@@ -79,7 +80,6 @@ const Home = () => {
         </div>
 
       </section>
-        <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }

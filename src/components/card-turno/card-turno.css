@@ -1,0 +1,40 @@
+.card-turno {
+    display: flex;
+    width: 30vw;
+    max-width: 300px;
+    height: 80px;
+    gap: 12px;
+    border-radius: 4px;
+    border: 0.5px solid #7E6F94;
+    background: #FFF;
+    align-items: center;
+}
+.card-turno_paciente-name {
+    color: #35225F;
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+}
+.card-turno_horario-turno {
+    color: var(--roxo-do-botao, #9986BD);
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 100% */
+}
+
+.card-turno_field {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 12px;
+    margin: 20px;
+}
+
+.foto-paciente {
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+}

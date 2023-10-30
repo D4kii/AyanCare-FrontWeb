@@ -19,6 +19,7 @@ function SignInForms({
     const widthForBiggestInputs = '41vw'
     const heightForInputs = '3.2rem'
     const fontSizeLabel = '.9rem'
+    const maxWidthForBiggestInputs = '600px';
 
     const fieldSenha = 'Senha'
     const fieldEmail = 'E-mail'
@@ -68,7 +69,8 @@ function SignInForms({
                         onChange={setStateEmail}
                         style={{
                             height: heightForInputs,
-                            width: widthForBiggestInputs
+                            width: widthForBiggestInputs,
+                            maxWidth: maxWidthForBiggestInputs
                         }}
                     />
 
@@ -95,7 +97,8 @@ function SignInForms({
                         width={widthForBiggestInputs}
                         onChange={setStatePassword}
                         style={{
-                            height: heightForInputs
+                            height: heightForInputs,
+                            maxWidth: maxWidthForBiggestInputs
                         }}
                     />
 

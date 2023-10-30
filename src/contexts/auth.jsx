@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, senha) => {
         
         const response = await createSessionUsuarioAutenticar(email, senha);
-        console.log(response);
+        console.log("response:",response);
         
         const loggedUser = response.data.cuidador;
         const token = response.data.token;
