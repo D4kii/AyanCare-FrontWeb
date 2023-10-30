@@ -14,9 +14,9 @@ body {
     font-family: poppins;
 }
 
-h1 {
-    color: #35225F;
+.pacientes-page_title {
     font-family: Poppins;
+    color: #35225F;
     font-size: 40px;
     font-style: normal;
     font-weight: 500;
@@ -33,5 +33,10 @@ input {
     border-radius: 5px;
     border: 1px solid #D7D3DF;
     background: #FFF;
+}
+
+.card-pacientes_field{
+    display: flex;
+    gap: 2rem;
 }
 

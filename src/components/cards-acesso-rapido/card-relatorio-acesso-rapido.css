@@ -1,0 +1,97 @@
+.button-relatorio {
+    line-height: 1rem;
+    border: none;
+    width: 30vw;
+    height: 8rem;
+    max-width: 400px;
+    border-radius: 6px;
+    border: 0.5px solid #9986BD;
+    background: #FFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.button-relatorio:hover {
+    color: rgb(156 163 175);
+}
+
+.button-relatorio:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+.card-relatorio {
+    justify-content: center;
+    margin-left: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    width: max-content;
+}
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    column-gap: 5px;
+
+}
+
+.foto-paciente {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50px;
+}
+.paciente-nome {
+    display: flex;
+    align-items: center;
+    color: #35225F;
+    text-align: right;
+    font-family: manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.072px;
+}
+
+p {
+    color: #9986BD;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+}
+.title {
+    color: #35225F;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.096px;
+    margin: 7px;
+}
+
+
+.description {
+    color: #9986BD;
+    font-family: manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.description a {
+    --tw-text-opacity: 1;
+    color: rgb(59 130 246);
+}
+
+.description a:hover {
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+}

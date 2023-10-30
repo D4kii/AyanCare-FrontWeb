@@ -18,9 +18,12 @@ function Menu() {
         <div className="menu-lateral-field">
 
             <div className="menu-lateral">
-                <img src={logo} alt="Logo AyanCare" />
-                <a className="btn-conectar">+ Conectar</a>
-                <p className="p-menu">Menu</p>
+                <div className="menu-lateral_menu-begin">
+
+                    <img src={logo} alt="Logo AyanCare" />
+                    <a className="btn-conectar">+ Conectar</a>
+                    <p className="p-menu">Menu</p>
+                </div>
 
                 <div className="navigation-icon">
                     <a className="home-icon" href="/home" >
@@ -43,19 +46,7 @@ function Menu() {
                     <a className="btn-icons" href="/">
                         <img className="icons-notification" src={iconConfig} alt="" />
                     </a>
-                    <div className="profile-field">
-                        <a href="">
-                            <span>Profile</span>
-                        </a>
-                        <div className="picture-profile"
-                            style={{
-                                borderRadius: '50px',
-                                backgroundImage: `url(${profilePicture})`,
-                                backgroundSize: 'cover',
-                                backgroundColor: '#D0D5DD'
-                            }}>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

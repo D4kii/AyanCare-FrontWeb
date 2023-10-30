@@ -16,6 +16,7 @@ import RecoverPassword from "../pages/recover-password/RecoverPassword.jsx";
 
 import { AuthContext, AuthProvider } from "../contexts/auth";
 import ServidorError from "../pages/erros/error-500";
+import Loading from "../components/loading/Loading";
 
 const AppRoutes = () => {
 
@@ -25,7 +26,7 @@ const AppRoutes = () => {
 
         if (loading) {
             return (
-                <div className="loading">Carregando...</div>
+                <Loading/>
             )
         }
 
