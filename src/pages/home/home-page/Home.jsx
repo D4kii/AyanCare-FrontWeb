@@ -7,27 +7,23 @@ import CardRelatorioAcessoRapido from '../../../components/cards-acesso-rapido/A
 import { AuthContext } from '../../../contexts/auth';
 
 const Home = () => {
-  const { authenticated, logout } = useContext(AuthContext);
-
-  const handleLogout = () => {
-    logout()
-  }
+ 
 
   //Para pegar os dados no localStorage e utilizar
   const cuidadorItem = localStorage.getItem("cuidador")
   const cuidadorJSON = {}
   cuidadorJSON.user = JSON.parse(cuidadorItem);
-  const welcomeTitle = `Seja Bem-vindo ${cuidadorJSON.user.nome}`
+  const welcomeTitle = `Seja Bem-vindo, ${cuidadorJSON.user.nome}!`
 
   return (
     <div>
-    <button onClick={handleLogout}>Logout</button>
+    
       <Menu></Menu>
 
       <div className="bem-vindo">
         <div className="bem-vindo_field">
           <h1 className='Welcome-user_text'>{welcomeTitle}</h1>
-          <h2>Sentimos sua falta!</h2>
+          <h2>Sentimos sua falta.</h2>
 
         </div>
       </div>

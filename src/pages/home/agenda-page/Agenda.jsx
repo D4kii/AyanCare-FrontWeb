@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import Menu from '../../../components/menu/menu';
 import CalendarComponent from '../../../components/calendario/Calendar';
 import CardTurno from '../../../components/card-turno/CardTurno';
-import { Carousel, Radio } from 'antd';
+import { Carousel, Radio, ConfigProvider } from 'antd';
 
 import './agenda.css'
 
 const contentStyle = {
-    height: '160px',
+    height: '50vh',
     color: '#fff',
     lineHeight: '160px',
     textAlign: 'center',
@@ -40,13 +40,29 @@ const Agenda = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        <Radio.Button   style={{
-                            background: '#35225F',
-                            color: '#fff'
-                        }} 
-                            value="left">Eventos</Radio.Button>
-                        <Radio.Button value="right">Alarmes</Radio.Button>
+                        <Radio.Button
+                            style={{
+                                background: dotPosition === "left" ? "#35225F" : "#ffffff",
+                                color: dotPosition === "left" ? "#ffffff" : "#35225F",
+                                border: `1px solid #35225F`, // Adicione uma borda
+                            }}
+                            value="left"
+                        >
+                            Eventos
+                        </Radio.Button>
+                        <Radio.Button
+                            style={{
+                                background: dotPosition === "right" ? "#35225F" : "#ffffff",
+                                color: dotPosition === "right" ? "#ffffff" : "#35225F",
+                                border: `1px solid #35225F`, // Adicione uma borda
+                            }}
+                            value="right"
+                        >
+                            Alarmes
+                        </Radio.Button>
                     </Radio.Group>
+
+
                     <Carousel dotPosition={dotPosition}>
                         <div>
                             <h3 style={contentStyle}>1</h3>

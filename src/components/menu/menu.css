@@ -104,3 +104,14 @@ img {
     align-items: center;
     gap: 20px;
 }
+
+.home-icon-link,
+.agenda-icon-link,
+.relatorios-icon-link,
+.pacientes-icon-link{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

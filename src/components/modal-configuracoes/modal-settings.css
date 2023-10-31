@@ -1,0 +1,29 @@
+Modal{
+    padding: 0;
+}
+.Setting-modal {
+    height: 70vh;
+    width: 76vw;
+    padding: 0%;
+    border-radius: 4px ;
+}
+
+.modal-setting_menu-lateral {
+    border-radius: 4px 0px 0px 4px;
+    border-right: 0.5px solid #cbc2de;
+    width: 25vw;
+    height: 70vh;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 1.2rem;
+    flex-direction: column;
+}
+.modal-setting_buttons-pagination{
+    width: 25vw;
+}
+
+.modal-setting_title{
+    font-size: 1.2rem;
+}
