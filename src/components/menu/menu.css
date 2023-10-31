@@ -69,8 +69,8 @@ img {
 .agenda-icon,
 .pacientes-icon,
 .relatorios-icon {
-    height: 40px;
-    width: 40px;
+    height: 2rem;
+    width: 2rem;
 
 }
 
@@ -93,8 +93,8 @@ img {
 }
 
 .icons-notification {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
 }
 
 .menu-lateral_menu-begin {
