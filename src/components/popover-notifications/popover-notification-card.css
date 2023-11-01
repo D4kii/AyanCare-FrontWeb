@@ -1,0 +1,60 @@
+.notificacoes-field {
+    display: flex;
+    width: 350px;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 4px;
+    background: rgba(53, 34, 95, 0.40);
+    backdrop-filter: blur(40px);
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.notificacoes-field_card-logo {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 4px;
+    background-color: #35225F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notificacoes-field_card-logo img {
+    height: 2.6rem;
+    width: 2.6rem;
+}
+
+.notificacoes-field_content-text_title {
+    color: #35225F;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.5px;
+}
+
+.notificacoes-field_content-text_description {
+    color: var(--label-color-dark-primary, #FFF);
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notificacoes-field_content-time {
+    color: #FFF;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    width: max-content;
+    /* 180% */
+    letter-spacing: -0.078px;
+}

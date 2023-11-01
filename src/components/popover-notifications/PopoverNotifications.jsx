@@ -1,22 +1,33 @@
 import React from "react";
 import { Button, Popover, Space } from 'antd';
-const content = (
-    <div>
-        <p>Content</p>
-        <p>Content</p>
-    </div>
-);
+import logo from '../../images/logo-branca.png'
+import './popover-notification-card.css'
 
-function PopoverNotifications({ }) {
+
+function PopoverCardNotifications({ title, description, time}) {
+
+    const titulo = title;
+    const descricao = description;
+    const tempo = time;
 
     return (
-        <Space wrap>
-            <Popover content={content} title="Title" trigger="focus">
-                <Button>Focus me</Button>
-            </Popover>
-        </Space>
+        <div className="notificacoes-field">
+
+            <div className="notificacoes-field_content-text">
+                <span className="notificacoes-field_content-text_title">
+                    {titulo}
+                </span>
+                <p className="notificacoes-field_content-text_description">
+                    {description}
+                </p>
+            </div>
+            <p className="notificacoes-field_content-time">
+                {time}
+            </p>
+
+        </div>
     )
 
 }
 
-export default PopoverNotifications;
+export default PopoverCardNotifications;

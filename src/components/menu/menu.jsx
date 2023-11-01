@@ -9,6 +9,8 @@ import iconSino from '../../images/sino-icon.png'
 import iconConfig from '../../images/config-icon.png'
 import ModalSetting from "../modal-configuracoes/ModalSettings";
 import { Button, Popover, Space } from 'antd';
+import PopoverCardNotifications from "../popover-notifications/PopoverNotifications";
+
 const content = (
     <div>
         <p>Content</p>
@@ -58,7 +60,25 @@ function Menu() {
                 </div>
                 <div className="configuration-icons" >
                     <Space wrap>
-                        <Popover content={content} title="Title" trigger="focus">
+                        <Popover placement="rightBottom" title={"Notificações"} content={(
+                            <div>
+                                <PopoverCardNotifications
+                                title={'Alarme'}
+                                description={'Está na hora de tomar 2 uni. de paracetamol'}
+                                time={'12min'}
+                                />
+                                <PopoverCardNotifications
+                                title={'Alarme'}
+                                description={'Está na hora de tomar 2 uni. de paracetamol'}
+                                time={'12min'}
+                                />
+                                <PopoverCardNotifications
+                                title={'Alarme'}
+                                description={'Está na hora de tomar 2 uni. de paracetamol'}
+                                time={'12min'}
+                                />
+                            </div>
+                        )} trigger="click">
                             <Button className="btn-icons" >
                                 <img className="icons-notification" src={iconSino} alt="" />
                             </Button>

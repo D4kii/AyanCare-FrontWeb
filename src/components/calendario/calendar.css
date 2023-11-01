@@ -1,0 +1,9 @@
+:where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date {
+
+    border-top: 2px solid rgba(73, 56, 111, 0.20);
+}
+
+:where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-calendar-date,
+:where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-calendar-date-today {
+    background: rgba(73, 56, 111, 0.20);
+}

@@ -1,11 +1,12 @@
-Modal{
+Modal {
     padding: 0;
 }
+
 .Setting-modal {
     height: 70vh;
     width: 76vw;
     padding: 0%;
-    border-radius: 4px ;
+    border-radius: 4px;
 }
 
 .modal-setting_menu-lateral {
@@ -20,10 +21,21 @@ Modal{
     gap: 1.2rem;
     flex-direction: column;
 }
-.modal-setting_buttons-pagination{
+
+.modal-setting_buttons-pagination {
     width: 25vw;
 }
 
-.modal-setting_title{
+.modal-setting_title {
     font-size: 1.2rem;
+}
+
+:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light>.ant-menu .ant-menu-item-selected {
+    color: #fff;
+}
+
+:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light>.ant-menu .ant-menu-item-selected {
+    background-color: #C8BEDB;
 }
