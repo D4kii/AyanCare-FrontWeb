@@ -5,11 +5,20 @@
 
 :where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-calendar-date,
 :where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-calendar-date-today {
-    background: #D6C0FF;
+    background: #E6D9FF;
 }
 
 :where(.css-dev-only-do-not-override-66xphv).ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    color: #fff;
+    color: #35225F;
     font-weight: 600;
-    background-color: #D6C0FF;
+    background-color: #E6D9FF;
+}
+
+:where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner, :where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, :where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+    color: #35225F;
+    font-weight: 500;
+}
+:where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-calendar-date, :where(.css-dev-only-do-not-override-66xphv).ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-calendar-date-today {
+
+    border-radius: 4px;
 }

@@ -6,7 +6,7 @@
     align-items: flex-start;
     gap: 10px;
     border-radius: 4px;
-    background: rgba(53, 34, 95, 0.40);
+    background: #E6D9FF;
     backdrop-filter: blur(40px);
     margin-top: .5rem;
     margin-bottom: .5rem;
@@ -39,7 +39,7 @@
 }
 
 .notificacoes-field_content-text_description {
-    color: var(--label-color-dark-primary, #FFF);
+    color: #35225F;
     font-family: Poppins;
     font-size: 12px;
     font-style: normal;

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Menu from '../../../components/menu/menu';
 import CalendarComponent from '../../../components/calendario/Calendar';
 import CardTurno from '../../../components/card-turno/CardTurno';
-import { Carousel, Radio, ConfigProvider } from 'antd';
+import { Carousel, Radio, ConfigProvider, Card } from 'antd';
 
 import './agenda.css'
 
@@ -17,11 +17,25 @@ const contentStyle = {
     background: '#364d79',
 };
 
+//Simulando dados da api
+const eventosData = [
+    { ' id': 1, 'nome': 'Evento 1' },
+    { 'id': 2, 'nome': 'Evento 2' },
+    { 'id': 3, 'nome': 'Evento 3' },
+];
+
+const alarmesData = [
+    { 'id': 1, 'nome': 'Alarme 1' },
+    { 'id': 2, 'nome': 'Alarme 2' },
+    { 'id': 3, 'nome': 'Alarme 3' },
+];
+
 const Agenda = () => {
-    const [dotPosition, setDotPosition] = useState('top');
-    const handlePositionChange = ({ target: { value } }) => {
-        setDotPosition(value);
+    const [dotPosition, setDotPosition] = useState('left');
+    const handlePositionChange = (e) => {
+        setDotPosition(e.target.value);
     };
+    console.log();
 
     const cardTitleTurno = 'Turnos'
 
@@ -62,15 +76,21 @@ const Agenda = () => {
                         </Radio.Button>
                     </Radio.Group>
 
-
-                    <Carousel dotPosition={dotPosition}>
-                        <div>
-                            <h3 style={contentStyle}>1</h3>
-                        </div>
-                        <div>
-                            <h3 style={contentStyle}>2</h3>
-                        </div>
-                    </Carousel>
+                    <div>
+                        {dotPosition === 'left' ? (
+                            <div>
+                                {eventosData.map((evento) => (
+                                    <h2 key={evento.id}>{evento.nome}</h2>
+                                ))}
+                            </div>
+                        ) : (
+                            <div>
+                                {alarmesData.map((alarme) => (
+                                    <h2 key={alarme.id} >{alarme.nome}</h2>
+                                ))}
+                            </div>
+                        )}
+                    </div>
 
                 </div>
                 <div className="agenda-field_calendario-turnos">
