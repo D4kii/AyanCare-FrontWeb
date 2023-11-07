@@ -1,0 +1,66 @@
+.profile-description_cuidador {
+    color: #7E6F94;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.profile-name_cuidador {
+    color: #000;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.cuidador-profile_background {
+    width: 52vw;
+    height: 20vh;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    background: linear-gradient(113deg, #35225F 1.18%, #1C1232 55.24%, #000 99.47%), #F8F0EC;
+}
+
+.cuidador-profile_edit-profile {
+    display: flex;
+    justify-content: end;
+    margin: 0 1rem 1rem 1rem;
+    align-items: end;
+    width: 100%;
+}
+
+.profile-image_cuidador {
+    margin-top: -70px;
+}
+
+.cuidador-profile_informations-field {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cuidador-profile_informations-field_first-column {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.description-experience {
+    color: #35225F;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.cuidador-profile_informations-field_second-column {
+    background: #CCC2DE;
+    display: flex;
+    padding: 20px 30px;
+    align-items: center;
+    gap: 10px;
+}

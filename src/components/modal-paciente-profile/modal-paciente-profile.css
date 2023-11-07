@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.roxo {
+    width: 52vw;
+    height: 20vh;
+    background: linear-gradient(113deg, #35225F 1.18%, #1C1232 55.24%, #000 99.47%), #F8F0EC;
+}
+
+.img-paciente {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.nome-do-paciente {
+    color: #000;
+    text-align: start;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.span-paciente {
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.frame1 {
+    margin-top: -80px;
+    display: flex;
+    padding: 0px 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.frame2 {
+    display: flex;
+    padding: 0px 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+}
+
+.h3-titulo{
+    color: #35225F;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.quadrado1 {
+    display: flex;
+    width: 6vw;
+    height: 3.5vh;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 16px;
+    background: #35225F;
+
+}
+
+.quadrado2 {
+    display: flex;
+    width: 6vw;
+    height: 3.5vh;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 16px;
+    background: #35225F;
+
+}
+
+.text {
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.5px;
+   
+}
+
+.frame3 {
+    display: flex;
+    padding: 0px 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+   
+}
+
+.btn-remedio {
+    display: flex;
+    width: 15vw;
+    align-items: center;
+    border-radius: 16px;
+    background: #35225F;
+    justify-content: space-between;
+    backdrop-filter: blur(40px);
+    padding: 2% 5%;
+}
+
+.fotoNomeRemedio {
+    display: flex;
+    align-items: center;
+}
+
+.img-icon {
+    width: 50px;
+    height: 50px;
+    filter: invert(100%);
+
+}
+
+.dadoRemedio {
+    display: flex;
+    flex-direction: column;
+}
+
+.nome-do-remedio {
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.5px;
+}
+
+.quanto-tempo-remedio {
+    align-self: stretch;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: -0.078px;
+}
+
+.hora-do-remedio {
+    color: rgba(235, 235, 245, 0.60);
+    text-align: right;
+    font-family: Poppins;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: -0.078px;
+}
+
+.grupo2 {
+    display: flex;
+    padding: 0px 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.tratamentos {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.grupo1 {
+    display: flex;
+    align-items: flex-start;
+    gap: 80px;
+}
+
+.botaozinho {
+    width: 334px;
+    height: 70px;
+    background: transparent;
+    border: none;
+    border-radius: 10%;
+}
+
+.grupo3 {
+    display: flex;
+    align-items: flex-end;
+    gap: 80px;
+}
+@media (max-width:930px){
+
+}
+@media (max-width:730px){
+    
+}
+    

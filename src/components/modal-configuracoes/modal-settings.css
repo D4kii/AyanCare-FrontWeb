@@ -7,6 +7,7 @@ Modal {
     width: 76vw;
     padding: 0%;
     border-radius: 4px;
+    display: flex;
 }
 
 .modal-setting_menu-lateral {
@@ -24,6 +25,11 @@ Modal {
 
 .modal-setting_buttons-pagination {
     width: 25vw;
+}
+
+.modal-setting_page{
+    width: 52vw;
+    height: 70vh;
 }
 
 .modal-setting_title {

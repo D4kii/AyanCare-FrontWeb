@@ -1,7 +1,11 @@
 import React, { useContext, useState } from 'react';
+
+//Componentes
 import { MinusCircleOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Modal, Menu, Space } from 'antd';
+import { ConfigProvider, Modal, Menu, Space } from 'antd';
+import CuidadorProfile from '../cuidador-profile/CuidadorProfile.jsx';
 import './modal-settings.css'
+
 import { AuthContext } from '../../contexts/auth';
 function getItem(label, key, icon, children, type) {
   return {
@@ -25,8 +29,11 @@ const items = [
 ]
 
 const ModalSetting = ({ open, onCancel }) => {
+  const [menuClick, setMenuClick ] = useState(1)
+
   const onClick = (e) => {
-    console.log('click ', e);
+    console.log(menuClick);
+    setMenuClick(e.key)
   };
 
   const { authenticated, logout } = useContext(AuthContext);
@@ -84,7 +91,7 @@ const ModalSetting = ({ open, onCancel }) => {
                   }}
                   className='modal-setting_buttons-pagination'
                   onClick={onClick}
-
+                  selectedKeys={[menuClick]}
                   defaultSelectedKeys={['1']}
                   defaultOpenKeys={['sub1']}
                   mode="inline"
@@ -107,7 +114,16 @@ const ModalSetting = ({ open, onCancel }) => {
 
             </div>
             <div className="modal-setting_page">
-
+                {menuClick==1? 
+                <CuidadorProfile/>
+                
+                : menuClick===2?
+                <h2>{menuClick}</h2>
+                : menuClick ==3?
+                console.log('foi', menuClick)
+                :
+                console.log('foi', menuClick)
+                }
             </div>
           </div>
         </Modal>

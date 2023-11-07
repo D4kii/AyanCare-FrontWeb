@@ -13,11 +13,13 @@ const getBase64 = (file) => {
   });
 };
 
+
+
 function ProfilePicture({ enderecoImage }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(enderecoImage);
 
   const handleCancel = () => setPreviewOpen(false);
 
