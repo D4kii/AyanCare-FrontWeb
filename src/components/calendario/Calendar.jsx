@@ -4,16 +4,8 @@ import { Alert, Calendar, ConfigProvider } from 'antd';
 import './calendar.css'
 
 
-const CalendarComponent = () => {
-  const [value, setValue] = useState(() => dayjs('2017-01-25'));
-  const [selectedValue, setSelectedValue] = useState(() => dayjs('2017-01-25'));
-  const onSelect = (newValue) => {
-    setValue(newValue);
-    setSelectedValue(newValue);
-  };
-  const onPanelChange = (newValue) => {
-    setValue(newValue);
-  };
+const CalendarComponent = ({value, onSelect, onPanelChange}) => {
+
   return (
     <div>
       <ConfigProvider
