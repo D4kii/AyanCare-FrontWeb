@@ -1,5 +1,8 @@
 import React, { useContext, useState } from 'react';
 
+//APIS
+import { getCuidador } from "../../services/api.js";
+
 //Componentes
 import { MinusCircleOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Menu, Space, Popconfirm } from 'antd';
@@ -28,7 +31,24 @@ const items = [
   ], 'group'),
 ]
 
+//Pegando o json do cuidador e o token como string do localStorage
+const cuidadorLocalStorage = localStorage.getItem('cuidador')
+const token = localStorage.getItem('token')
+
+//Pegando transformando a string em json e pegando o id 
+const cuidadorJSON = JSON.parse(cuidadorLocalStorage)
+const idCuidador = cuidadorJSON.id
+
+const response = await getCuidador(token, idCuidador)
+console.log(response.cuidador);
+
+
+
+
 const ModalSetting = ({ open, onCancel }) => {
+  const [imagem, setImagem] = useState(null);
+
+
   const [menuClick, setMenuClick] = useState('1')
 
   const onClick = (e) => {
@@ -45,6 +65,8 @@ const ModalSetting = ({ open, onCancel }) => {
   const handleLogout = () => {
     logout()
   }
+
+  console.log(imagem.data);
 
 
   return (
@@ -127,7 +149,13 @@ const ModalSetting = ({ open, onCancel }) => {
             </div>
             <div className="modal-setting_page">
               {menuClick == 1 ?
-                <CuidadorProfile />
+                <CuidadorProfile
+                  nameProfile={response.cuidador.nome}
+                  profileDescription={response.cuidador.descricao_experiencia}
+                  profilePicture={response.cuidador.foto}
+                  imageUseState={imagem}
+                  setImagemUseState={setImagem}
+                />
 
                 : menuClick === 2 ?
                   <h2>{menuClick}</h2>

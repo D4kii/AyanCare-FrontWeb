@@ -9,19 +9,22 @@ import Input from "antd/es/input/Input";
 import { Avatar, List } from "antd";
 
 
-
 const data = [
     {
-      title: 'Realizar Relatório',
+        title: 'Realizar Relatório',
     },
     {
-      title: 'Iniciar Turno',
+        title: 'Iniciar Turno',
     },
-  ];
+];
 
-function CuidadorProfile() {
+function CuidadorProfile({ profilePicture, profileDescription, nameProfile, imageUseState, setImagemUseState }) {
 
-    const name = 'Paula'
+
+    const fotoPerfil = profilePicture
+    const description = profileDescription
+    // 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto'
+    const name = nameProfile
 
     return (
         <div className="cuidador-profile">
@@ -43,7 +46,8 @@ function CuidadorProfile() {
                 <div className="cuidador-profile_informations-field_first-column">
                     <div className="profile-image_cuidador">
                         <ProfilePicture
-                            enderecoImage={perfil}
+                            imagem={imageUseState}
+                            setImagem={setImagemUseState}
                         />
                         <h3 className="profile-name_cuidador">{name}</h3>
                         <h3 className="profile-description_cuidador">cuidador</h3>
@@ -53,7 +57,7 @@ function CuidadorProfile() {
                             Seu código de conexão como cuidador é:
                         </div>
                         <Input
-                        value={'33445'}
+                            value={'33445'}
                             style={{
                                 width: '118px',
                                 border: '1px solid #AEA5BC',
@@ -66,7 +70,7 @@ function CuidadorProfile() {
                 </div>
                 <div className="cuidador-profile_informations-field_second-column">
                     <p className="description-experience">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                        {description}
                     </p>
                 </div>
                 <div className="cuidador-profile_informations-field_third-column">

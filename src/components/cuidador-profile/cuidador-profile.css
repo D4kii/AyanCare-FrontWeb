@@ -24,7 +24,7 @@
 }
 
 .cuidador-profile_background {
-    width: 51vw;
+    width: 100%;
     height: 20vh;
     display: flex;
     justify-content: end;
@@ -73,6 +73,10 @@
 }
 
 .cuidador-profile_informations-field_second-column {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     background: #CCC2DE;
     display: flex;
     padding: 20px 30px;

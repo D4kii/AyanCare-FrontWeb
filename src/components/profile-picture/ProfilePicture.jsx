@@ -1,77 +1,56 @@
-import axios from "axios";
-import './profile-picture.css'
-import React, { useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Modal, Upload } from 'antd';
+import React, { useState } from "react";
 
-const getBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
+const ProfilePicture = ({ imagem, setImagem }) => {
+
+  const handleImagemSelecionada = (event) => {
+    const arquivo = event.target.files[0];
+
+    if (arquivo) {
+      // Verifique se o arquivo é uma imagem (opcional)
+      if (/\.(jpe?g|png|gif|bmp)$/i.test(arquivo.name)) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          setImagem(e.target.result);
+        };
+
+        reader.readAsDataURL(arquivo);
+      } else {
+        alert("Selecione um arquivo de imagem válido (JPEG, PNG, GIF, BMP).");
+      }
+    }
+  };
+
+  return (
+    <div>
+      <label htmlFor="inputImagem" style={botaoEstilo}>
+        Selecione uma imagem
+      </label>
+      <input
+        id="inputImagem"
+        type="file"
+        accept=".jpg, .jpeg, .png"
+        onChange={handleImagemSelecionada}
+        multiple={false} // Permite apenas um arquivo
+        style={{ display: "none" }}
+      />
+      {imagem && (
+        <div>
+          <img src={imagem} alt="Foto de perfil" />
+        </div>
+      )}
+    </div>
+  );
 };
 
 
-
-function ProfilePicture({ enderecoImage }) {
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const [file, setFile] = useState(enderecoImage);
-
-  const handleCancel = () => setPreviewOpen(false);
-
-  const handlePreview = async () => {
-    if (file) {
-      const previewDataUrl = await getBase64(file.originFileObj);
-      setPreviewImage(previewDataUrl);
-      setPreviewTitle(file.name);
-      setPreviewOpen(true);
-    }
-  };
-
-  const handleChange = (info) => {
-    if (info.fileList.length === 1) {
-      setFile(info.fileList[0]);
-    } else {
-      setFile(null);
-    }
-  };
-
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
-  return (
-    <>
-      <Upload
-        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-        listType="picture-circle"
-        fileList={file ? [file] : []}
-        onPreview={handlePreview}
-        onChange={handleChange}
-      >
-        {file ? null : uploadButton}
-      </Upload>
-      <Modal
-        visible={previewOpen}
-        title={previewTitle}
-        footer={null}
-        onCancel={handleCancel}
-      >
-        <img
-          alt="Foto de perfil"
-          style={{ width: '100%' }}
-          src={previewImage}
-        />
-      </Modal>
-    </>
-  );
-}
+const botaoEstilo = {
+  padding: "10px 20px",
+  background: "#007bff",
+  color: "white",
+  cursor: "pointer",
+  borderRadius: "5px",
+  border: "none",
+};
 
 export default ProfilePicture;

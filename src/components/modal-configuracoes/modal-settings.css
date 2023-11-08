@@ -4,10 +4,10 @@ Modal {
 
 .Setting-modal {
     height: 70vh;
-    width: 76vw;
     padding: 0%;
     border-radius: 4px;
     display: flex;
+    justify-content: space-between;
 }
 
 .modal-setting_menu-lateral {
@@ -48,4 +48,9 @@ Modal {
 
 :where(.css-dev-only-do-not-override-1czi1ww).ant-btn-primary {
     background-color: #35225F;
+}
+
+:where(.css-dev-only-do-not-override-1czi1ww).ant-modal .ant-modal-body {
+    display: flex;
+    justify-content: space-between;
 }
