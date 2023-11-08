@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 //Componentes
 import { MinusCircleOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
-import { ConfigProvider, Modal, Menu, Space } from 'antd';
+import { ConfigProvider, Modal, Menu, Space, Popconfirm } from 'antd';
 import CuidadorProfile from '../cuidador-profile/CuidadorProfile.jsx';
 import './modal-settings.css'
 
@@ -29,12 +29,16 @@ const items = [
 ]
 
 const ModalSetting = ({ open, onCancel }) => {
-  const [menuClick, setMenuClick ] = useState(1)
+  const [menuClick, setMenuClick] = useState('1')
 
   const onClick = (e) => {
     console.log(menuClick);
     setMenuClick(e.key)
   };
+
+  const text = 'Tem certeza que deseja sair da sua conta?';
+  const description = 'Sair da conta';
+  const buttonWidth = 80;
 
   const { authenticated, logout } = useContext(AuthContext);
 
@@ -98,32 +102,40 @@ const ModalSetting = ({ open, onCancel }) => {
                   items={items}
                 />
               </ConfigProvider>
-              <button
-                onClick={handleLogout}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#979C9E',
-                  cursor: 'pointer',
-                  padding: '8px 16px'
-                }}
-              >
-                Sair
-              </button>
 
+              <Popconfirm
+                placement="topLeft"
+                title={text}
+                description={description}
+                okText="Sim"
+                cancelText="Não"
+                onConfirm={handleLogout}
+              >
+                <button
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: '#979C9E',
+                    cursor: 'pointer',
+                    padding: '8px 16px'
+                  }}
+                >
+                  Sair
+                </button>
+              </Popconfirm>
 
             </div>
             <div className="modal-setting_page">
-                {menuClick==1? 
-                <CuidadorProfile/>
-                
-                : menuClick===2?
-                <h2>{menuClick}</h2>
-                : menuClick ==3?
-                console.log('foi', menuClick)
-                :
-                console.log('foi', menuClick)
-                }
+              {menuClick == 1 ?
+                <CuidadorProfile />
+
+                : menuClick === 2 ?
+                  <h2>{menuClick}</h2>
+                  : menuClick == 3 ?
+                    console.log('foi', menuClick)
+                    :
+                    console.log('foi', menuClick)
+              }
             </div>
           </div>
         </Modal>

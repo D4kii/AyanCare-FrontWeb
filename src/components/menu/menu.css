@@ -115,3 +115,12 @@ img {
     align-items: center;
     justify-content: center;
 }
+
+.home-icon-link:hover,
+.agenda-icon-link:hover,
+.pacientes-icon-link:hover,
+.relatorios-icon-link:hover {
+    background-color: #F4F4F4;
+    border-radius: 4px;
+    transition: background 0.3s;
+}

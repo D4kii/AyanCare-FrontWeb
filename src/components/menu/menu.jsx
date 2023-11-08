@@ -10,6 +10,7 @@ import iconConfig from '../../images/config-icon.png'
 import ModalSetting from "../modal-configuracoes/ModalSettings";
 import { Button, Popover, Space } from 'antd';
 import PopoverCardNotifications from "../popover-notifications/PopoverNotifications";
+import { useLocation } from "react-router-dom";
 
 const content = (
     <div>
@@ -20,6 +21,7 @@ const content = (
 
 
 function Menu() {
+    const location = useLocation();
 
 
     const [openModal, setOpenModal] = useState(false);
@@ -45,17 +47,47 @@ function Menu() {
                 </div>
 
                 <div className="navigation-icon">
-                    <a className="home-icon-link" href="/home" >
-                        <img className="home-icon" src={iconHome} alt="" />
+                    <a className="home-icon-link" href="/home" 
+                        style={{
+                            background: location.pathname == '/home'? '#35225F' : 'transparent',
+                            borderRadius: '4px'
+                        }}
+                    >
+                        <img className="home-icon" src={iconHome} alt="" 
+                        style={{
+                            filter: location.pathname == '/home'? 'invert(100%)' : 'none'
+                        }}/>
                     </a>
-                    <a className="agenda-icon-link" href="/agenda">
-                        <img className="agenda-icon" src={iconCalendario} alt="" />
+                    <a className="agenda-icon-link" href="/agenda"
+                    style={{
+                            background: location.pathname == '/agenda'? '#35225F' : 'transparent',
+                            borderRadius: '4px'
+                        }}
+                        >
+                        <img className="agenda-icon" src={iconCalendario} alt="" 
+                        style={{
+                            filter: location.pathname == '/agenda'? 'invert(100%)' : 'none'
+                        }}/>
                     </a>
-                    <a className="relatorios-icon-link" href="/relatorios" >
-                        <img className="relatorios-icon" src={iconRelatorio} alt="" />
+                    <a className="relatorios-icon-link" href="/relatorios" 
+                    style={{
+                            background: location.pathname == '/relatorios'? '#35225F' : 'transparent',
+                            borderRadius: '4px'
+                        }}>
+                        <img className="relatorios-icon" src={iconRelatorio} alt="" 
+                        style={{
+                            filter: location.pathname == '/relatorios'? 'invert(100%)' : 'none'
+                        }}/>
                     </a>
-                    <a className="pacientes-icon-link" href="/pacientes">
-                        <img className="pacientes-icon" src={iconPaciente} alt="" />
+                    <a className="pacientes-icon-link" href="/pacientes"
+                    style={{
+                            background: location.pathname == '/pacientes'? '#35225F' : 'transparent',
+                            borderRadius: '4px'
+                        }}>
+                        <img className="pacientes-icon" src={iconPaciente} alt="" 
+                        style={{
+                            filter: location.pathname == '/pacientes'? 'invert(100%)' : 'none'
+                        }}/>
                     </a>
                 </div>
                 <div className="configuration-icons" >

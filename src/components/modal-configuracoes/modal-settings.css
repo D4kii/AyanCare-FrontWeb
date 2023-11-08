@@ -45,3 +45,7 @@ Modal {
 :where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light>.ant-menu .ant-menu-item-selected {
     background-color: #C8BEDB;
 }
+
+:where(.css-dev-only-do-not-override-1czi1ww).ant-btn-primary {
+    background-color: #35225F;
+}

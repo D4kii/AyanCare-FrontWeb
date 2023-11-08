@@ -84,10 +84,9 @@
     border-radius: 100%;
 }
 
-.anticon {
-    font-size: 1.5rem;
+.anticon-check-circle{
+    font-size: 1.2rem;
 }
-
 
 .card-evento_body-read-more_content {
     color: #35225F;
