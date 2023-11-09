@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 //APIS
 import { getCuidador } from "../../services/api.js";
@@ -31,17 +31,25 @@ const items = [
   ], 'group'),
 ]
 
+
 //Pegando o json do cuidador e o token como string do localStorage
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
 const token = localStorage.getItem('token')
 
-//Pegando transformando a string em json e pegando o id 
-const cuidadorJSON = JSON.parse(cuidadorLocalStorage)
-const idCuidador = cuidadorJSON.id
+// Verifica se cuidadorLocalStorage não é nulo antes de tentar analisá-lo
+const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
+const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
 
-const response = await getCuidador(token, idCuidador)
-console.log(response.cuidador);
-
+let response = null;
+// Certifique-se de que idCuidador não seja nulo antes de usar em outros lugares do código
+if (idCuidador) {
+  // Agora você pode usar idCuidador em outras partes do código
+  // Certifique-se de que o cuidador existe no localStorage antes de fazer a solicitação
+  response = await getCuidador(token, idCuidador);
+} else {
+  // Lida com o caso em que o cuidador não está presente no localStorage
+  console.error("Cuidador não encontrado no localStorage.");
+}
 
 
 
@@ -66,7 +74,7 @@ const ModalSetting = ({ open, onCancel }) => {
     logout()
   }
 
-  console.log(imagem.data);
+  console.log(imagem);
 
 
   return (

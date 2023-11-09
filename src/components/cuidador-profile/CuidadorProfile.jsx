@@ -28,7 +28,7 @@ function CuidadorProfile({ profilePicture, profileDescription, nameProfile, imag
 
     return (
         <div className="cuidador-profile">
-            <div class="cuidador-profile_background">
+            <div className="cuidador-profile_background">
                 <div className="cuidador-profile_edit-profile">
 
                     <Button
