@@ -11,7 +11,20 @@ const ProfilePicture = ({ imagem, setImagem }) => {
         const reader = new FileReader();
 
         reader.onload = (e) => {
-          setImagem(e.target.result);
+          const agora = new Date();
+          const ano = agora.getFullYear();
+          const mes = agora.getMonth() + 1;
+          const dia = agora.getDate();
+          const hora = agora.getHours();
+          const minutos = agora.getMinutes();
+          const segundos = agora.getSeconds();
+          const milissegundos = agora.getMilliseconds();
+
+          const nomeDoArquivo = `${ano}${mes}${dia}${hora}${minutos}${segundos}${milissegundos}.jpg`;
+
+          const arquivoJSON = { url: e.target.result, nome: nomeDoArquivo }
+
+          setImagem(arquivoJSON);
         };
 
         reader.readAsDataURL(arquivo);
