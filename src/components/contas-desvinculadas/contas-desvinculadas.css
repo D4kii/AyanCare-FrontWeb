@@ -1,0 +1,23 @@
+.contas-desvinculadas_screen{
+    height: 100%;
+    width: 100%;
+}
+
+.contas-desvinculadas_content-title {
+    color: #000;
+    font-family: Manrope;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    padding-left: 2rem
+    /* 71.429% */
+    ;
+}
+
+.contas-desvinculadas_content{
+    display: flex;
+    height: 15%;
+    align-items: center;
+    justify-content: flex-start;
+}

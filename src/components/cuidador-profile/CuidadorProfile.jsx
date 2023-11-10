@@ -83,8 +83,8 @@ function CuidadorProfile({ profilePicture, profileDescription, nameProfile, imag
                                 <List.Item>
                                     <List.Item.Meta
                                         avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                        title={<a href="">{item.title}</a>}
+                                        description="lalallalala"
                                     />
                                 </List.Item>
                             )}

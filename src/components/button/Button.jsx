@@ -1,7 +1,7 @@
 import React from "react";
 import '../button/button.css';
 
-function Button({nameButton, heigthButton, widthButton, textSize, color, contentColor}) {
+function Button({nameButton, heigthButton, widthButton, textSize, color, contentColor, iconButton}) {
 
     const nome = nameButton;
     const altura = heigthButton;
@@ -9,6 +9,7 @@ function Button({nameButton, heigthButton, widthButton, textSize, color, content
     const tamanhoLetra = textSize;
     const backgroundColor = color;
     const corFonte = contentColor;
+    const icon = iconButton;
     
     return(
         <div className="field-button">
@@ -16,15 +17,18 @@ function Button({nameButton, heigthButton, widthButton, textSize, color, content
                 style={{
                     height: altura,
                     width: largura,
-                    background: backgroundColor
+                    background: backgroundColor,
+                    gap: '2rem'
                 }}
                 
             >
+                {icon? icon : null}
                 <span
                 style={{
                     fontSize: tamanhoLetra,
                     width: 'max-content',
-                    color: corFonte
+                    color: corFonte,
+                    marginLeft: '.7rem'
                 }}
                 >{nome}</span>
             </button>

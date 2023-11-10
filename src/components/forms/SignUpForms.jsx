@@ -9,9 +9,12 @@ import image from '../../images/background-image.png'
 
 
 function SignUpForms({
-    handleSubmitFunction,
     onFinish,
+    handleUpload,
 
+    progress, 
+    setProgress,
+    setStateImageParameter,
     setStateNameParameter,
     setStateBirthParameter,
     setStateEmailParameter,
@@ -19,6 +22,7 @@ function SignUpForms({
     setStateIdGeneroParameter,
     setStateExperienceDescriptionParameter,
 
+    imageUseState,
     nomeUseState,
     birthUseState,
     emailUseState,
@@ -98,6 +102,7 @@ function SignUpForms({
             resolve('Por favor, insira sua senha.');
         }
     };
+    
 
 
     const [form] = Form.useForm();
@@ -156,7 +161,6 @@ function SignUpForms({
                 fontSize: '.9rem',
                 fontFamily: 'Poppins'
             }}
-            onSubmitCapture={handleSubmitFunction}
             scrollToFirstError>
             <div className="forms-title">
 
@@ -166,7 +170,11 @@ function SignUpForms({
                 />
             </div>
             <div className='form_inputs-field'>
-                <ProfilePicture enderecoImage={image} />
+                <ProfilePicture 
+                progress={progress}
+                setProgress={setProgress}
+                setImagem={setStateImageParameter}
+                imagem={imageUseState} />
 
                 <div className="form_name-user">
                     <Form.Item
@@ -189,7 +197,7 @@ function SignUpForms({
                             name={nameUser}
                             type={typeText}
                             id="nomeCadastro"
-                            value={nomeUseState}
+                            value={nome}
                             onChange={setStateName}
 
                             style={{
@@ -272,7 +280,7 @@ function SignUpForms({
                     >
                         <Input.TextArea
                             showCount maxLength={300}
-                            value={descricaoExperienciaState}
+                            value={experienceDescription}
                             onChange={setStateExperienceDescription}
                             style={{
                                 width: widthForBiggestInputs,

@@ -1,6 +1,8 @@
 import React from "react";
 import './cards-pacientes.css'
 import Button from "../button/Button";
+
+
 function CardPacientes({PacienteName, PacienteAge, PacienteProfilePicture}) {
 
     const nomePaciente = PacienteName

@@ -1,41 +1,13 @@
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import React, { useState } from "react";
+import { storage } from "../../services/firebase";
 
-const ProfilePicture = ({ imagem, setImagem }) => {
+const ProfilePicture = ({ imagem, setImagem, progress, setProgress, handleUpload }) => {
 
-  const handleImagemSelecionada = (event) => {
-    const arquivo = event.target.files[0];
 
-    if (arquivo) {
-      // Verifique se o arquivo é uma imagem (opcional)
-      if (/\.(jpe?g|png|gif|bmp)$/i.test(arquivo.name)) {
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          const agora = new Date();
-          const ano = agora.getFullYear();
-          const mes = agora.getMonth() + 1;
-          const dia = agora.getDate();
-          const hora = agora.getHours();
-          const minutos = agora.getMinutes();
-          const segundos = agora.getSeconds();
-          const milissegundos = agora.getMilliseconds();
-
-          const nomeDoArquivo = `${ano}${mes}${dia}${hora}${minutos}${segundos}${milissegundos}.jpg`;
-
-          const arquivoJSON = { url: e.target.result, nome: nomeDoArquivo }
-
-          setImagem(arquivoJSON);
-        };
-
-        reader.readAsDataURL(arquivo);
-      } else {
-        alert("Selecione um arquivo de imagem válido (JPEG, PNG, GIF, BMP).");
-      }
-    }
-  };
 
   return (
-    <div>
+    <form onSubmit={handleUpload}> 
       <label htmlFor="inputImagem" style={botaoEstilo}>
         Selecione uma imagem
       </label>
@@ -43,16 +15,13 @@ const ProfilePicture = ({ imagem, setImagem }) => {
         id="inputImagem"
         type="file"
         accept=".jpg, .jpeg, .png"
-        onChange={handleImagemSelecionada}
-        multiple={false} // Permite apenas um arquivo
         style={{ display: "none" }}
       />
-      {imagem && (
-        <div>
-          <img src={imagem} alt="Foto de perfil" />
-        </div>
-      )}
-    </div>
+      <div>
+        <img src={imagem} alt="Foto de perfil" />
+      </div>
+      <button type="submit">enviar</button>
+    </form>
   );
 };
 

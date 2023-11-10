@@ -9,15 +9,46 @@ import { Modal } from "antd";
 
 function Signup() {
 
-    const [name, setName] = useState();
-    const [birth, setBith] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [idGenero, setIdGenero] = useState();
-    const [descricaoExperiencia, setDescricaoExperiencia] = useState();
+    const [image, setImage] = useState("");
+    const [name, setName] = useState("");
+    const [birth, setBith] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [idGenero, setIdGenero] = useState("");
+    const [descricaoExperiencia, setDescricaoExperiencia] = useState("");
+    console.log(1, image);
 
     const navigate = useNavigate();
 
+    const [progress, setProgress] = useState(0)
+  
+  const handleUpload = (event) => {
+    event.preventDefault()
+    
+    const file = event.target[0]?.files[0]
+    console.log('setimage', event.target);
+    console.log('image', image);
+    if (!file) return;
+    
+    const storageRef = ref(storage, `images/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_change",
+      snapshot => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        setProgress(progress)
+      },
+      error => {
+        alert(error)
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(url =>{
+          setImage(url)
+        })
+      }
+    )
+  };
 
     const onFinish = (fieldsValue) => {
         const values = {
@@ -78,6 +109,11 @@ function Signup() {
                         <div className="register-field">
                             <SignUpForms
                                 onFinish={onFinish}
+                                progress={progress}
+                                setProgress={setProgress}
+                                handleUpload={handleUpload}
+                                imageUseState={image}
+                                setStateImageParameter={setImage}
                                 nomeUseState={name}
                                 setStateNameParameter={setName}
                                 birthUseState={birth}

@@ -7,9 +7,11 @@ import { getCuidador } from "../../services/api.js";
 import { MinusCircleOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Menu, Space, Popconfirm } from 'antd';
 import CuidadorProfile from '../cuidador-profile/CuidadorProfile.jsx';
+import ContasVinculadasScreen from '../contas-vinculadas/ContasVinculadas.jsx';
 import './modal-settings.css'
 
 import { AuthContext } from '../../contexts/auth';
+import ContasDesvinculadasScreen from '../contas-desvinculadas/ContasDesvinculadas.jsx';
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -157,20 +159,25 @@ const ModalSetting = ({ open, onCancel }) => {
             </div>
             <div className="modal-setting_page">
               {menuClick == 1 ?
-                <CuidadorProfile
-                  nameProfile={response.cuidador.nome}
-                  profileDescription={response.cuidador.descricao_experiencia}
-                  profilePicture={response.cuidador.foto}
-                  imageUseState={imagem}
-                  setImagemUseState={setImagem}
-                />
-
-                : menuClick === 2 ?
-                  <h2>{menuClick}</h2>
+                (
+                  <CuidadorProfile
+                    nameProfile={response.cuidador.nome}
+                    profileDescription={response.cuidador.descricao_experiencia}
+                    profilePicture={response.cuidador.foto}
+                    imageUseState={imagem}
+                    setImagemUseState={setImagem}
+                  />
+                )
+                : menuClick == 2 ?
+                  (
+                    <ContasVinculadasScreen />
+                  )
                   : menuClick == 3 ?
-                    console.log('foi', menuClick)
+                    (
+                      <ContasDesvinculadasScreen/>
+                      )
                     :
-                    console.log('foi', menuClick)
+                    (console.log('foi', menuClick))
               }
             </div>
           </div>
