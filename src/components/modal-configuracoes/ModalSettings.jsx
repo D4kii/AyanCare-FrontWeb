@@ -59,7 +59,7 @@ const ModalSetting = ({ open, onCancel }) => {
   const [imagem, setImagem] = useState(null);
 
 
-  const [menuClick, setMenuClick] = useState('1')
+  const [menuClick, setMenuClick] = useState('')
 
   const onClick = (e) => {
     console.log(menuClick);
@@ -163,8 +163,8 @@ const ModalSetting = ({ open, onCancel }) => {
                   <CuidadorProfile
                     nameProfile={response.cuidador.nome}
                     profileDescription={response.cuidador.descricao_experiencia}
-                    profilePicture={response.cuidador.foto}
-                    imageUseState={imagem}
+                    imageUseState={response.cuidador.foto}
+                    idCuidador={response.cuidador.id}
                     setImagemUseState={setImagem}
                   />
                 )

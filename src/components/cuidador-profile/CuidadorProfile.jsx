@@ -18,7 +18,7 @@ const data = [
     },
 ];
 
-function CuidadorProfile({ profilePicture, profileDescription, nameProfile, imageUseState, setImagemUseState }) {
+function CuidadorProfile({ profilePicture, profileDescription, nameProfile, imageUseState, setImagemUseState, idCuidador }) {
 
 
     const fotoPerfil = profilePicture
@@ -57,7 +57,7 @@ function CuidadorProfile({ profilePicture, profileDescription, nameProfile, imag
                             Seu código de conexão como cuidador é:
                         </div>
                         <Input
-                            value={'33445'}
+                            value={idCuidador}
                             style={{
                                 width: '118px',
                                 border: '1px solid #AEA5BC',

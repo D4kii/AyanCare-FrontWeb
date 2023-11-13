@@ -6,17 +6,20 @@ import './loading-page.css'
 function Loading() {
     return (
         <div className="loading-page">
-            <Space
-                direction="vertical"
-                style={{
-                    width: '100%',
-                }}
-            >
-
-                <Spin tip="Loading" size="large">
-                    <div className="content" />
-                </Spin>
-            </Space>
+            <div className="loading-page">
+            <Spin
+            tip="Carregando"
+                indicator={
+                    <LoadingOutlined
+                        style={{
+                            fontSize: '5rem',
+                            color: '#35225F'
+                        }}
+                        spin
+                    />
+                }
+            />
+        </div>
         </div>
     );
 }

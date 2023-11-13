@@ -29,7 +29,7 @@ function CardPacientes({PacienteName, PacienteAge, PacienteProfilePicture}) {
                 <Button
                     nameButton={'Ver agenda'}
                     heigthButton={'30px'}
-                    widthButton={'95px'}
+                    widthButton={'max-content'}
                     textSize={'12px'}
                 />
                 <Button

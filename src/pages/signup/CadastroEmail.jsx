@@ -2,12 +2,16 @@ import React, { useContext, useState } from "react";
 import '../signup/signup.css';
 import SignUpForms from "../../components/forms/SignUpForms";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
-import image from "../../images/logo-branca.png"
+import imagem from "../../images/logo-branca.png"
 import { createSessionUsuarioAutenticar } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
+import { storage } from "../../services/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 function Signup() {
+
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
     const [image, setImage] = useState("");
     const [name, setName] = useState("");
@@ -16,49 +20,22 @@ function Signup() {
     const [password, setPassword] = useState("");
     const [idGenero, setIdGenero] = useState("");
     const [descricaoExperiencia, setDescricaoExperiencia] = useState("");
-    console.log(1, image);
 
     const navigate = useNavigate();
 
     const [progress, setProgress] = useState(0)
-  
-  const handleUpload = (event) => {
-    event.preventDefault()
-    
-    const file = event.target[0]?.files[0]
-    console.log('setimage', event.target);
-    console.log('image', image);
-    if (!file) return;
-    
-    const storageRef = ref(storage, `images/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      "state_change",
-      snapshot => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        setProgress(progress)
-      },
-      error => {
-        alert(error)
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(url =>{
-          setImage(url)
-        })
-      }
-    )
-  };
+    
 
     const onFinish = (fieldsValue) => {
         const values = {
             "nome": fieldsValue.nome,
+            "foto": image,
             'data_nascimento': fieldsValue['data_nascimento'].format('YYYY-MM-DD'),
             "email": fieldsValue.email,
             "senha": fieldsValue.password,
             "id_genero": fieldsValue.gender
         };
-        console.log('submit', values);
 
         fetch('http://localhost:8080/v1/ayan/cuidador', {
             method: 'POST',
@@ -81,16 +58,16 @@ function Signup() {
                         // Navegar para a página de home após o usuário confirmar a modal
                         navigate('/login');
                     },
-                });  
+                });
             })
             .catch(error => { // Use catch para tratar erros
                 console.error('Erro:', error);
                 if (error.response && error.response.status === 409) {
                     Modal.error({
-                      title: 'Erro de Conflito',
-                      content: 'Já existe um cadastro com esses dados. Por favor, verifique suas informações e tente novamente.',
+                        title: 'Erro de Conflito',
+                        content: 'Já existe um cadastro com esses dados. Por favor, verifique suas informações e tente novamente.',
                     });
-                  }
+                }
             });
     };
 
@@ -111,7 +88,6 @@ function Signup() {
                                 onFinish={onFinish}
                                 progress={progress}
                                 setProgress={setProgress}
-                                handleUpload={handleUpload}
                                 imageUseState={image}
                                 setStateImageParameter={setImage}
                                 nomeUseState={name}
@@ -132,7 +108,7 @@ function Signup() {
                 </div>
             </div>
             <div className="welcome-field">
-                <WelcomeContainer title={welcomeContainerTitle} text={welcomeContainerSubtitle} logo={image} />
+                <WelcomeContainer title={welcomeContainerTitle} text={welcomeContainerSubtitle} logo={imagem} />
             </div>
         </div>
     )

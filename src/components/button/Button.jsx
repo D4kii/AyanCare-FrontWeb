@@ -28,7 +28,6 @@ function Button({nameButton, heigthButton, widthButton, textSize, color, content
                     fontSize: tamanhoLetra,
                     width: 'max-content',
                     color: corFonte,
-                    marginLeft: '.7rem'
                 }}
                 >{nome}</span>
             </button>

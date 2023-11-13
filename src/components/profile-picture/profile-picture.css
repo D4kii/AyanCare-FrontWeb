@@ -1,3 +1,10 @@
+.profile-picture_field{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    align-items: end;
+    margin-bottom: 2rem;
+}
 .profile-picture_file-field{
     width: 6rem;
     height: 6rem;
@@ -6,9 +13,22 @@
     display: flex;
     align-items: end;
     justify-content: end;
-    margin-bottom: 2rem;
 }
 
 .file-cam{
     cursor: pointer;
+    display: flex;
+    background-color: #ffffff;
+    border-color: #d9d9d9;
+    color: rgba(0, 0, 0, 0.88);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.profile-picture_button{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-top: -1.5rem;
+    margin-right: .3rem;
 }

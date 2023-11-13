@@ -12,7 +12,7 @@ function SignUpForms({
     onFinish,
     handleUpload,
 
-    progress, 
+    progress,
     setProgress,
     setStateImageParameter,
     setStateNameParameter,
@@ -33,25 +33,25 @@ function SignUpForms({
 
     const validateAge = (rule, value) => {
         return new Promise((resolve, reject) => {
-          if (value) {
-            const dob = new Date(value);
-            const today = new Date();
-            const age = today.getFullYear() - dob.getFullYear();
-        
-            if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
-              age; // Ainda não fez aniversário neste ano
-            }
-        
-            if (age < 16) {
-              reject('Você deve ter pelo menos 16 anos de idade.');
+            if (value) {
+                const dob = new Date(value);
+                const today = new Date();
+                const age = today.getFullYear() - dob.getFullYear();
+
+                if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+                    age; // Ainda não fez aniversário neste ano
+                }
+
+                if (age < 16) {
+                    reject('Você deve ter pelo menos 16 anos de idade.');
+                } else {
+                    resolve();
+                }
             } else {
-              resolve();
+                reject('Por favor, insira sua data de nascimento.');
             }
-          } else {
-            reject('Por favor, insira sua data de nascimento.');
-          }
         });
-      };
+    };
 
     const formItemLayout = {
         labelCol: {
@@ -102,7 +102,7 @@ function SignUpForms({
             resolve('Por favor, insira sua senha.');
         }
     };
-    
+
 
 
     const [form] = Form.useForm();
@@ -170,16 +170,22 @@ function SignUpForms({
                 />
             </div>
             <div className='form_inputs-field'>
-                <ProfilePicture 
-                progress={progress}
-                setProgress={setProgress}
-                setImagem={setStateImageParameter}
-                imagem={imageUseState} />
+                <Form.Item
+                name="image"
+                label="Foto de Perfil"
+                >
+                    <ProfilePicture
+                        progress={progress}
+                        setProgress={setProgress}
+                        handleUpload={handleUpload}
+                        setImagem={setStateImageParameter}
+                        imagem={imageUseState} />
+                </Form.Item>
 
                 <div className="form_name-user">
                     <Form.Item
                         name="nome"
-                        label="Primeiro e último Nome"
+                        label="Primeiro e último nome"
                         rules={[
                             {
                                 type: "string",
@@ -217,13 +223,13 @@ function SignUpForms({
                         {...config}
                         rules={[
                             {
-                            validator: validateAge
+                                validator: validateAge
                             }
                         ]}
                         style={{
                             wordWrap: 'none'
                         }}
-                        
+
                     >
                         <DatePicker
                             format={"DD-MM-YYYY"}

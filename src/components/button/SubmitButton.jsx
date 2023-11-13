@@ -7,14 +7,18 @@ const SubmitButton = ({ form, nameButton }) => {
     // Watch all values
     const values = Form.useWatch([], form);
     React.useEffect(() => {
-        form.validateFields()
-            .then(() => {
+        const validateFields = async () => {
+            try {
+                await form.validateFields();
                 setSubmittable(true);
-            })
-            .catch(() => {
+            } catch (error) {
                 setSubmittable(false);
-            });
+            }
+        };
+    
+        validateFields();
     }, [values]);
+    
 
     return (
         <Button

@@ -7,7 +7,7 @@ function CardRelatorioAcessoRapido({ tituloCard, descricaoCard, nomePaciente }) 
 
     return (
         <button className="button-relatorio">
-            <div className="card-relatorio">
+            <div className="card-relatorio-acesso-rapido">
                 <span className="title">{tituloCard}</span>
                 <p className="description">{descricaoCard}</p>
                 <div className="actions">

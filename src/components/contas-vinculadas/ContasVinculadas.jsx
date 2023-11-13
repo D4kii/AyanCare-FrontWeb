@@ -20,7 +20,13 @@ function ContasVinculadasScreen({ }) {
                 />
 
             </div>
-            <CardPacientes/>
+            <div className="contas-vinculadas_cards-pacientes">
+                <CardPacientes
+                    PacienteName={'Patricia'}
+
+                />
+
+            </div>
 
         </div>
     );

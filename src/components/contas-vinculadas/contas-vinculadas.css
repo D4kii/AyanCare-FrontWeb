@@ -20,3 +20,10 @@
     line-height: 20px;
     /* 71.429% */
 }
+
+.contas-vinculadas_cards-pacientes{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+}

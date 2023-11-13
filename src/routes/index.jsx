@@ -4,7 +4,7 @@ import {
     Routes,
     Navigate
 } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LandingPage from "../pages/landing-page/LandingPage";
 import Home from "../pages/home/home-page/Home.jsx";
 import Agenda from "../pages/home/agenda-page/Agenda";
@@ -19,6 +19,7 @@ import ServidorError from "../pages/erros/error-500";
 import Loading from "../components/loading/Loading";
 
 const AppRoutes = () => {
+    const [Carregando, setCarregamento] = useState(true);
 
     //Função que avalia se o valor do contexto é autenticado ou não, redirecionando para suas respectivas páginas
     const Private = ({ children }) => {
@@ -26,7 +27,7 @@ const AppRoutes = () => {
 
         if (loading) {
             return (
-                <Loading/>
+                <Loading />
             )
         }
 
@@ -37,56 +38,65 @@ const AppRoutes = () => {
         return children;
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setCarregamento(false); // Simulando que o carregamento tenha terminado
+        }, 2000);
+    }, []);
+
     return (
         <Router>
-            <AuthProvider>
-                <Routes>
-                    <Route
-                        exact path="/login"
-                        element={<SignIn />}
-                    />
-                    <Route
-                        exact path="/error-500"
-                        element={<ServidorError />}
-                    />
-                    <Route
-                        exact path="/recover-password"
-                        element={<RecoverPassword />}
-                    />
-                    <Route
-                        exact path="/"
-                        element={<LandingPage />}
-                    />
-                    <Route
-                        exact path="/signup"
-                        element={<Signup />}
-                    />
-                    <Route
-                        exact path="/home"
-                        element={
-                            <Private>
-                                <Home />
-                            </Private>} />
-                    <Route
-                        exact path="/agenda"
-                        element={
-                            <Private>
-                                <Agenda />
-                            </Private>} />
-                    <Route
-                        exact path="/pacientes"
-                        element={
-                            <Private>
-                                <Pacientes />
-                            </Private>} />
-                    <Route
-                        exact path="/relatorios"
-                        element={
-                            <Private>
-                                <Relatorios />
-                            </Private>} />
-                </Routes>
-            </AuthProvider>
+            {Carregando ?
+                (<Loading />)
+                :
+                (<AuthProvider>
+                    <Routes>
+                        <Route
+                            exact path="/login"
+                            element={<SignIn />}
+                        />
+                        <Route
+                            exact path="/error-500"
+                            element={<ServidorError />}
+                        />
+                        <Route
+                            exact path="/recover-password"
+                            element={<RecoverPassword />}
+                        />
+                        <Route
+                            exact path="/"
+                            element={<LandingPage />}
+                        />
+                        <Route
+                            exact path="/signup"
+                            element={<Signup />}
+                        />
+                        <Route
+                            exact path="/home"
+                            element={
+                                <Private>
+                                    <Home />
+                                </Private>} />
+                        <Route
+                            exact path="/agenda"
+                            element={
+                                <Private>
+                                    <Agenda />
+                                </Private>} />
+                        <Route
+                            exact path="/pacientes"
+                            element={
+                                <Private>
+                                    <Pacientes />
+                                </Private>} />
+                        <Route
+                            exact path="/relatorios"
+                            element={
+                                <Private>
+                                    <Relatorios />
+                                </Private>} />
+                    </Routes>
+                </AuthProvider>)}
         </Router>
     )
 };
