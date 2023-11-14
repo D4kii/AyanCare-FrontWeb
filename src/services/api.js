@@ -32,5 +32,37 @@ export const getCuidador = async (token, idCuidador) => {
         console.error('Erro na solicitação GET de cuidador:', error);
         throw error;
     }
-      
+
+}
+
+export const getRelatorioByIDCuidador = async (id_cuidador) => {
+    try {
+        const response = await api.get(`/relatorios`, {
+            params: {
+                idCuidador: id_cuidador
+            }
+        });
+        console.log(response.data);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de cuidador:', error);
+        throw error;
+    }
+}
+
+export const getPacientesByIDCuidador = async (id_cuidador) => {
+    try {
+        const response = await api.get(`/conexoes`, {
+            params: {
+                idCuidador: id_cuidador
+            }
+        });
+        console.log(response.data);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de cuidador:', error);
+        throw error;
+    }
 }

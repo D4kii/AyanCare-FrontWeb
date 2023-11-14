@@ -108,7 +108,7 @@ const ModalSetting = ({ open, onCancel }) => {
           }}
         >
           <div
-            className='Setting-modal'>
+            className='Setting-modal Modal'>
             <div className="modal-setting_menu-lateral">
               <h3 className="modal-setting_title">Configurações</h3>
 

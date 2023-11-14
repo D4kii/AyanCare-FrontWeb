@@ -100,5 +100,8 @@ hr {
 .column {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
 }
