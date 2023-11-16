@@ -10,16 +10,16 @@ function CardPacientes({PacienteName, PacienteAge, PacienteProfilePicture}) {
     const imagemPerfilPaciente = PacienteProfilePicture
 
     return (
-        <div class="card">
+        <div className="card">
             <div className="paciente-field">
-                <img class="foto-paciente" src={imagemPerfilPaciente} alt="" />
-                <div class="dados">
+                <img className="foto-paciente" src={imagemPerfilPaciente} alt="" />
+                <div className="dados">
                     <span>{nomePaciente}</span>
-                    <p class="dados-paciente">{idadePaciente}</p>
+                    <p className="dados-paciente">{idadePaciente}</p>
                 </div>
 
             </div>
-            <div class="btns-acessos">
+            <div className="btns-acessos">
                 <Button
                     nameButton={'Relatórios'}
                     heigthButton={'30px'}

@@ -17,7 +17,9 @@ const cuidadorLocalStorage = localStorage.getItem('cuidador')
 function CreateRelatorioModal(
     {
         open,
-        onCancel }
+        onCancel,
+        setOpenModal
+    }
 ) {
 
     const [messageApi, contextHolder] = message.useMessage();
@@ -26,6 +28,11 @@ function CreateRelatorioModal(
         messageApi.open({
             type: 'error',
             content: message,
+        });
+    };
+    const success = () => {
+        Modal.success({
+            content: 'some messages...some messages...',
         });
     };
 
@@ -99,6 +106,8 @@ function CreateRelatorioModal(
         }
     }, [idCuidador]);
 
+    console.log(2, paciente);
+
     const onFinishMadeQuestionario = async (values) => {
         pergunta.perguntas.forEach(async dadosPergunta => {
             try {
@@ -114,7 +123,14 @@ function CreateRelatorioModal(
                 const response = await createQuestionarioRelatorio(questionario);
 
                 // Imprime os dados do relatório criado
-
+                Modal.success({
+                    content: 'Relatorio realizado com sucesso!',
+                    okText: 'ok',
+                    onOk: () => {
+                        // Navegar para a página de home após o usuário confirmar a modal
+                        setOpenModal(false)
+                    },
+                });
 
                 // Ativa o modo de questionário
                 setModoQuestionario(true);
@@ -140,47 +156,61 @@ function CreateRelatorioModal(
                 }}
             >
 
-                <Modal
-                    open={open}
-                    onCancel={onCancel}
-                    footer={null}
-                    width={'80vw'}
-                    style={{
-                        borderRadius: '12px',
-                        height: '70vh',
-                        width: '80vw',
-                        padding: 0
-                    }}
-                >
-                    <div
-                        className='create-relatorio-modal Modal'>
 
-                        {modoQuestionario ? (
-                            <MadeQuestionarioScreen
-                                loadingParameterUseState={loading}
-                                perguntaParameterUseState={pergunta}
-                                respostasParameterUseState={respostas}
-                                toggleModoQuestionarioFunction={toggleModoQuestionario}
-                                idRelatorioParameterUseState={idRelatorio}
-                                onFinishQuestionarioFunction={onFinishMadeQuestionario}
-                                setRespostasParameterUseState={setRespostas}
-                            />
-                        ) : (
-                            <MadeRelatorioScreen
-                                loadingParameterUseState={loading}
-                                pacienteParameterUseState={paciente}
-                                onFinishFunction={onFinishMadeRelatorio}
-                                handleChangeSelect={handleChange}
-                                toggleModoQuestionarioFunction={toggleModoQuestionario}
-                            />
-                        )}
+                {paciente.status == 200 ? (
+                    <Modal
+                        open={open}
+                        onCancel={onCancel}
+                        footer={null}
+                        width={'80vw'}
+                        style={{
+                            borderRadius: '12px',
+                            height: '70vh',
+                            width: '80vw',
+                            padding: 0
+                        }}
+                    >
+                        <div
+                            className='create-relatorio-modal Modal'>
 
-                        {/* <Button onClick={toggleModoQuestionario}>
-                            {modoQuestionario ? "Mostrar Relatório" : "Mostrar Questionário"}
-                        </Button> */}
+                            {modoQuestionario ? (
+                                <MadeQuestionarioScreen
+                                    loadingParameterUseState={loading}
+                                    perguntaParameterUseState={pergunta}
+                                    respostasParameterUseState={respostas}
+                                    toggleModoQuestionarioFunction={toggleModoQuestionario}
+                                    idRelatorioParameterUseState={idRelatorio}
+                                    onFinishQuestionarioFunction={onFinishMadeQuestionario}
+                                    setRespostasParameterUseState={setRespostas}
+                                />
+                            ) : (
+                                <MadeRelatorioScreen
+                                    onCancelParameterUseState={onCancel}
+                                    loadingParameterUseState={loading}
+                                    pacienteParameterUseState={paciente}
+                                    onFinishFunction={onFinishMadeRelatorio}
+                                    handleChangeSelect={handleChange}
+                                    toggleModoQuestionarioFunction={toggleModoQuestionario}
+                                />
+                            )}
 
-                    </div>
-                </Modal>
+
+                        </div>
+                    </Modal>
+                ) :
+                    (
+                        <Modal
+                            
+                            open={open}
+                            onCancel={onCancel}
+                            title={'Vincule sua conta'}
+                            content={'Não é possível realizar um relatorio sem Conexão com algum paciente'}
+                            okText='ok'
+                            onOk={onCancel}
+                        >
+                            <p>Não é possível realizar um relatorio sem Conexão com algum paciente</p>
+                        </Modal>
+                    )}
             </ConfigProvider>
         </div >
     );

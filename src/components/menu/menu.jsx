@@ -11,6 +11,7 @@ import ModalSetting from "../modal-configuracoes/ModalSettings";
 import { Button, Popover, Space } from 'antd';
 import PopoverCardNotifications from "../popover-notifications/PopoverNotifications";
 import { useLocation } from "react-router-dom";
+import ModalConectar from "../conectar-modal/ModalConectar";
 
 const content = (
     <div>
@@ -24,12 +25,19 @@ function Menu() {
     const location = useLocation();
 
 
-    const [openModal, setOpenModal] = useState(false);
-    const showModal = () => {
-        setOpenModal(true);
+    const [openModalSetting, setOpenModalSetting] = useState(false);
+    const [openModalConexao, setOpenModalConexao] = useState(false);
+    const showModalSetting = () => {
+        setOpenModalSetting(true);
     };
-    const handleCancel = () => {
-        setOpenModal(false);
+    const handleCancelSetting = () => {
+        setOpenModalSetting(false);
+    };
+    const showModalConexao = () => {
+        setOpenModalConexao(true);
+    };
+    const handleCancelConexao = () => {
+        setOpenModalConexao(false);
     };
 
     const profilePicture = logo;
@@ -39,7 +47,7 @@ function Menu() {
         <div className="menu-lateral-field">
 
             <div className="menu-lateral">
-                <div className="menu-lateral_menu-begin">
+                <div className="menu-lateral_menu-begin" onClick={showModalConexao}>
 
                     <img src={logo} alt="Logo AyanCare" />
                     <a className="btn-conectar">+ Conectar</a>
@@ -117,14 +125,16 @@ function Menu() {
                         </Popover>
                     </Space>
 
-                    <a className="btn-icons" onClick={showModal}>
+                    <a className="btn-icons" onClick={showModalSetting}>
                         <img className="icons-notification" src={iconConfig} alt="" />
                     </a>
 
 
                 </div>
             </div>
-            <ModalSetting open={openModal} onCancel={handleCancel} />
+            <ModalSetting open={openModalSetting} onCancel={handleCancelSetting} />
+            <ModalConectar onCancel={handleCancelConexao} onOpen={openModalConexao}/>
+            
         </div>
     )
 

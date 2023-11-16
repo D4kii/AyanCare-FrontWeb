@@ -8,6 +8,7 @@ import Menu from '../../../components/menu/menu';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import CardRelatorio from '../../../components/card-relatorio/CardRelatorio';
+import RelatorioDrawer from '../../../components/drawer-relatorio/DrawerRelatorio';
 
 //API
 import { getRelatorioByIDCuidador } from '../../../services/api';
@@ -17,23 +18,12 @@ import { useEffect } from 'react';
 // //Pegando o json do cuidador e o token como string do localStorage
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
 
-// // Verifica se cuidadorLocalStorage não é nulo antes de tentar analisá-lo
-// const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
-// const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
-
-// let response = null;
-// // Certifique-se de que idCuidador não seja nulo antes de usar em outros lugares do código
-// if (idCuidador) {
-//   // Agora você pode usar idCuidador em outras partes do código
-//   // Certifique-se de que o cuidador existe no localStorage antes de fazer a solicitação
-//   response = await getRelatorioByIDCuidador( idCuidador);
-// } else {
-//   // Lida com o caso em que o cuidador não está presente no localStorage
-//   console.error("Cuidador não encontrado no localStorage.");
-// }
 
 
 const Relatorios = () => {
+    const [openDrawer, setOpenDrawer] = useState(false);  
+    const [dadosRelatorio, setDadosRelatorio] = useState({});  
+
 
     const [openModal, setOpenModal] = useState(false);
     const showModal = () => {
@@ -43,7 +33,15 @@ const Relatorios = () => {
         setOpenModal(false);
     };
 
+    const viewRelatorio = (e) => {
+        setDadosRelatorio(e)
+        setOpenDrawer(true);
+    }
+
     const [relatorio, setRelatorio] = useState();
+    console.log('====================================');
+    console.log(relatorio);
+    console.log('====================================');
     const [loading, setLoading] = useState(true);
     const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
     const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
@@ -102,22 +100,32 @@ const Relatorios = () => {
                     {loading ? (
                         <p>Carregando...</p>
                     ) : (
-                        relatorio.map((relatorio, index) => (
-                            <CardRelatorio
-                                key={index}
-                                textoRelatorio={`Paciente: ${relatorio.paciente.nome}`}
-                                dataRelatorio={relatorio.data}
-                                horarioRelatorio={relatorio.horario}
-                            />
-                        ))
+                        relatorio && relatorio.length > 0 ? (
+                            relatorio.map((relatorioItem) => (
+                                <CardRelatorio
+                                    onClick={() => viewRelatorio(relatorioItem)}
+                                    key={relatorioItem.id}
+                                    textoRelatorio={`Paciente: ${relatorioItem.paciente.nome}`}
+                                    dataRelatorio={relatorioItem.data}
+                                    horarioRelatorio={relatorioItem.horario}
+                                />
+                            ))
+                        ) : (
+                            <p>Nenhum relatório encontrado.</p>
+                        )
                     )}
-
                 </div>
                 <CreateRelatorioModal
                     open={openModal}
                     onCancel={handleCancel}
+                    setOpenModal={setOpenModal}
                 />
             </div>
+            <RelatorioDrawer
+            dadosRelatorio={dadosRelatorio}
+            open={openDrawer}
+            setOpen={setOpenDrawer}
+            />
         </div>
     );
 }

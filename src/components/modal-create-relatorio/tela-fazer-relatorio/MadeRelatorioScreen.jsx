@@ -1,7 +1,7 @@
 import React from "react";
 import '../create-relatorio-modal.css'
 import Loading from '../../loading/Loading'
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 
 const layout = {
     labelCol: {
@@ -18,18 +18,24 @@ function MadeRelatorioScreen(
         pacienteParameterUseState,
         onFinishFunction,
         handleChangeSelect,
-        toggleModoQuestionarioFunction
+        toggleModoQuestionarioFunction,
+        onCancelParameterUseState
+
     }
 ) {
 
     const [form] = Form.useForm();
 
-
+    const onCancel = onCancelParameterUseState;
     const loading = loadingParameterUseState;
     const paciente = pacienteParameterUseState;
     const onFinish = onFinishFunction;
     const handleChange = handleChangeSelect;
     const toggleModoQuestionario = toggleModoQuestionarioFunction;
+
+    const hasPacientes = paciente.status
+
+    console.log(1, paciente.status);
 
     return (
 
@@ -62,14 +68,13 @@ function MadeRelatorioScreen(
                     fontSize: '14px'
                 }}
             >
+
                 <Select
                     defaultValue=""
                     style={{ width: 200 }}
                     onChange={handleChange}
                     labelInValue="Paciente"
-
                 >
-
                     {loading ? (
                         <Loading />
                     ) : (
@@ -77,12 +82,10 @@ function MadeRelatorioScreen(
                             <Option key={conexao.id_paciente} value={conexao.id_paciente}>
                                 {conexao.paciente}
                             </Option>
-                        )
-                        )
-                    )
-                    }
-
+                        ))
+                    )}
                 </Select>
+
             </Form.Item>
 
 
@@ -119,6 +122,7 @@ function MadeRelatorioScreen(
                     Criar Relatório
                 </Button>
             </Form.Item>
+
 
             {/* <Button form={form} type="primary" onClick={toggleModoQuestionario}>
                 Criar Relatório

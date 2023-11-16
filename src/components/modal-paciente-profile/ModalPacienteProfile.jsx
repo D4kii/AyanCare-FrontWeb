@@ -6,78 +6,78 @@ function CuidadorModalPaciente(){
 
     return (
         <div>
-            <div class="roxo"></div>
-            <div class="grupo2">
-                <div class="frame1">
-                    <img class="img-paciente" src="../img/exemplo.jpg" alt="" />
-                    <div class="text">
-                        <h2 class="nome-do-paciente">Fofinho</h2>
-                        <span class="span-paciente">Paciente</span>
+            <div className="roxo"></div>
+            <div className="grupo2">
+                <div className="frame1">
+                    <img className="img-paciente" src="../img/exemplo.jpg" alt="" />
+                    <div className="text">
+                        <h2 className="nome-do-paciente">Fofinho</h2>
+                        <span className="span-paciente">Paciente</span>
                     </div>
                 </div>
 
-                <div class="frame2">
-                    <h3 class="h3-titulo">Tratamentos</h3>
-                    <div class="tratamentos">
-                        <div class="quadrado1">
-                            <p class="text">Diabetes</p>
+                <div className="frame2">
+                    <h3 className="h3-titulo">Tratamentos</h3>
+                    <div className="tratamentos">
+                        <div className="quadrado1">
+                            <p className="text">Diabetes</p>
                         </div>
-                        <div class="quadrado2">
-                            <p class="text">Tiroide</p>
+                        <div className="quadrado2">
+                            <p className="text">Tiroide</p>
                         </div>
                     </div>
                 </div>
-                <div class="frame3">
-                    <h3 class="h3-titulo">Remédios</h3>
-                    <div class="grupo1">
-                        <button class="botaozinho">
-                            <div class="btn-remedio">
-                                <div class="fotoNomeRemedio">
-                                    <img class="img-icon" src="../img/pilulas.png" alt="" />
-                                    <div class="dadoRemedio">
-                                        <h4 class="nome-do-remedio">Glimepirida</h4>
-                                        <p class="quanto-tempo-remedio">A cada 8h</p>
+                <div className="frame3">
+                    <h3 className="h3-titulo">Remédios</h3>
+                    <div className="grupo1">
+                        <button className="botaozinho">
+                            <div className="btn-remedio">
+                                <div className="fotoNomeRemedio">
+                                    <img className="img-icon" src="../img/pilulas.png" alt="" />
+                                    <div className="dadoRemedio">
+                                        <h4 className="nome-do-remedio">Glimepirida</h4>
+                                        <p className="quanto-tempo-remedio">A cada 8h</p>
                                     </div>
                                 </div>
-                                <p class="hora-do-remedio">Daqui 12min</p>
+                                <p className="hora-do-remedio">Daqui 12min</p>
                             </div>
                         </button>
-                        <button class="botaozinho">
-                            <div class="btn-remedio">
-                                <div class="fotoNomeRemedio">
-                                    <img class="img-icon" src="../img/pilulas.png" alt="" />
-                                    <div class="dadoRemedio">
-                                        <h4 class="nome-do-remedio">Glimepirida</h4>
-                                        <p class="quanto-tempo-remedio">A cada 8h</p>
+                        <button className="botaozinho">
+                            <div className="btn-remedio">
+                                <div className="fotoNomeRemedio">
+                                    <img className="img-icon" src="../img/pilulas.png" alt="" />
+                                    <div className="dadoRemedio">
+                                        <h4 className="nome-do-remedio">Glimepirida</h4>
+                                        <p className="quanto-tempo-remedio">A cada 8h</p>
                                     </div>
                                 </div>
-                                <p class="hora-do-remedio">Daqui 12min</p>
+                                <p className="hora-do-remedio">Daqui 12min</p>
                             </div>
                         </button>
                     </div>
-                    <div class="grupo3">
-                        <button class="botaozinho">
-                            <div class="btn-remedio">
-                                <div class="fotoNomeRemedio">
-                                    <img class="img-icon" src="../img/pilulas.png" alt="" />
-                                    <div class="dadoRemedio">
-                                        <h4 class="nome-do-remedio">Glimepirida</h4>
-                                        <p class="quanto-tempo-remedio">A cada 8h</p>
+                    <div className="grupo3">
+                        <button className="botaozinho">
+                            <div className="btn-remedio">
+                                <div className="fotoNomeRemedio">
+                                    <img className="img-icon" src="../img/pilulas.png" alt="" />
+                                    <div className="dadoRemedio">
+                                        <h4 className="nome-do-remedio">Glimepirida</h4>
+                                        <p className="quanto-tempo-remedio">A cada 8h</p>
                                     </div>
                                 </div>
-                                <p class="hora-do-remedio">Daqui 12min</p>
+                                <p className="hora-do-remedio">Daqui 12min</p>
                             </div>
                         </button>
-                        <button class="botaozinho">
-                            <div class="btn-remedio">
-                                <div class="fotoNomeRemedio">
-                                    <img class="img-icon" src="../img/pilulas.png" alt="" />
-                                    <div class="dadoRemedio">
-                                        <h4 class="nome-do-remedio">Glimepirida</h4>
-                                        <p class="quanto-tempo-remedio">A cada 8h</p>
+                        <button className="botaozinho">
+                            <div className="btn-remedio">
+                                <div className="fotoNomeRemedio">
+                                    <img className="img-icon" src="../img/pilulas.png" alt="" />
+                                    <div className="dadoRemedio">
+                                        <h4 className="nome-do-remedio">Glimepirida</h4>
+                                        <p className="quanto-tempo-remedio">A cada 8h</p>
                                     </div>
                                 </div>
-                                <p class="hora-do-remedio">Daqui 12min</p>
+                                <p className="hora-do-remedio">Daqui 12min</p>
                             </div>
                         </button>
                     </div>

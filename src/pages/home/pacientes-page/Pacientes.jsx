@@ -11,7 +11,7 @@ const Pacientes = () => {
     return (
         <div>
             <Menu />
-            <div class="paciente">
+            <div className="paciente">
                 <h1 className='pacientes-page_title'>Pacientes</h1>
                 <Input type="search"
                     placeholder="Pesquisar"

@@ -14,7 +14,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(50% - 15vw); /* Ajuste conforme necessário, lembre-se de subtrair a margem */
     margin: 5px; /* Adiciona margem entre os cards */
     /* Adicione outros estilos necessários para seus cards */
 }

@@ -2,14 +2,16 @@ import React from "react";
 import './card-relatorio.css'
 import { FileTextFilled } from "@ant-design/icons";
 
-function CardRelatorio({ textoRelatorio, dataRelatorio, horarioRelatorio }) {
+function CardRelatorio({ textoRelatorio, dataRelatorio, horarioRelatorio, onClick }) {
 
     const texto = textoRelatorio;
     const data = dataRelatorio;
     const horario = horarioRelatorio;
 
     return (
-        <div className="card-relatorio_field">
+        <div className="card-relatorio_field"
+            onClick={onClick}
+        >
 
             <div className="card-relatorio">
                 <div className="card-relatorio_icon">
