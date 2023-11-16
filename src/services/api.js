@@ -5,6 +5,7 @@ export const api = axios.create({
     baseURL: "http://localhost:8080/v1/ayan",
 });
 
+// POST
 export const createSessionUsuarioAutenticar = async (email, senha) => {
 
     console.log({ email, senha });
@@ -19,6 +20,22 @@ export const createUsuario = async (nome, data_nascimento, email, senha, id_gene
     return await api.post("/cuidador", { nome, data_nascimento, email, senha, id_genero })
 }
 
+export const createRelatorio = async (relatorio) =>{
+
+    console.log(relatorio);
+    return (
+        await api.post("/relatorio", relatorio)
+    )
+}
+export const createQuestionarioRelatorio = async (questionario) =>{
+
+    console.log(questionario);
+    return (
+        await api.post("/questionario", questionario)
+    )
+}
+
+//GET
 export const getCuidador = async (token, idCuidador) => {
 
     try {
@@ -63,6 +80,18 @@ export const getPacientesByIDCuidador = async (id_cuidador) => {
 
     } catch (error) {
         console.error('Erro na solicitação GET de cuidador:', error);
+        throw error;
+    }
+}
+
+export const getPerguntasQuestionarioRelatorio = async () => {
+    try {
+        const response = await api.get(`/perguntas`);
+        console.log(response.data);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de perguntas do questionario:', error);
         throw error;
     }
 }

@@ -1,4 +1,53 @@
-.create-relatorio-modal{
-    background-color: aquamarine;
+.create-relatorio-modal {
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
+.create-relatorio_forms {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.2rem;
+}
+
+.create-relatorio-modal_title {
+    color: #35225F;
+    font-family: Poppins;
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+:where(.css-dev-only-do-not-override-1k95tbk).ant-form-item .ant-form-item-label>label {
+    color: #000;
+    font-family: manrope;
+    width: 50vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+:where(.css-dev-only-do-not-override-1k95tbk).ant-form-item .ant-form-item-control-input-content {
+    max-width: none;
+}
+
+:where(.css-dev-only-do-not-override-1k95tbk).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    border-color: #35225F;
+    background-color: #35225F;
+}
+
+:where(.css-dev-only-do-not-override-1k95tbk).ant-btn-primary {
+    color: #fff;
+    background-color: #35225F;
+    box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+}
+
+:where(.css-dev-only-do-not-override-1k95tbk).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #fff;
+    background-color: #D6C0FF;
+}

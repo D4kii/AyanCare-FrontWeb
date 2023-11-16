@@ -150,7 +150,8 @@ function SignUpForms({
     const fieldEmail = 'E-mail'
 
     return (
-        <Form className="forms"
+        <Form
+            className="forms"
             {...formItemLayout}
             form={form}
             name="register"
@@ -171,8 +172,8 @@ function SignUpForms({
             </div>
             <div className='form_inputs-field'>
                 <Form.Item
-                name="image"
-                label="Foto de Perfil"
+                    name="image"
+                    label="Foto de Perfil"
                 >
                     <ProfilePicture
                         progress={progress}
@@ -292,7 +293,8 @@ function SignUpForms({
                                 width: widthForBiggestInputs,
                                 height: heightForTextArea,
                                 maxHeight: heightForTextArea,
-                                maxWidth: maxWidthForBiggestInputs
+                                maxWidth: maxWidthForBiggestInputs,
+                                resize: 'none'
                             }}
                         />
                     </Form.Item>

@@ -1,49 +1,131 @@
-import { ConfigProvider, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import './create-relatorio-modal.css'
-import { getPacientesByIDCuidador } from "../../services/api";
 
-function CreateRelatorioModal({ open, onCancel }) {
+//COMPONENTES
+import { Button, ConfigProvider, Form, Input, InputNumber, Modal, Radio, Select, message } from "antd";
+import MadeQuestionarioScreen from "./tela-fazer-questionario/MadeQuestionarioScreen";
+import MadeRelatorioScreen from "./tela-fazer-relatorio/MadeRelatorioScreen";
 
-    const cuidadorLocalStorage = localStorage.getItem('cuidador')
+//API
+import { getPacientesByIDCuidador, getPerguntasQuestionarioRelatorio, createRelatorio, createQuestionarioRelatorio } from "../../services/api";
 
-    const [menuClick, setMenuClick] = useState('')
 
-    const onClick = (e) => {
-        console.log(menuClick);
-        setMenuClick(e.key)
+
+//Pegar o usuario para fazer a verificação se ele existe 
+const cuidadorLocalStorage = localStorage.getItem('cuidador')
+
+function CreateRelatorioModal(
+    {
+        open,
+        onCancel }
+) {
+
+    const [messageApi, contextHolder] = message.useMessage();
+
+    const ErrorMessage = (message) => {
+        messageApi.open({
+            type: 'error',
+            content: message,
+        });
+    };
+
+    const [loading, setLoading] = useState(true);
+    const [pergunta, setPergunta] = useState("");
+    const [paciente, setPaciente] = useState("");
+    const [respostas, setRespostas] = useState({});
+    const [modoQuestionario, setModoQuestionario] = useState(false);
+    const [idRelatorio, setIdRelatorio] = useState({})
+
+    const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
+    const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
+
+    console.log(respostas);
+    const toggleModoQuestionario = () => {
+        setModoQuestionario((prevModoQuestionario) => !prevModoQuestionario);
+    };
+
+    const handleChange = (selectedOption) => {
+        const { value } = selectedOption;
+        console.log(`selected ${value}`);
     };
 
 
-    const handleLogout = () => {
-        logout()
-    }
+    const onFinishMadeRelatorio = async (values) => {
+        try {
+            const relatorio = {
+                "texto_relatorio": values.relatorio,
+                "validacao": 1,
+                "id_paciente": values.paciente.value,
+                "id_cuidador": idCuidador,
+            };
+
+            // Chama a API para criar o relatório
+            const response = await createRelatorio(relatorio);
+
+            // Imprime os dados do relatório criado
+            console.log(response.data.relatorio.id);
+
+            setIdRelatorio(response.data)
+
+            // Ativa o modo de questionário
+            setModoQuestionario(true);
+        } catch (error) {
+            // Lida com erros na chamada da API
+            console.error('Erro ao criar relatório:', error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                //Api de perguntas
+                const dataPerguntasQuestionario = await getPerguntasQuestionarioRelatorio();
+                //Api de Pacientes por id do cuidador
+                const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
+
+                // const dataCreateRelatorio = await createRelatorio();
+
+                setPaciente(dataPacientesByCuidador);
+                setPergunta(dataPerguntasQuestionario)
+                setLoading(false);
+            } catch (error) {
+                console.error('Erro ao buscar dados da API:', error);
+                setLoading(false);
+            }
+        };
+
+        if (idCuidador) {
+            fetchData();
+        }
+    }, [idCuidador]);
+
+    const onFinishMadeQuestionario = async (values) => {
+        pergunta.perguntas.forEach(async dadosPergunta => {
+            try {
+
+                const questionario = {
+                    "id_pergunta": dadosPergunta.id,
+                    "id_relatorio": idRelatorio.relatorio.id,
+                    "resposta": respostas[dadosPergunta.id]
+                };
+                console.log(questionario);
+
+                //Chama a API para criar o relatório
+                const response = await createQuestionarioRelatorio(questionario);
+
+                // Imprime os dados do relatório criado
 
 
-    // const [paciente, setPaciente] = useState();
-    // const [loading, setLoading] = useState(true);
-    // const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
-    // const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
+                // Ativa o modo de questionário
+                setModoQuestionario(true);
+            } catch (error) {
+                // Lida com erros na chamada da API
+                ErrorMessage("Erro ao criar Questionário");
+                console.error('Erro ao criar Questionário:', error);
+            }
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const data = await getPacientesByIDCuidador(idCuidador);
-    //             setRelatorio(data);
-    //             console.log('====================================');
-    //             console.log(data);
-    //             console.log('====================================');
-    //             setLoading(false);
-    //         } catch (error) {
-    //             console.error('Erro ao buscar dados da API:', error);
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     if (idCuidador) {
-    //         fetchData();
-    //     }
-    // }, [idCuidador]);
+        });
+    };
 
 
     return (
@@ -72,31 +154,30 @@ function CreateRelatorioModal({ open, onCancel }) {
                 >
                     <div
                         className='create-relatorio-modal Modal'>
-                        <h2 className="create-relatorio-modal_title">
-                            Criar Relatório
-                        </h2>
-                        {/* <Select
-                            defaultValue="lucy"
-                            style={{ width: 200 }}
-                            onChange={handleChange}
-                            options={[
-                                {
-                                    label: 'Manager',
-                                    options: [
-                                        { label: 'Jack', value: 'jack' },
-                                        { label: 'Lucy', value: 'lucy' },
-                                    ],
-                                },
-                                {
-                                    label: 'Engineer',
-                                    options: [{ label: 'yiminghe', value: 'Yiminghe' }],
-                                },
-                            ]}
-                        /> */}
 
+                        {modoQuestionario ? (
+                            <MadeQuestionarioScreen
+                                loadingParameterUseState={loading}
+                                perguntaParameterUseState={pergunta}
+                                respostasParameterUseState={respostas}
+                                toggleModoQuestionarioFunction={toggleModoQuestionario}
+                                idRelatorioParameterUseState={idRelatorio}
+                                onFinishQuestionarioFunction={onFinishMadeQuestionario}
+                                setRespostasParameterUseState={setRespostas}
+                            />
+                        ) : (
+                            <MadeRelatorioScreen
+                                loadingParameterUseState={loading}
+                                pacienteParameterUseState={paciente}
+                                onFinishFunction={onFinishMadeRelatorio}
+                                handleChangeSelect={handleChange}
+                                toggleModoQuestionarioFunction={toggleModoQuestionario}
+                            />
+                        )}
 
-
-
+                        {/* <Button onClick={toggleModoQuestionario}>
+                            {modoQuestionario ? "Mostrar Relatório" : "Mostrar Questionário"}
+                        </Button> */}
 
                     </div>
                 </Modal>
