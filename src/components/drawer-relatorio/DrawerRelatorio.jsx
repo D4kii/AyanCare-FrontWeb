@@ -25,6 +25,7 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio }) {
     return (
         <div>
             <Drawer title="Ver Relatório" width={700} closable={false} onClose={onClose} open={open}>
+                
 
 
             </Drawer>
