@@ -59,6 +59,7 @@ function RelatorioHumorScreen() {
 
     return (
         <div>
+            
             <h2 className="relatorio-humor_screen-title">
                 Relatórios de humor
             </h2>
