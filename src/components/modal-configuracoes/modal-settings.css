@@ -3,6 +3,7 @@ Modal {
 }
 
 .Modal {
+    background-color: #FEFCFC;
     height: 70vh;
     padding: 0%;
     border-radius: 4px;
@@ -43,6 +44,9 @@ Modal {
 
 :where(.css-dev-only-do-not-override-npw2zm).ant-menu-light .ant-menu-item-selected,
 :where(.css-dev-only-do-not-override-npw2zm).ant-menu-light>.ant-menu .ant-menu-item-selected {
+    background-color: #C8BEDB;
+}
+:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light>.ant-menu .ant-menu-item-selected {
     background-color: #C8BEDB;
 }
 

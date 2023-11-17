@@ -57,7 +57,7 @@ function CuidadorEditarProfile({ onCancel }) {
                     nome: cuidadorResponse.cuidador.nome,
                     foto: cuidadorResponse.cuidador.foto,
                     data_nascimento: '01/01/2007',
-                    genero: cuidadorResponse.cuidador.genero,
+                    genero: cuidadorResponse.cuidador.genero.values,
                     descricao_experiencia: cuidadorResponse.cuidador.descricao_experiencia,
                 });
             } catch (error) {

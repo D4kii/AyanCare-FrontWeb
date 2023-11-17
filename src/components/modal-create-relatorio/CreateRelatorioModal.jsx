@@ -69,6 +69,7 @@ function CreateRelatorioModal(
             // Chama a API para criar o relatório
             const response = await createRelatorio(relatorio);
 
+
             // Imprime os dados do relatório criado
             console.log(response.data.relatorio.id);
 

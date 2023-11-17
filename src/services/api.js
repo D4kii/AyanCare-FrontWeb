@@ -72,6 +72,17 @@ export const getPacienteById = async (idPaciente) => {
     }
 
 }
+export const getTesteHumorByID = async (idTesteHumor) => {
+
+    try {
+        const response = await api.get(`/teste/${idTesteHumor}`);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na solicitação GET de teste de humor:', error);
+        throw error;
+    }
+
+}
 
 export const getRelatorioByIDCuidador = async (id_cuidador) => {
     try {
@@ -102,6 +113,20 @@ export const getPacientesByIDCuidador = async (id_cuidador) => {
         throw error;
     }
 }
+export const getRelatorioHumorbyIdPaciente = async (id_paciente) => {
+    try {
+        const response = await api.get(`/testes`, {
+            params: {
+                idPaciente: id_paciente
+            }
+        });
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de teste de humor:', error);
+        throw error;
+    }
+}
 
 export const getPerguntasQuestionarioRelatorio = async () => {
     try {
@@ -114,17 +139,22 @@ export const getPerguntasQuestionarioRelatorio = async () => {
     }
 }
 
-export const getEventosAlarmesByCuidadorAndMes = async () => {
+export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_paciente) => {
     try {
-        const response = await api.get(`/conexoes`, {
+        const response = await api.get(`/relatorios`, {
             params: {
+                idPaciente: id_paciente,
+                mes: mes,
                 idCuidador: id_cuidador
             }
         });
+        console.log('getEventosAlarmesByCuidadorAndMes====================================');
+        console.log(response.data);
+        console.log('====================================');
         return response.data
 
     } catch (error) {
-        console.error('Erro na solicitação GET de cuidador:', error);
+        console.error('Erro na solicitação GET de calendario:', error);
         throw error;
     }
 }

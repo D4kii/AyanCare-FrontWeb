@@ -3,13 +3,15 @@ import Modal from "antd/es/modal/Modal";
 import React, { useEffect, useState } from "react";
 import SubmitButton from "../button/SubmitButton";
 import Button from "../button/Button";
-import { createConexaoUsuarios, getPacienteById } from "../../services/api";
+import { createConexaoUsuarios, getEventosAlarmesByCuidadorAndMes, getPacienteById } from "../../services/api";
 
 
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
 
 const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
 const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
+
+
 
 function ModalConectar({ onOpen, onCancel }) {
     const [form] = Form.useForm();
@@ -49,6 +51,7 @@ function ModalConectar({ onOpen, onCancel }) {
 
             // Chama a API para criar a conexão
             const response = await createConexaoUsuarios(cuidadorID, pacienteID);
+
 
             // Exibe a modal de sucesso
             Modal.success({
