@@ -8,7 +8,6 @@ export const api = axios.create({
 // POST
 export const createSessionUsuarioAutenticar = async (email, senha) => {
 
-    console.log({ email, senha });
     return (await api.post("/usuario/autenticar", { email, senha })
     )
 
@@ -16,20 +15,17 @@ export const createSessionUsuarioAutenticar = async (email, senha) => {
 
 export const createUsuario = async (nome, data_nascimento, email, senha, id_genero) => {
 
-    console.log({ nome, data_nascimento, email, senha, id_genero });
     return await api.post("/cuidador", { nome, data_nascimento, email, senha, id_genero })
 }
 
 export const createRelatorio = async (relatorio) => {
 
-    console.log(relatorio);
     return (
         await api.post("/relatorio", relatorio)
     )
 }
 export const createQuestionarioRelatorio = async (questionario) => {
 
-    console.log(questionario);
     return (
         await api.post("/questionario", questionario)
     )
@@ -40,7 +36,6 @@ export const createConexaoUsuarios = async (id_cuidador, id_paciente) => {
 
     try {
         const response = await api.post(`/conectar?idCuidador=${id_cuidador}&idPaciente=${id_paciente}`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Erro na conexão de contas:', error);
@@ -58,6 +53,7 @@ export const getCuidador = async (token, idCuidador) => {
                 'Authorization': `Bearer ${token}`
             }
         });
+        console.log(2, response.data);
         return response.data;
     } catch (error) {
         console.error('Erro na solicitação GET de cuidador:', error);
@@ -84,7 +80,6 @@ export const getRelatorioByIDCuidador = async (id_cuidador) => {
                 idCuidador: id_cuidador
             }
         });
-        console.log(response.data);
         return response.data
 
     } catch (error) {
@@ -100,7 +95,6 @@ export const getPacientesByIDCuidador = async (id_cuidador) => {
                 idCuidador: id_cuidador
             }
         });
-        console.log(response.data);
         return response.data
 
     } catch (error) {
@@ -112,11 +106,49 @@ export const getPacientesByIDCuidador = async (id_cuidador) => {
 export const getPerguntasQuestionarioRelatorio = async () => {
     try {
         const response = await api.get(`/perguntas`);
-        console.log(response.data);
         return response.data
 
     } catch (error) {
         console.error('Erro na solicitação GET de perguntas do questionario:', error);
         throw error;
     }
+}
+
+export const getEventosAlarmesByCuidadorAndMes = async () => {
+    try {
+        const response = await api.get(`/conexoes`, {
+            params: {
+                idCuidador: id_cuidador
+            }
+        });
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de cuidador:', error);
+        throw error;
+    }
+}
+
+//PUT
+
+export const updateCuidador = async (idCuidador, dados) => {
+    try {
+        const response = await api.put(`/cuidador/${idCuidador}`, dados);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na atualização do Cuidador:', error);
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+    }
+    
 }

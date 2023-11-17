@@ -32,10 +32,12 @@ function Signup() {
             "nome": fieldsValue.nome,
             "foto": image,
             'data_nascimento': fieldsValue['data_nascimento'].format('YYYY-MM-DD'),
+            "descricao_experiencia": fieldsValue.description,
             "email": fieldsValue.email,
             "senha": fieldsValue.password,
             "id_genero": fieldsValue.gender
         };
+        console.log();
 
         fetch('http://localhost:8080/v1/ayan/cuidador', {
             method: 'POST',

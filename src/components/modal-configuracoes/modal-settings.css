@@ -27,7 +27,7 @@ Modal {
     width: 25vw;
 }
 
-.modal-setting_page{
+.modal-setting_page {
     width: 52vw;
     height: 70vh;
 }
@@ -41,13 +41,13 @@ Modal {
     color: #fff;
 }
 
-:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light .ant-menu-item-selected,
-:where(.css-dev-only-do-not-override-j9z5r4).ant-menu-light>.ant-menu .ant-menu-item-selected {
+:where(.css-dev-only-do-not-override-npw2zm).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-npw2zm).ant-menu-light>.ant-menu .ant-menu-item-selected {
     background-color: #C8BEDB;
 }
 
-:where(.css-dev-only-do-not-override-1czi1ww).ant-btn-primary {
-    background-color: #35225F;
+:where(.css-dev-only-do-not-override-npw2zm).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-npw2zm).ant-menu-light>.ant-menu .ant-menu-item-selected {
+    color: #35225F;
 }
 
 :where(.css-dev-only-do-not-override-1czi1ww).ant-modal .ant-modal-body {

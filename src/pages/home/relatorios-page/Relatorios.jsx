@@ -125,6 +125,7 @@ const Relatorios = () => {
             dadosRelatorio={dadosRelatorio}
             open={openDrawer}
             setOpen={setOpenDrawer}
+            loading={loading}
             />
         </div>
     );

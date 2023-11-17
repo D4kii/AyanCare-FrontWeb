@@ -22,8 +22,9 @@
 }
 
 .contas-vinculadas_cards-pacientes{
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: space-evenly;
-
+    flex-wrap: wrap;
+    gap: 2rem;
 }

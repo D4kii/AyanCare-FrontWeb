@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { getCuidador } from "../../services/api.js";
 
 //Componentes
-import { MinusCircleOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, QuestionCircleOutlined, SmileOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Menu, Space, Popconfirm } from 'antd';
 import CuidadorProfile from '../cuidador-profile/CuidadorProfile.jsx';
 import ContasVinculadasScreen from '../contas-vinculadas/ContasVinculadas.jsx';
@@ -12,6 +12,7 @@ import './modal-settings.css'
 
 import { AuthContext } from '../../contexts/auth';
 import ContasDesvinculadasScreen from '../contas-desvinculadas/ContasDesvinculadas.jsx';
+import RelatorioHumorScreen from '../relatorio-humor-screen/RelatorioHumorScreen.jsx';
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -29,7 +30,8 @@ const items = [
   ], 'group'),
   getItem('Mais', 'g2', null, [
     getItem('Contas Desvinculadas', '3', <MinusCircleOutlined />),
-    getItem('Ajuda', '4', <QuestionCircleOutlined />)
+    getItem('Relatório de humor', '4', <SmileOutlined />),
+    getItem('Ajuda', '5', <QuestionCircleOutlined />)
   ], 'group'),
 ]
 
@@ -76,7 +78,7 @@ const ModalSetting = ({ open, onCancel }) => {
     logout()
   }
 
-  console.log(imagem);
+  console.log(response.cuidador);
 
 
   return (
@@ -174,10 +176,12 @@ const ModalSetting = ({ open, onCancel }) => {
                   )
                   : menuClick == 3 ?
                     (
-                      <ContasDesvinculadasScreen/>
-                      )
-                    :
-                    (console.log('foi', menuClick))
+                      <ContasDesvinculadasScreen />
+                    )
+                    : menuClick == 4 ?
+                      <RelatorioHumorScreen />
+                      :
+                      (console.log('foi', menuClick))
               }
             </div>
           </div>

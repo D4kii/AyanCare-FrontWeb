@@ -1,0 +1,63 @@
+.ver-relatorio_paciente-name-title {
+    color: #35225F;
+    font-family: Poppins;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.ver-relatorio_paciente-idade-genero {
+    color: var(--roxo-do-botao, #9986BD);
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.ver-relatorio_paciente-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.ver-relatorio_date-time {
+    display: flex;
+    gap: 1.5rem;
+
+}
+
+.input-drawer {
+    color: #9986BD;
+    border-radius: 4px;
+    border: none;
+    background: var(--White, #FFF);
+}
+
+.ver-relatorio_field-screen{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.ver-relatorio_text-field{
+    min-height: 10vh;
+    height: max-content;
+    max-height: 900px;
+    width: 620px;
+    background-color: #D6C0FF;
+    color: #35225F;
+border-radius: 4px;
+}
+
+.text-drawer{
+    padding: 1rem;
+}
+
+:where(.css-dev-only-do-not-override-i0102m).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    border-color: #35225F;
+    background-color: #35225F;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import '../button/button.css';
 
-function Button({nameButton, heigthButton, widthButton, textSize, color, contentColor, iconButton}) {
+function Button({nameButton, heigthButton, widthButton, textSize, color, contentColor, iconButton, onClick}) {
 
     const nome = nameButton;
     const altura = heigthButton;
@@ -20,7 +20,7 @@ function Button({nameButton, heigthButton, widthButton, textSize, color, content
                     background: backgroundColor,
                     gap: '2rem'
                 }}
-                
+                onClick={onClick}
             >
                 {icon? icon : null}
                 <span
