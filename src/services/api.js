@@ -141,7 +141,7 @@ export const getPerguntasQuestionarioRelatorio = async () => {
 
 export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_paciente) => {
     try {
-        const response = await api.get(`/relatorios`, {
+        const response = await api.get(`/calendario`, {
             params: {
                 idPaciente: id_paciente,
                 mes: mes,
@@ -149,7 +149,7 @@ export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_pac
             }
         });
         console.log('getEventosAlarmesByCuidadorAndMes====================================');
-        console.log(response.data);
+        console.log({id_cuidador, mes, id_paciente});
         console.log('====================================');
         return response.data
 

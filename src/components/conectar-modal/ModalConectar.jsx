@@ -3,7 +3,7 @@ import Modal from "antd/es/modal/Modal";
 import React, { useEffect, useState } from "react";
 import SubmitButton from "../button/SubmitButton";
 import Button from "../button/Button";
-import { createConexaoUsuarios, getEventosAlarmesByCuidadorAndMes, getPacienteById } from "../../services/api";
+import { createConexaoUsuarios, getPacienteById } from "../../services/api";
 
 
 const cuidadorLocalStorage = localStorage.getItem('cuidador')

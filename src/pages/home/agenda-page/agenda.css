@@ -2,34 +2,34 @@
     display: flex;
     width: 100vw;
     height: 100vh;
-    justify-content: end;
+    justify-content: center;
     gap: 3vw;
 }
 
-.agenda-field_eventos-alarmes {
-    width: 42vw;
-    height: 100vh;
+.agenda-field_eventos-turnos {
+    width: 65vw;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
     gap: 3rem;
 }
 
-.agenda-field_calendario-turnos {
-    width: 42vw;
+.agenda-field_calendario {
+    width: 65vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 1rem;
 }
 
-.agenda-field_calendario-turnos-field {
+.agenda-field_calendario-field {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    height: 95vh;
+    height:88vh;
+    justify-content: center;
     width: 95%;
     border-radius: 8px;
     border: 2px solid rgba(73, 56, 111, 0.20);
@@ -52,23 +52,22 @@
     background: #dad7d7;
 }
 
-.agenda-field_calendario-turnos_calendario {
-    width: 40vw;
+.agenda-field_calendario_calendario {
+    width: 60vw;
+    margin-top: 5vh;
+    padding: 1rem;
     justify-content: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
 }
 
-.agenda-field_calendario-turnos_turnos-card {
+.agenda-field_turnos-card {
     display: flex;
     flex-direction: column;
-    width: 35vw;
-    min-height: 30vh;
+    height: 90%;
     justify-content: center;
     align-items: center;
-    border-top: .5px solid rgba(53, 34, 95, 0.20);
-    padding-top: 1rem;
 }
 
 .agenda-card-turno_field {
@@ -89,10 +88,12 @@
 
 :where(.css-dev-only-do-not-override-i0102m).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
     background-color: #35225F;
+    font-family: poppins;
 }
 
 :where(.css-dev-only-do-not-override-i0102m).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):first-child {
     border-color: #D6C0FF;
+    font-family: poppins;
 }
 
 :where(.css-dev-only-do-not-override-i0102m).ant-radio-button-wrapper {
@@ -105,19 +106,38 @@
     font-family: poppins;
 }
 
-.eventos-alarmes_list-field {
+.ant-anchor {
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+:where(.css-dev-only-do-not-override-1adbn6x).ant-anchor-wrapper:not(.ant-anchor-wrapper-horizontal) .ant-anchor .ant-anchor-ink {
+
+    background-color: #35225F;
+}
+
+:where(.css-dev-only-do-not-override-1adbn6x).ant-anchor-wrapper .ant-anchor .ant-anchor-link-active>.ant-anchor-link-title {
+    color: #35225F;
+}
+
+:where(.css-dev-only-do-not-override-1adbn6x).ant-anchor-wrapper .ant-anchor .ant-anchor-link-title {
+    color: #CBC0E1;
+}
+
+.eventos-turnos_list-field {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
     height: 80vh;
     transition-delay: 2s;
 }
 
-.agenda-field_eventos-alarmes_select-day{
+.agenda-field_eventos-turnos_select-day {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 5rem;
 }
 
@@ -129,4 +149,73 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.alarmes_list-field {
+    margin-top: 1.5rem;
+    display: flex;
+    width: 65vw;
+    flex-direction: column;
+    height: 85vh;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-root.ant-menu-inline,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-root.ant-menu-inline,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-root.ant-menu-vertical,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-root.ant-menu-vertical {
+    border-inline-end: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu {
+    background: transparent;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item-selected::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu-selected::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu-selected::after {
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 2px solid #35225F;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu {
+    color: #CBC0E1;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu .ant-menu-item,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu .ant-menu-submenu,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu .ant-menu-submenu-title {
+    border-radius: 0;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu-selected,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu-selected {
+    color: #35225F;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-item:hover::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item:hover::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu:hover::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu:hover::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-item-active::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item-active::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu-active::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu-active::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-item-open::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item-open::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu-open::after,
+:where(.css-dev-only-do-not-override-nllxry).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu-open::after {
+    border-bottom-width: 2px;
+    border-bottom-color: #35225F;
 }

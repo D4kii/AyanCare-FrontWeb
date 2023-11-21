@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, Select, Spin, } from "antd";
+import { Button, DatePicker, Form, Input, Select, Spin, Tooltip, } from "antd";
 import React, { useEffect, useState } from "react";
 import ProfilePicture from "../../profile-picture/ProfilePicture";
 import { getCuidador, updateCuidador } from "../../../services/api";
@@ -90,36 +90,37 @@ function CuidadorEditarProfile({ onCancel }) {
     // Preenche automaticamente os campos do formulário
     console.log('hhh', cuidadorData);
     return (
-        <Spin spinning={loading}>
+        <Tooltip title="Carregando...">
+            <Spin spinning={loading}>
 
-            {cuidadorData ?
-                <Form
-                    form={form}
-                    name="register"
-                    onFinish={onFinish}
-                    layout="vertical"
-                    style={{
-                        height: '50vh'
-                    }}
-                >
-                    <Form.Item
-                        name={'foto'}
-                        className="profile-image_cuidador">
-                        <ProfilePicture
-                            imagem={imagem}
-                            setImagem={setImagem}
-
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name={'nome'}
-                        label='Nome'
+                {cuidadorData ?
+                    <Form
+                        form={form}
+                        name="register"
+                        onFinish={onFinish}
+                        layout="vertical"
+                        style={{
+                            height: '50vh'
+                        }}
                     >
-                        <Input
-                        />
-                    </Form.Item>
+                        <Form.Item
+                            name={'foto'}
+                            className="profile-image_cuidador">
+                            <ProfilePicture
+                                imagem={imagem}
+                                setImagem={setImagem}
 
-                    {/* <Form.Item
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name={'nome'}
+                            label='Nome'
+                        >
+                            <Input
+                            />
+                        </Form.Item>
+
+                        {/* <Form.Item
                         name="data_nascimento"
                         label='Data de Nascimento'
                         rules={[
@@ -138,72 +139,73 @@ function CuidadorEditarProfile({ onCancel }) {
                             
                         />
                     </Form.Item> */}
-                    <Form.Item
-                        name={'genero'}
-                        label='Gênero'
-                    >
-                        <Select placeholder="selecione seu gênero"
-                            id="generoCadastro"
+                        <Form.Item
+                            name={'genero'}
+                            label='Gênero'
+                        >
+                            <Select placeholder="selecione seu gênero"
+                                id="generoCadastro"
+                                style={{
+                                }}
+                            >
+                                <Option value="1">Homem</Option>
+                                <Option value="2">Mulher</Option>
+                                <Option value="3">Outro</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item
+                            name="descricao_experiencia"
+                            label="Descrição  de experiência:"
+
+                        >
+                            <Input.TextArea
+                                showCount maxLength={300}
+                                style={{
+                                    height: '15vh'
+                                }}
+                            />
+                        </Form.Item>
+
+                        <div
                             style={{
+                                display: 'flex',
+                                gap: '1rem',
+                                justifyContent: 'flex-end', // Alinhe os botões à direita
                             }}
                         >
-                            <Option value="1">Homem</Option>
-                            <Option value="2">Mulher</Option>
-                            <Option value="3">Outro</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        name="descricao_experiencia"
-                        label="Descrição  de experiência:"
+                            <Button
+                                onClick={onCancel}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="primary"  // Adicione o tipo de botão 'primary'
+                                htmlType="submit"  // Defina o tipo de HTML como 'submit'
+                                style={{
+                                    background: '#35225F',
+                                    color: '#fff'
+                                }}
+                            >
+                                Salvar
+                            </Button>
+                        </div>
 
-                    >
-                        <Input.TextArea
-                            showCount maxLength={300}
-                            style={{
-                                height: '15vh'
-                            }}
-                        />
-                    </Form.Item>
 
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '1rem',
-                            justifyContent: 'flex-end', // Alinhe os botões à direita
-                        }}
-                    >
+                    </Form>
+                    :
+                    <div>
+
+                        <p>algo deu errado</p>
                         <Button
                             onClick={onCancel}
                         >
-                            Cancelar
-                        </Button>
-                        <Button
-                            type="primary"  // Adicione o tipo de botão 'primary'
-                            htmlType="submit"  // Defina o tipo de HTML como 'submit'
-                            style={{
-                                background: '#35225F',
-                                color: '#fff'
-                            }}
-                        >
-                            Salvar
+                            Voltar
                         </Button>
                     </div>
-                        
+                }
 
-                </Form>
-                :
-                <div>
-
-                    <p>algo deu errado</p>
-                    <Button
-                        onClick={onCancel}
-                    >
-                        Voltar
-                    </Button>
-                </div>
-            }
-
-        </Spin>
+            </Spin>
+        </Tooltip>
     );
 }
 

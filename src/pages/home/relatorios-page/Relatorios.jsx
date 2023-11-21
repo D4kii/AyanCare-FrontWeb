@@ -39,9 +39,6 @@ const Relatorios = () => {
     }
 
     const [relatorio, setRelatorio] = useState();
-    console.log('====================================');
-    console.log(relatorio);
-    console.log('====================================');
     const [loading, setLoading] = useState(true);
     const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
     const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;

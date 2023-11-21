@@ -1,42 +1,43 @@
 import React from 'react';
-import { Calendar, ConfigProvider } from 'antd';
+import { Badge, Calendar, ConfigProvider, Select } from 'antd';
 import './calendar.css';
+import moment from 'moment/moment';
 
-const CalendarComponent = ({ value, onSelect, onPanelChange }) => {
-  const events = {
-    '2023-11-15': { content: 'Evento A', color: 'green' },
-    '2023-11-20': { content: 'Evento B', color: 'blue' },
-    // Adicione mais eventos conforme necessário
-  };
-
+const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) => {
   const dateCellRender = (value) => {
-    const dateString = value.format('YYYY-MM-DD');
-    const event = events[dateString];
+    if (calendarioData) {
+      const dateString = value.format('YYYY-MM-DD');
+      const eventosSemanais = calendarioData.calendario.eventos_semanais || [];
+      const eventosUnicos = calendarioData.calendario.eventos_unicos || [];
 
-    if (event) {
-      return (
-        <div style={{ position: 'relative', height: '100%' }}>
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: event.color,
-            }}
-          >
-            {event.content}
-          </div>
-        </div>
+      const eventoSemanal = eventosSemanais.find((evento) =>
+        evento.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
       );
+      const eventoUnico = eventosUnicos.find((evento) => evento.dias);
+
+      const event = eventoSemanal || eventoUnico;
+
+      if (event) {
+        const diaCorrespondente = event.dias.find((dia) =>
+          moment().isoWeekday(dia.id_dia_semana).isSame(value, 'day')
+        );
+
+        if (diaCorrespondente) {
+          return (
+            <ul className="events">
+              <li key={event.nome}>
+                <Badge color={`rgb(${diaCorrespondente.cor})`} text={event.nome} />
+              </li>
+            </ul>
+          );
+        }
+      }
     }
 
     return null;
   };
+
+
 
   return (
     <div>
@@ -52,7 +53,8 @@ const CalendarComponent = ({ value, onSelect, onPanelChange }) => {
       >
         <Calendar
           style={{
-            width: '38vw',
+            width: '58vw',
+            height: '92vh'
           }}
           value={value}
           onSelect={onSelect}

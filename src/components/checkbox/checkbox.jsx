@@ -7,7 +7,11 @@ function CheckboxField({checkBoxName}) {
 
     return (
         <div className="checkbox-field">
-            <Checkbox />
+            <Checkbox 
+            style={{
+                width: '1rem'
+            }}
+            />
             <span className='checkbox-text'>{checkName}</span>
         </div>
     )

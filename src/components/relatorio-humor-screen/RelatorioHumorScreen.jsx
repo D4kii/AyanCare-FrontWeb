@@ -7,20 +7,7 @@ import { LeftOutlined, SmileFilled } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 const { Option } = Select;
 
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
+
 //Pegar o usuario para fazer a verificação se ele existe 
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
 
@@ -101,7 +88,7 @@ function RelatorioHumorScreen() {
             {humorSelected ? (
 
                 <div
-                
+
                 >
                     {loading ?
                         (<Loading />)
@@ -150,14 +137,14 @@ function RelatorioHumorScreen() {
                                                         Observação
                                                     </span>
                                                     <Input.TextArea
-                                        
-                                                    value={humorSelectedData.teste.observacao}
-                                                    style={{
-                                                        width:'15rem',
-                                                        height:'max-content',
-                                                        maxHeight:'12rem',
-                                                        resize: 'none'
-                                                    }}
+
+                                                        value={humorSelectedData.teste.observacao}
+                                                        style={{
+                                                            width: '15rem',
+                                                            height: 'max-content',
+                                                            maxHeight: '12rem',
+                                                            resize: 'none'
+                                                        }}
                                                     />
                                                 </div>
 
@@ -279,7 +266,9 @@ function RelatorioHumorScreen() {
                             labelInValue="Paciente"
                         >
                             {loading ? (
-                                <Loading />
+                                <Option key="loading" value="loading">
+                                    <Loading />
+                                </Option>
                             ) : (
                                 paciente.conexao.map(conexao => (
                                     <Option key={conexao.id_paciente} value={conexao.id_paciente}>
@@ -288,6 +277,7 @@ function RelatorioHumorScreen() {
                                 ))
                             )}
                         </Select>
+
                     </div>
 
                     <div className="relatorio-humor_cards-field">

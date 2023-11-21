@@ -1,4 +1,4 @@
-.relatorio-humor_screen{
+.relatorio-humor_screen {
     display: flex;
     height: 10vh;
     align-items: center;
@@ -6,7 +6,7 @@
     margin: 1rem;
 }
 
-.relatorio-humor_cards-field{
+.relatorio-humor_cards-field {
     display: flex;
     flex-direction: column;
     margin: 1rem;
@@ -25,19 +25,30 @@
     /* 71.429% */
 }
 
-.teste-humor_selecionado-title{
-    margin-top: 2rem;
-    margin-left: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.teste-humor_selecionado {
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.ver-relatorio-humor_observacao{
+.teste-humor_selecionado-title {
+    margin-top: 1rem;
+    margin-left: 1rem;
     display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.ver-relatorio-humor_observacao {
+    display: flex;
+    gap: .8rem;
     flex-direction: column;
 }
 
 :where(.css-dev-only-do-not-override-1czi1ww).ant-space-align-center {
     gap: 1rem;
+}
+
+:where(.css-dev-only-do-not-override-1npqmnd) a {
+    color: #9986BD;
 }

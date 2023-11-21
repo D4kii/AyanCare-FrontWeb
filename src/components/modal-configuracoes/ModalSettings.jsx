@@ -68,8 +68,8 @@ const ModalSetting = ({ open, onCancel }) => {
     setMenuClick(e.key)
   };
 
-  const text = 'Tem certeza que deseja sair da sua conta?';
-  const description = 'Sair da conta';
+  const text = 'Sair';
+  const description = 'Tem certeza que deseja sair da sua conta?';
   const buttonWidth = 80;
 
   const { authenticated, logout } = useContext(AuthContext);
