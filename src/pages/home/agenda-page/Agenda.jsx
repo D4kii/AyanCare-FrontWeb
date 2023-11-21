@@ -12,6 +12,7 @@ import Loading from '../../../components/loading/Loading';
 
 import './agenda.css';
 import {
+    getEventosAlarmesByCuidadorAndDate,
     getEventosAlarmesByCuidadorAndMes,
     getPacientesByIDCuidador
 } from '../../../services/api';
@@ -32,17 +33,17 @@ const alarmesData = [
     { 'id': 3, 'nome': 'Alarme 3', 'description': '2x paracetamol, 2x dipirona', 'time': '08', 'status': true },
 ];
 
-const eventosData = [
-    { diaSemana: 'Segunda-feira', eventos: ['Evento A', 'Evento B'] },
-    { diaSemana: 'Terça-feira', eventos: ['Evento C', 'Evento D'] },
-    { diaSemana: 'Quarta-feira', eventos: ['Evento E', 'Evento F'] },
-    { diaSemana: 'Quinta-feira', eventos: ['Evento G', 'Evento H'] },
-    { diaSemana: 'Sexta-feira', eventos: ['Evento I', 'Evento J'] },
-    { diaSemana: 'Sábado', eventos: ['Evento K', 'Evento L'] },
-    { diaSemana: 'Domingo', eventos: ['Evento M', 'Evento N'] },
-];
+
 
 const Agenda = () => {
+    const [value, setValue] = useState(() => dayjs());
+    const [selectedValue, setSelectedValue] = useState(() => dayjs());
+
+    function getDiaSemana(numeroDia) {
+        const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+        return diasDaSemana[numeroDia];
+    }
+
     const [loading, setLoading] = useState(true);
     const cuidadorLocalStorage = localStorage.getItem('cuidador');
     const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
@@ -54,9 +55,11 @@ const Agenda = () => {
         const storedData = localStorage.getItem('calendarioData');
         return storedData ? JSON.parse(storedData) : null;
     });
+    const [dateSelectedCalendario, setDateSelectedCalendario] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
+
             try {
                 const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
                 setPaciente(dataPacientesByCuidador);
@@ -72,13 +75,39 @@ const Agenda = () => {
         }
     }, [idCuidador]);
 
+    const onSelectDate = async (newValue) => {
+        console.log('====================================');
+        console.log('selecionou data');
+        console.log('====================================');
+
+        const idPaciente = pacienteSelected.value;
+        const dataSelecionada = newValue.format('DD/MM/YYYY');
+        const diaSemanaSelecionada = getDiaSemana(newValue.day()); // Obtém o nome do dia da semana em português
+
+        try {
+            const dataCalendarioForDateByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
+            setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador)
+            setLoading(false);
+        } catch (error) {
+            console.error('Erro ao buscar dados do calendário:', error);
+            setLoading(false);
+        }
+
+        setValue(newValue);
+        setSelectedValue(newValue);
+    };
+
     const handleChange = async (selectedOption) => {
         const { value } = selectedOption;
-        const anoMes = selectedValue.format('MM-YYYY');
+
+        const idPaciente = value;
+        const anoMesSelecionado = selectedValue.format('MM/YYYY');
+
+
         setPacienteSelected(value);
 
         try {
-            const dataCalendarioForMounthByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMes, value);
+            const dataCalendarioForMounthByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMesSelecionado, idPaciente);
             setCalendarioData(dataCalendarioForMounthByPacienteAndCuidador);
             setLoading(false);
 
@@ -86,12 +115,15 @@ const Agenda = () => {
             setPacienteSelected(selectedOption);
             localStorage.setItem('pacienteSelected', JSON.stringify(selectedOption));
         } catch (error) {
-            console.error('Erro ao buscar dados do relatório de humor:', error);
+            console.error('Erro ao buscar dados do calendário:', error);
             setLoading(false);
         }
     };
 
-    const [openKeys, setOpenKeys] = useState('1');
+
+
+
+    const [openKeys, setOpenKeys] = useState('2');
     const onSelectKey = (value) => {
         setOpenKeys(value.key);
     };
@@ -102,13 +134,6 @@ const Agenda = () => {
         getItem('Alarmes', '3'),
     ];
 
-    const [value, setValue] = useState(() => dayjs());
-    const [selectedValue, setSelectedValue] = useState(() => dayjs());
-
-    const onSelectDate = (newValue) => {
-        setValue(newValue);
-        setSelectedValue(newValue);
-    };
 
     const onPanelChange = (newValue) => {
         setValue(newValue);
@@ -125,18 +150,21 @@ const Agenda = () => {
             localStorage.removeItem('pacienteSelected');
         };
     }, []);
+console.log('====================================');
+console.log(dateSelectedCalendario);
+console.log('====================================');
 
     return (
         <div>
             <MenuCompoente />
             <div className='agenda_field'>
                 <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                        alignItems: 'center',
+                    }}
                 >
                     <div
                         style={{
@@ -150,7 +178,7 @@ const Agenda = () => {
                         }}
                     >
                         <Menu
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={'2'}
                             mode="horizontal"
                             openKeys={openKeys}
                             onClick={onSelectKey}
@@ -167,7 +195,7 @@ const Agenda = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        {openKeys === '1' ? (
+                        {openKeys == '1' ? (
                             <section id='eventos-turnos' className="agenda-field_eventos-turnos">
                                 <div className="agenda-field_eventos-turnos_select-day">
                                     <LeftOutlined />
@@ -183,17 +211,25 @@ const Agenda = () => {
                                     <div className='eventos-turnos_list-field'>
                                         <h3 className="turnos_turnos-titulo">{'Eventos'}</h3>
                                         <div className="agenda-card-turno_field">
-                                            {eventosData.map((evento) => (
-                                                <CardEvento
-                                                    key={evento.id}
-                                                    title={evento.nome}
-                                                    description={evento.description}
-                                                    dayContent={evento.dia}
-                                                    hexStatus={evento.cor}
-                                                />
-                                            ))}
+                                            {dateSelectedCalendario && dateSelectedCalendario.calendario && dateSelectedCalendario.calendario.eventos_semanais ? (
+
+                                                dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
+                                                    <CardEvento
+                                                        key={evento.id}
+                                                        title={evento.nome}
+                                                        description={evento.descricao}
+                                                        dayContent={evento.dia}
+                                                        hexStatus={evento.cor}
+                                                        local={evento.local}
+                                                        paciente={evento.paciente}
+                                                    />
+                                                ))
+                                            ) : (
+                                                <p>Nenhum evento encontrado para esta semana.</p>
+                                            )}
                                         </div>
                                     </div>
+
                                     <div className="agenda-field_turnos-card">
                                         <h3 className="turnos_turnos-titulo">{'Turnos'}</h3>
                                         <div className="agenda-card-turno_field">
@@ -203,11 +239,12 @@ const Agenda = () => {
                                     </div>
                                 </div>
                             </section>
-                        ) : openKeys === '2' ? (
+                        ) : openKeys == '2' ? (
                             <div id='calendario' className="agenda-field_calendario">
                                 <div className="agenda-field_calendario-field">
                                     <div className="agenda-field_calendario_calendario">
                                         <Select
+                                            defaultValue={pacienteSelected}
                                             style={{
                                                 width: 130,
                                                 marginBottom: '-2.8rem'

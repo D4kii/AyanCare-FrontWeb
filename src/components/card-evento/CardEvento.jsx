@@ -3,15 +3,15 @@ import profilePicturePaciente from '../../images/background-image.png'
 import './card-evento.css'
 import React from "react";
 
-function CardEvento({ dayContent, title, description, hexStatus }) {
+function CardEvento({ dayContent, title, description, hexStatus, local, paciente }) {
 
     const diaEvento = dayContent
     const titulo = title
     const descricao = description
     const color = hexStatus
     const detalhesEvento = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam'
-    const localEvento = 'Paraiba'
-    const nomePaciente = 'Larissa'
+    const localEvento = local
+    const nomePaciente = paciente
 
     return (
         <div className="card-evento_body">
@@ -44,7 +44,12 @@ function CardEvento({ dayContent, title, description, hexStatus }) {
                             gap: '1rem'
                         }}
                     >
-                        <div className="bubble-color">
+                        <div className="bubble-color"
+                        style={
+                            {
+                                backgroundColor: `rgb(${color})`
+                            }
+                        }>
 
                         </div>
                     </div>

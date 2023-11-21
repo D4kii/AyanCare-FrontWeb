@@ -7,6 +7,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    background-color: #FFF;
     animation: slide 0.2s ease forwards;
     opacity: 0;
     transform: translateX(20%);

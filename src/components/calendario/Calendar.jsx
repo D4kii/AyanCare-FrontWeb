@@ -52,10 +52,7 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
         }}
       >
         <Calendar
-          style={{
-            width: '58vw',
-            height: '92vh'
-          }}
+          
           value={value}
           onSelect={onSelect}
           onPanelChange={onPanelChange}

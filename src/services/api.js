@@ -159,6 +159,27 @@ export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_pac
     }
 }
 
+export const getEventosAlarmesByCuidadorAndDate = async (id_cuidador, dia, id_paciente, dia_semana) => {
+    try {
+        const response = await api.get(`/calendario`, {
+            params: {
+                idPaciente: id_paciente,
+                dia: dia,
+                idCuidador: id_cuidador,
+                diaSemana: dia_semana,
+            }
+        });
+        console.log('getEventosAlarmesByCuidadorAndDate====================================');
+        console.log({id_cuidador, dia, id_paciente, dia_semana});
+        console.log('====================================');
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de calendario:', error);
+        throw error;
+    }
+}
+
 //PUT
 
 export const updateCuidador = async (idCuidador, dados) => {

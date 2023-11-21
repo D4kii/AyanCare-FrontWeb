@@ -61,7 +61,7 @@ const ModalSetting = ({ open, onCancel }) => {
   const [imagem, setImagem] = useState(null);
 
 
-  const [menuClick, setMenuClick] = useState('')
+  const [menuClick, setMenuClick] = useState('1')
 
   const onClick = (e) => {
     console.log(menuClick);
