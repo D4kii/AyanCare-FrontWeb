@@ -4,6 +4,7 @@ import './calendar.css';
 import moment from 'moment/moment';
 
 const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) => {
+  console.log(2322, calendarioData);
   const dateCellRender = (value) => {
     if (calendarioData) {
       const dateString = value.format('YYYY-MM-DD');
@@ -19,8 +20,9 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
 
       if (event) {
         const diaCorrespondente = event.dias.find((dia) =>
-          moment().isoWeekday(dia.id_dia_semana).isSame(value, 'day')
+          moment().isoWeekday(dia.id_dia_semana % 7 + 1).isSame(value, 'day')
         );
+
 
         if (diaCorrespondente) {
           return (
@@ -52,7 +54,7 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
         }}
       >
         <Calendar
-          
+
           value={value}
           onSelect={onSelect}
           onPanelChange={onPanelChange}

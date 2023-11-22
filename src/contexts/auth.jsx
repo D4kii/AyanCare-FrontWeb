@@ -3,46 +3,68 @@ import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { api, createSessionUsuarioAutenticar } from "../services/api";
+import { message } from "antd";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
+    const [messageApi, contextHolder] = message.useMessage();
+
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
         //usuário existente ou não no localStorage
         const recoveredUser = localStorage.getItem("cuidador");
-        
+
         if (recoveredUser) {
             setUser(JSON.parse(recoveredUser));
         }
-        
+
         setLoading(false);
     }, []);
-    
+
+    // ... (código anterior)
+
     const login = async (email, senha) => {
-        
-        const response = await createSessionUsuarioAutenticar(email, senha);
-        console.log("response:",response);
-        
-        const loggedUser = response.data.cuidador;
-        const token = response.data.token;
+        try {
+            const response = await createSessionUsuarioAutenticar(email, senha);
+            const loggedUser = response.data.cuidador;
+            const token = response.data.token;
 
-        //localStorage só aceita strings e não objetos
-        // JSON.stringfy() para fazer essa conversão, já que loggedUser é um objeto
-        localStorage.setItem("cuidador", JSON.stringify(loggedUser));
-        localStorage.setItem("token", token);
+            localStorage.setItem("cuidador", JSON.stringify(loggedUser));
+            localStorage.setItem("token", token);
 
-        api.defaults.headers.Authorization = `Bearer ${token}`;
+            api.defaults.headers.Authorization = `Bearer ${token}`;
 
+            setUser(loggedUser);
+            navigate("/home");
+        } catch (error) {
+            if (error.response) {
+                // O servidor respondeu com um status de erro (por exemplo, 404, 500)
+                const status = error.response.status;
+                if (status === 404) {
+                    messageApi.error('Usuário não encontrado. Verifique seu e-mail e senha.');
+                    console.log('Usuário não encontrado. Verifique seu e-mail e senha.');
+                } else {
+                    messageApi.error(`Erro ${status}: Ocorreu um problema durante a autenticação.`);
+                }
+            } else if (error.request) {
+                // A requisição foi feita, mas não houve resposta do servidor
+                messageApi.error('Sem resposta do servidor. Verifique sua conexão com a internet.');
+            } else {
+                // Ocorreu um erro durante a configuração da requisição
+                messageApi.error('Erro na requisição. Tente novamente mais tarde.');
+            }
 
-        setUser(loggedUser);
-        navigate("/home")
-
+            throw error;
+        }
     };
+
+    // ... (código posterior)
+
 
     const logout = () => {
         console.log('logout');
@@ -55,9 +77,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout }}>
-            {children}
-        </AuthContext.Provider>
+        <>
+            {contextHolder}
+            <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout }}>
+                {children}
+            </AuthContext.Provider>
+        </>
     )
 }
 

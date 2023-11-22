@@ -101,7 +101,7 @@ const Agenda = () => {
         const { value } = selectedOption;
 
         const idPaciente = value;
-        const anoMesSelecionado = selectedValue.format('MM/YYYY');
+        const anoMesSelecionado = selectedValue.format('MM-YYYY');
 
 
         setPacienteSelected(value);
