@@ -9,6 +9,7 @@ import CardTurno from '../../../components/card-turno/CardTurno';
 import CardEvento from '../../../components/card-evento/CardEvento';
 import CardAlarme from '../../../components/card-alarme/CardAlarme';
 import Loading from '../../../components/loading/Loading';
+import DrawerEvento from '../../../components/drawer-evento/DrawerEvento';
 
 import './agenda.css';
 import {
@@ -76,26 +77,28 @@ const Agenda = () => {
     }, [idCuidador]);
 
     const onSelectDate = async (newValue) => {
-        console.log('====================================');
-        console.log('selecionou data');
-        console.log('====================================');
-
+        if (!pacienteSelected) {
+            // Se pacienteSelected for nulo, não execute o código restante
+            return;
+        }
+    
         const idPaciente = pacienteSelected.value;
         const dataSelecionada = newValue.format('DD/MM/YYYY');
-        const diaSemanaSelecionada = getDiaSemana(newValue.day()); // Obtém o nome do dia da semana em português
-
+        const diaSemanaSelecionada = getDiaSemana(newValue.day());
+    
         try {
             const dataCalendarioForDateByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
-            setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador)
+            setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador);
             setLoading(false);
         } catch (error) {
             console.error('Erro ao buscar dados do calendário:', error);
             setLoading(false);
         }
-
+    
         setValue(newValue);
         setSelectedValue(newValue);
     };
+    
 
     const handleChange = async (selectedOption) => {
         const { value } = selectedOption;
@@ -150,9 +153,14 @@ const Agenda = () => {
             localStorage.removeItem('pacienteSelected');
         };
     }, []);
-console.log('====================================');
-console.log(dateSelectedCalendario);
-console.log('====================================');
+
+    const [openDrawer, setOpenDrawer] = useState(false);  
+    const [dadosDadosEventoDrawer, setDadosEventoDrawer] = useState({}); 
+    const viewEvento = (e) => {
+        setDadosEventoDrawer(e)
+        setOpenDrawer(true);
+    }
+    console.log('paciente',pacienteSelected);
 
     return (
         <div>
@@ -215,13 +223,11 @@ console.log('====================================');
 
                                                 dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
                                                     <CardEvento
+                                                        onClick={()=> viewEvento(evento)}
                                                         key={evento.id}
                                                         title={evento.nome}
-                                                        description={evento.descricao}
-                                                        dayContent={evento.dia}
                                                         hexStatus={evento.cor}
-                                                        local={evento.local}
-                                                        paciente={evento.paciente}
+                                                        type={'Semanal'}
                                                     />
                                                 ))
                                             ) : (
@@ -268,7 +274,7 @@ console.log('====================================');
                                             onPanelChange={onPanelChange}
                                             value={value}
                                             onSelect={onSelectDate}
-                                            calendarioData={calendarioData}
+                                            calendarioData={pacienteSelected? calendarioData : null}
                                         />
                                     </div>
                                 </div>
@@ -295,6 +301,11 @@ console.log('====================================');
 
                 </div>
             </div>
+            <DrawerEvento
+            dadosEvento={dadosDadosEventoDrawer}
+            open={openDrawer}
+            setOpen={setOpenDrawer}
+            />
         </div>
     );
 }

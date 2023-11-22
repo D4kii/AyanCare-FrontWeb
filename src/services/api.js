@@ -139,6 +139,20 @@ export const getPerguntasQuestionarioRelatorio = async () => {
     }
 }
 
+export const getEventosSemanaisByID = async (id_evento_semanal) => {
+    try {
+        const response = await api.get(`/evento/semanal/${id_evento_semanal}`);
+        console.log('getEventosAlarmesByCuidadorAndMes====================================');
+        console.log(response.data);
+        console.log('====================================');
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de evento semanal:', error);
+        throw error;
+    }
+}
+
 export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_paciente) => {
     try {
         const response = await api.get(`/calendario`, {

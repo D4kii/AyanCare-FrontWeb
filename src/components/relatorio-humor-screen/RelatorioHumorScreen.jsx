@@ -190,31 +190,38 @@ function RelatorioHumorScreen() {
                                                 }}
                                             >
                                                 <Divider orientation="left">Exercicios realizados</Divider>
-                                                <Space size={[0, 8]} wrap>
-                                                    {
-                                                        humorSelectedData.teste.exercicios.map((item) => (
+                                                <div className="column-exercicios_area"
+                                                    
+                                                >
+                                                    <Space size={[20, 0]}
+                                                        style={{ width: 'max-content' }}
+                                                    >
+                                                        {
+                                                            humorSelectedData.teste.exercicios.map((item) => (
 
 
-                                                            <Card
-                                                                hoverable
-                                                                style={{
-                                                                    width: 160,
-                                                                }}
-                                                                cover={<img alt="example" src={item.icone} style={
-                                                                    {
-                                                                        height: '100%',
-                                                                        width: '100%'
-                                                                    }
-                                                                } />}
-                                                            >
-                                                                <Meta
-                                                                    title={item.nome} />
-                                                            </Card>
+                                                                <Card
+                                                                    hoverable
+                                                                    style={{
+                                                                        width: 160,
+                                                                    }}
+                                                                    cover={<img alt="example" src={item.icone} style={
+                                                                        {
+                                                                            height: '100%',
+                                                                            width: '100%'
+                                                                        }
+                                                                    } />}
+                                                                >
+                                                                    <Meta
+                                                                        title={item.nome} />
+                                                                </Card>
 
 
-                                                        ))
-                                                    }
-                                                </Space>
+                                                            ))
+                                                        }
+                                                    </Space>
+
+                                                </div>
                                             </div>
                                             <div className="column-sintomas"
                                                 style={{

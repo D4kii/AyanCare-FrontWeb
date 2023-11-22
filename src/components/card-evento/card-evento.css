@@ -68,6 +68,11 @@
     font-style: normal;
     font-weight: 600;
     line-height: 20px;
+    display: inline-block;   /* Permite definir largura e altura */
+    max-width: 200px;        /* Largura máxima da tag span */
+    overflow: hidden;        /* Oculta o conteúdo que ultrapassa a largura */
+    text-overflow: ellipsis; /* Adiciona reticências para indicar que o texto foi cortado */
+    white-space: nowrap; 
     /* 90.909% */
 }
 
@@ -111,19 +116,8 @@
     max-width: 350px;
 }
 
-.card-evento_body:hover .card-evento_body-read-more {
-    visibility: visible;
-    height: 100px;
-    opacity: 1;
 
 
-}
-
-.card-evento_body:hover {
-    height: 200px;
-    position: relative;
-    transition: 0.3s;
-}
 
 .card-evento_body-read-more_local-paciente{
     display: flex;

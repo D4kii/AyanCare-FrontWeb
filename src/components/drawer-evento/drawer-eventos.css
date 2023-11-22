@@ -1,0 +1,46 @@
+.ver-evento_field-screen {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.ver-evento_field-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ver-evento_title {
+    color: #35225F;
+    font-family: Poppins;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.8rem;
+    /* 62.5% */
+
+}
+
+.ver-evento_foto-nome-paciente{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.ver-evento_local-content,
+.ver-evento_description-content{
+    font-weight: 400;
+}
+
+.ver-evento_field-content{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.ver-evento_dias-field{
+    display: flex;
+    gap: 1rem;
+}
