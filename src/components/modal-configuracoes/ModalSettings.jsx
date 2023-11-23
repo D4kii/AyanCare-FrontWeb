@@ -1,18 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-
-//APIS
 import { getCuidador } from "../../services/api.js";
-
-//Componentes
 import { MinusCircleOutlined, QuestionCircleOutlined, SmileOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { ConfigProvider, Modal, Menu, Space, Popconfirm } from 'antd';
 import CuidadorProfile from '../cuidador-profile/CuidadorProfile.jsx';
 import ContasVinculadasScreen from '../contas-vinculadas/ContasVinculadas.jsx';
 import './modal-settings.css'
-
 import { AuthContext } from '../../contexts/auth';
 import ContasDesvinculadasScreen from '../contas-desvinculadas/ContasDesvinculadas.jsx';
 import RelatorioHumorScreen from '../relatorio-humor-screen/RelatorioHumorScreen.jsx';
+
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -22,8 +18,8 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
-const items = [
 
+const items = [
   getItem('Conta', 'g1', null, [
     getItem('Perfil', '1', <UserOutlined />),
     getItem('Contas vinculadas', '2', <UsergroupAddOutlined />)
@@ -33,53 +29,44 @@ const items = [
     getItem('Relatório de humor', '4', <SmileOutlined />),
     getItem('Ajuda', '5', <QuestionCircleOutlined />)
   ], 'group'),
-]
-
-
-//Pegando o json do cuidador e o token como string do localStorage
-const cuidadorLocalStorage = localStorage.getItem('cuidador')
-const token = localStorage.getItem('token')
-
-// Verifica se cuidadorLocalStorage não é nulo antes de tentar analisá-lo
-const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
-const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
-
-let response = null;
-// Certifique-se de que idCuidador não seja nulo antes de usar em outros lugares do código
-if (idCuidador) {
-  // Agora você pode usar idCuidador em outras partes do código
-  // Certifique-se de que o cuidador existe no localStorage antes de fazer a solicitação
-  response = await getCuidador(token, idCuidador);
-} else {
-  // Lida com o caso em que o cuidador não está presente no localStorage
-  console.error("Cuidador não encontrado no localStorage.");
-}
-
-
+];
 
 const ModalSetting = ({ open, onCancel }) => {
   const [imagem, setImagem] = useState(null);
-
-
-  const [menuClick, setMenuClick] = useState('1')
+  const [menuClick, setMenuClick] = useState('1');
+  const { authenticated, logout } = useContext(AuthContext);
+  const [cuidador, setCuidador] = useState(null);
 
   const onClick = (e) => {
     console.log(menuClick);
-    setMenuClick(e.key)
+    setMenuClick(e.key);
   };
 
-  const text = 'Sair';
-  const description = 'Tem certeza que deseja sair da sua conta?';
-  const buttonWidth = 80;
-
-  const { authenticated, logout } = useContext(AuthContext);
-
   const handleLogout = () => {
-    logout()
-  }
+    logout();
+  };
 
-  console.log(response.cuidador);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cuidadorLocalStorage = localStorage.getItem('cuidador');
+        const token = localStorage.getItem('token');
+        const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
+        const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
 
+        if (idCuidador) {
+          const response = await getCuidador(token, idCuidador);
+          setCuidador(response.cuidador);
+        } else {
+          console.error("Cuidador não encontrado no localStorage.");
+        }
+      } catch (error) {
+        console.error("Erro ao obter dados do cuidador:", error);
+      }
+    };
+
+    fetchData();
+  }, [logout]);
 
   return (
     <div>
@@ -90,13 +77,12 @@ const ModalSetting = ({ open, onCancel }) => {
               padding: 0,
             },
             Menu: {
-              selectedKeysColor: '#C7BEDB', // Cor de fundo dos botões selecionados
-              hoverColor: '#E9E6F0', // Cor de fundo ao passar o mouse
+              selectedKeysColor: '#C7BEDB',
+              hoverColor: '#E9E6F0',
             }
           }
         }}
       >
-
         <Modal
           open={open}
           onCancel={onCancel}
@@ -109,19 +95,17 @@ const ModalSetting = ({ open, onCancel }) => {
             padding: 0
           }}
         >
-          <div
-            className='Setting-modal Modal'>
+          <div className='Setting-modal Modal'>
             <div className="modal-setting_menu-lateral">
               <h3 className="modal-setting_title">Configurações</h3>
-
               <ConfigProvider
                 theme={{
                   token: {
-                    selectedKeysColor: '#C7BEDB', // Cor de fundo dos botões selecionados
-                    hoverColor: '#E9E6F0', // Cor de fundo ao passar o mouse
+                    selectedKeysColor: '#C7BEDB',
+                    hoverColor: '#E9E6F0',
                   }
-                }}>
-
+                }}
+              >
                 <Menu
                   style={{
                     background: 'transparent',
@@ -136,11 +120,10 @@ const ModalSetting = ({ open, onCancel }) => {
                   items={items}
                 />
               </ConfigProvider>
-
               <Popconfirm
                 placement="topLeft"
-                title={text}
-                description={description}
+                title="Sair"
+                description="Tem certeza que deseja sair da sua conta?"
                 okText="Sim"
                 cancelText="Não"
                 onConfirm={handleLogout}
@@ -157,37 +140,31 @@ const ModalSetting = ({ open, onCancel }) => {
                   Sair
                 </button>
               </Popconfirm>
-
             </div>
             <div className="modal-setting_page">
-              {menuClick == 1 ?
-                (
-                  <CuidadorProfile
-                    nameProfile={response.cuidador.nome}
-                    profileDescription={response.cuidador.descricao_experiencia}
-                    imageUseState={response.cuidador.foto}
-                    idCuidador={response.cuidador.id}
-                    setImagemUseState={setImagem}
-                  />
-                )
-                : menuClick == 2 ?
-                  (
-                    <ContasVinculadasScreen />
-                  )
-                  : menuClick == 3 ?
-                    (
-                      <ContasDesvinculadasScreen />
-                    )
-                    : menuClick == 4 ?
-                      <RelatorioHumorScreen />
-                      :
-                      (console.log('foi', menuClick))
-              }
+              {menuClick === '1' ? (
+                <CuidadorProfile
+                  nameProfile={cuidador ? cuidador.nome : ''}
+                  profileDescription={cuidador ? cuidador.descricao_experiencia : ''}
+                  imageUseState={cuidador ? cuidador.foto : null}
+                  idCuidador={cuidador ? cuidador.id : null}
+                  setImagemUseState={setImagem}
+                />
+              ) : menuClick === '2' ? (
+                <ContasVinculadasScreen />
+              ) : menuClick === '3' ? (
+                <ContasDesvinculadasScreen />
+              ) : menuClick === '4' ? (
+                <RelatorioHumorScreen />
+              ) : (
+                console.log('foi', menuClick)
+              )}
             </div>
           </div>
         </Modal>
       </ConfigProvider>
-    </div >
+    </div>
   );
 };
+
 export default ModalSetting;
