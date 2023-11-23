@@ -72,6 +72,22 @@ export const getPacienteById = async (idPaciente) => {
     }
 
 }
+
+export const getNotificacoesByIdPaciente = async (id_paciente) => {
+
+    try {
+        const response = await api.get(`/notificacao/modificacoes/${id_paciente}`);
+        console.log('444444====================================');
+        console.log(response.data);
+        console.log('====================================');
+        return response.data;
+    } catch (error) {
+        console.error('Erro na solicitação GET de notificações:', error);
+        throw error;
+    }
+
+}
+
 export const getTesteHumorByID = async (idTesteHumor) => {
 
     try {
@@ -124,6 +140,21 @@ export const getRelatorioHumorbyIdPaciente = async (id_paciente) => {
 
     } catch (error) {
         console.error('Erro na solicitação GET de teste de humor:', error);
+        throw error;
+    }
+}
+export const getTurnosByIDCuidador = async (id_cuidador) => {
+    try {
+        const response = await api.get(`/turnos`, {
+            params: {
+                idCuidador: id_cuidador
+            }
+        });
+        console.log(response.data);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de turnos:', error);
         throw error;
     }
 }

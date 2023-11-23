@@ -108,7 +108,7 @@ img {
 .home-icon-link,
 .agenda-icon-link,
 .relatorios-icon-link,
-.pacientes-icon-link{
+.pacientes-icon-link {
     height: 50px;
     width: 50px;
     display: flex;
@@ -123,4 +123,10 @@ img {
     background-color: #F4F4F4;
     border-radius: 4px;
     transition: background 0.3s;
+}
+
+.notification-field{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 500px;
 }

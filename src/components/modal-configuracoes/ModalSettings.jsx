@@ -19,6 +19,7 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
+//Parte do componente menu
 const items = [
   getItem('Conta', 'g1', null, [
     getItem('Perfil', '1', <UserOutlined />),

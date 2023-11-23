@@ -197,7 +197,10 @@ function RelatorioHumorScreen() {
                                                         style={{ width: 'max-content' }}
                                                     >
                                                         {
-                                                            humorSelectedData.teste.exercicios.map((item) => (
+                                                            
+                                                                // restante do código
+                                                            <div>
+                                                            {humorSelectedData.teste.exercicios && humorSelectedData.teste.exercicios.map((item) => (
 
 
                                                                 <Card
@@ -217,7 +220,8 @@ function RelatorioHumorScreen() {
                                                                 </Card>
 
 
-                                                            ))
+                                                            ))}
+                                                            </div>
                                                         }
                                                     </Space>
 

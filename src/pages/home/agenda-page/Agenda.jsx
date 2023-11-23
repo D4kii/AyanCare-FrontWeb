@@ -15,7 +15,8 @@ import './agenda.css';
 import {
     getEventosAlarmesByCuidadorAndDate,
     getEventosAlarmesByCuidadorAndMes,
-    getPacientesByIDCuidador
+    getPacientesByIDCuidador,
+    getTurnosByIDCuidador
 } from '../../../services/api';
 
 function getItem(label, key, icon, children, type) {
@@ -56,11 +57,10 @@ const Agenda = () => {
         const storedData = localStorage.getItem('calendarioData');
         return storedData ? JSON.parse(storedData) : null;
     });
-    const [dateSelectedCalendario, setDateSelectedCalendario] = useState(null)
-
+    
     useEffect(() => {
         const fetchData = async () => {
-
+            
             try {
                 const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
                 setPaciente(dataPacientesByCuidador);
@@ -70,12 +70,13 @@ const Agenda = () => {
                 setLoading(false);
             }
         };
-
+        
         if (idCuidador) {
             fetchData();
         }
     }, [idCuidador]);
-
+    
+    const [dateSelectedCalendario, setDateSelectedCalendario] = useState(null)
     const onSelectDate = async (newValue) => {
         if (!pacienteSelected) {
             // Se pacienteSelected for nulo, não execute o código restante
@@ -88,6 +89,8 @@ const Agenda = () => {
     
         try {
             const dataCalendarioForDateByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
+
+            
             setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador);
             setLoading(false);
         } catch (error) {
@@ -111,7 +114,13 @@ const Agenda = () => {
 
         try {
             const dataCalendarioForMounthByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMesSelecionado, idPaciente);
-            setCalendarioData(dataCalendarioForMounthByPacienteAndCuidador);
+            const dataCalendarioForTurnosByIDCuidador = await getTurnosByIDCuidador(idCuidador);
+            const combinedData = {
+                eventos: dataCalendarioForMounthByPacienteAndCuidador,
+                turnos: dataCalendarioForTurnosByIDCuidador,
+            };
+            console.log(combinedData);
+            setCalendarioData(combinedData);
             setLoading(false);
 
             localStorage.setItem('calendarioData', JSON.stringify(dataCalendarioForMounthByPacienteAndCuidador));
@@ -160,7 +169,8 @@ const Agenda = () => {
         setDadosEventoDrawer(e)
         setOpenDrawer(true);
     }
-    console.log('paciente',pacienteSelected);
+    console.log('calendario',calendarioData);
+    console.log('value',value);
 
     return (
         <div>
@@ -263,7 +273,7 @@ const Agenda = () => {
                                                     <Loading />
                                                 </Select.Option>
                                             ) : (
-                                                paciente.conexao.map(conexao => (
+                                                paciente.conexao?.map(conexao => (
                                                     <Select.Option key={conexao.id_paciente} value={conexao.id_paciente}>
                                                         {conexao.paciente}
                                                     </Select.Option>
