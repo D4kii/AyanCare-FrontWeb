@@ -16,15 +16,21 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        //usuário existente ou não no localStorage
+        // usuário existente ou não no localStorage
         const recoveredUser = localStorage.getItem("cuidador");
-
-        if (recoveredUser) {
+      
+        try {
+          if (recoveredUser !== null) {
             setUser(JSON.parse(recoveredUser));
+          }
+        } catch (error) {
+          console.error("Erro ao fazer parse do JSON:", error);
         }
-
+      
         setLoading(false);
-    }, []);
+      }, []);
+      
+      
 
     // ... (código anterior)
 

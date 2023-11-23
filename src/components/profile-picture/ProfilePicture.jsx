@@ -60,18 +60,20 @@ const ProfilePicture = ({ imagem, setImagem, progress, setProgress }) => {
           background: imagem == "" ? `url(${<UserOutlined />}) no-repeat fixed center center` : `url(${imagem}) no-repeat fixed center center`,
         }}>
         {imagem ?
-          (<img src={imagem} alt="Foto de perfil"
+          (<div alt="Foto de perfil"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              borderRadius: '100%'
+              borderRadius: '100%',
+              background: imagem ? `lightgray 50% / cover no-repeat` : '#7E6F94',
+              backgroundImage: imagem ? `url(${imagem})` : 'none'
             }} />) : null}
-        {imagem == null && progress?  
-        (<Progress type="circle" 
-        style={{
-          height:'3rem',
-        }} percent={progress} />) : null}
+        {imagem == null && progress ?
+          (<Progress type="circle"
+            style={{
+              height: '3rem',
+            }} percent={progress} />) : null}
         <input
           id="inputImagem"
           type="file"

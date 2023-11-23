@@ -8,7 +8,17 @@ import { createConexaoUsuarios, getPacienteById } from "../../services/api";
 
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
 
-const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
+const cuidadorJSON = cuidadorLocalStorage && isValidJSON(cuidadorLocalStorage) ? JSON.parse(cuidadorLocalStorage) : null;
+
+// Função para verificar se uma string é JSON válida
+function isValidJSON(str) {
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
 const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
 
 
@@ -46,26 +56,32 @@ function ModalConectar({ onOpen, onCancel }) {
 
     const onFinishMadeConection = async (values) => {
         try {
-            const pacienteID = JSON.parse(values.idPaciente);
+            const pacienteID = values.idPaciente; // Não precisa do JSON.parse aqui
             const cuidadorID = idCuidador;
 
-            // Chama a API para criar a conexão
-            const response = await createConexaoUsuarios(cuidadorID, pacienteID);
+            // Verifica se pacienteID é uma string não vazia antes de continuar
+            if (pacienteID && typeof pacienteID === 'string') {
+                // Chama a API para criar a conexão
+                const response = await createConexaoUsuarios(cuidadorID, pacienteID);
 
-
-            // Exibe a modal de sucesso
-            Modal.success({
-                content: 'Conexão feita com sucesso',
-                onOk: () => {
-                    // Fecha ambas as modais quando o usuário clicar em "OK"
-                    onCancel();
-                },
-            });
+                // Exibe a modal de sucesso
+                Modal.success({
+                    content: 'Conexão feita com sucesso',
+                    onOk: () => {
+                        // Fecha ambas as modais quando o usuário clicar em "OK"
+                        onCancel();
+                    },
+                });
+            } else {
+                // Lida com o caso em que pacienteID não é uma string válida
+                console.error('ID do paciente inválido:', pacienteID);
+            }
         } catch (error) {
             // Lida com erros na chamada da API
             console.error('Erro ao criar conexão:', error);
         }
     };
+
 
     return (
         <Modal
@@ -91,15 +107,17 @@ function ModalConectar({ onOpen, onCancel }) {
                     name={'idPaciente'}
                 >
                     <Input
-                        value={idPaciente}
+                        value={idPaciente}  // Use o estado idPaciente aqui
+                        onChange={(e) => setIdPaciente(e.target.value)}  // Atualize o estado quando o valor mudar
                         style={{
                             width: '10rem',
                             height: '3rem',
                             textAlign: 'center',
                             fontSize: '1.2rem'
-                        }} />
-
+                        }}
+                    />
                 </Form.Item>
+
 
                 <Form.Item
                     name={'button'}

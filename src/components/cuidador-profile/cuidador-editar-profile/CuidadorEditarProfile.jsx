@@ -1,12 +1,13 @@
-import { Button, DatePicker, Form, Input, Select, Spin, Tooltip, } from "antd";
 import React, { useEffect, useState } from "react";
 import ProfilePicture from "../../profile-picture/ProfilePicture";
 import { getCuidador, updateCuidador } from "../../../services/api";
-import locale from 'antd/locale/zh_CN';
+import { Button, DatePicker, Form, Input, Select } from "antd";
+import Loading from "../../loading/Loading";
+const { Option } = Select;
 import dayjs from 'dayjs';
-import 'dayjs/locale/pt-br'
 
-dayjs.locale('pt-br')
+
+
 
 function CuidadorEditarProfile({ onCancel }) {
 
@@ -18,6 +19,7 @@ function CuidadorEditarProfile({ onCancel }) {
     const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
 
 
+    const [nascimento, setNascimento] = useState();
     const [form] = Form.useForm();
     const [imagem, setImagem] = useState('');
     const [cuidadorData, setCuidadorData] = useState({});
@@ -45,6 +47,15 @@ function CuidadorEditarProfile({ onCancel }) {
         });
     };
 
+    const config = {
+        rules: [
+            {
+                type: 'object',
+                required: true,
+                message: 'Por favor, selecione uma data!',
+            },
+        ],
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -90,9 +101,12 @@ function CuidadorEditarProfile({ onCancel }) {
     // Preenche automaticamente os campos do formulário
     console.log('hhh', cuidadorData);
     return (
-        <Tooltip title="Carregando...">
-            <Spin spinning={loading}>
+        <div>
 
+            {loading?
+            (<Loading/>)
+            :
+                (<div>
                 {cuidadorData ?
                     <Form
                         form={form}
@@ -120,25 +134,20 @@ function CuidadorEditarProfile({ onCancel }) {
                             />
                         </Form.Item>
 
-                        {/* <Form.Item
-                        name="data_nascimento"
-                        label='Data de Nascimento'
-                        rules={[
-                            {
-                                validator: validateAge
-                            },
-                        ]}
-                        style={{
-                            wordWrap: 'none'
-                        }}
+                        <Form.Item
+                            name="data_nascimento"
+                            label='Data de Nascimento'
+                            {...config}
+                            rules={[
+                                {
+                                    validator: validateAge
+                                },
+                            ]}
 
-                    >
-                        <DatePicker
-                            format={dateFormatList}
-                            id="nascimentoCadastro"
-                            
-                        />
-                    </Form.Item> */}
+                        >
+                            <DatePicker defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} />
+                        </Form.Item>
+
                         <Form.Item
                             name={'genero'}
                             label='Gênero'
@@ -203,9 +212,8 @@ function CuidadorEditarProfile({ onCancel }) {
                         </Button>
                     </div>
                 }
-
-            </Spin>
-        </Tooltip>
+            </div>)}
+        </div>
     );
 }
 

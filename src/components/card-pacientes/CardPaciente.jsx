@@ -3,16 +3,25 @@ import './cards-pacientes.css'
 import Button from "../button/Button";
 
 
-function CardPacientes({PacienteName, PacienteAge, PacienteProfilePicture}) {
+function CardPacientes({ PacienteName, PacienteAge, PacienteProfilePicture }) {
 
     const nomePaciente = PacienteName
     const idadePaciente = PacienteAge
     const imagemPerfilPaciente = PacienteProfilePicture
+    console.log(imagemPerfilPaciente);
 
     return (
         <div className="card">
             <div className="paciente-field">
-                <img className="foto-paciente" src={imagemPerfilPaciente} alt="" />
+                <div className="foto-paciente"
+                    style={{
+                        width: '50px',
+                        height: '50px',
+                        borderRadius: '50px',
+                        background: imagemPerfilPaciente ? `lightgray 50% / cover no-repeat` : '#7E6F94',
+                        backgroundImage: imagemPerfilPaciente ? `url(${imagemPerfilPaciente})` : 'none'
+                    }}
+                ></div>
                 <div className="dados">
                     <span>{nomePaciente}</span>
                     <p className="dados-paciente">{idadePaciente}</p>

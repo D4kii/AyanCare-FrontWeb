@@ -4,65 +4,70 @@ import './calendar.css';
 import moment from 'moment/moment';
 
 const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) => {
-  console.log(2322, calendarioData);
   const dateCellRender = (value) => {
     if (calendarioData) {
-      const dateString = value.format('YYYY-MM-DD');
       const eventosSemanais = calendarioData.calendario.eventos_semanais || [];
       const eventosUnicos = calendarioData.calendario.eventos_unicos || [];
 
-      const eventoSemanal = eventosSemanais.find((evento) =>
+      const eventosDoDia = [...eventosSemanais, ...eventosUnicos].filter((evento) =>
         evento.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
       );
-      const eventoUnico = eventosUnicos.find((evento) => evento.dias);
 
-      const event = eventoSemanal || eventoUnico;
+      const cores = {};
 
-      if (event) {
-        const diaCorrespondente = event.dias.find((dia) =>
-          moment().isoWeekday(dia.id_dia_semana % 7 + 1).isSame(value, 'day')
+      if (eventosDoDia.length > 0) {
+        return (
+          <ul className="events">
+            {eventosDoDia.map((evento) => {
+              const cor = evento.dias[0].cor;
+
+              // Verifica se a cor já foi mapeada
+              if (!cores[evento.id]) {
+                cores[evento.id] = cor;
+              }
+
+              return (
+                <li key={evento.nome}>
+                  <Badge color={`rgb(${cores[evento.id]})`} text={evento.nome} />
+                </li>
+              );
+            })}
+          </ul>
         );
-
-
-        if (diaCorrespondente) {
-          return (
-            <ul className="events">
-              <li key={event.nome}>
-                <Badge color={`rgb(${diaCorrespondente.cor})`} text={event.nome} />
-              </li>
-            </ul>
-          );
-        }
       }
-    }
 
-    return null;
+
+      return null;
+    };
+
+
+
+
+
+
+
+    return (
+      <div>
+        <ConfigProvider
+          theme={{
+            components: {
+              colorPrimary: '#9986BD',
+              colorLink: '#35225F',
+              colorLinkHover: '#35225F',
+              algorithm: true, // Enable algorithm
+            },
+          }}
+        >
+          <Calendar
+
+            value={value}
+            onSelect={onSelect}
+            onPanelChange={onPanelChange}
+            cellRender={dateCellRender}
+          />
+        </ConfigProvider>
+      </div>
+    );
   };
-
-
-
-  return (
-    <div>
-      <ConfigProvider
-        theme={{
-          components: {
-            colorPrimary: '#9986BD',
-            colorLink: '#35225F',
-            colorLinkHover: '#35225F',
-            algorithm: true, // Enable algorithm
-          },
-        }}
-      >
-        <Calendar
-
-          value={value}
-          onSelect={onSelect}
-          onPanelChange={onPanelChange}
-          cellRender={dateCellRender}
-        />
-      </ConfigProvider>
-    </div>
-  );
-};
-
+}
 export default CalendarComponent;
