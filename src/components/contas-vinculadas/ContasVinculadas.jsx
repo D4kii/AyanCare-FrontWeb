@@ -30,7 +30,7 @@ function ContasVinculadasScreen({ }) {
             try {
                 //Api de Pacientes por id do cuidador
                 const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
-
+                
 
                 setPaciente(dataPacientesByCuidador);
                 setLoading(false);
