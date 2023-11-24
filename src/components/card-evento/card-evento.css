@@ -68,7 +68,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 20px;
-    display: inline-block;   /* Permite definir largura e altura */
+    display: inline-block;  
+    width: 18vw; /* Permite definir largura e altura */
     max-width: 200px;        /* Largura máxima da tag span */
     overflow: hidden;        /* Oculta o conteúdo que ultrapassa a largura */
     text-overflow: ellipsis; /* Adiciona reticências para indicar que o texto foi cortado */

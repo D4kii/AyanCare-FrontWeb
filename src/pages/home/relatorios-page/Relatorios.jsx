@@ -5,7 +5,7 @@ import './relatorio-screen.css'
 //COMPONENTES
 import CreateRelatorioModal from '../../../components/modal-create-relatorio/CreateRelatorioModal';
 import Menu from '../../../components/menu/menu';
-import { Input } from 'antd';
+import { Empty, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import CardRelatorio from '../../../components/card-relatorio/CardRelatorio';
 import RelatorioDrawer from '../../../components/drawer-relatorio/DrawerRelatorio';
@@ -108,7 +108,7 @@ const Relatorios = () => {
                                 />
                             ))
                         ) : (
-                            <p>Nenhum relatório encontrado.</p>
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}  description={'Nenhum relatório encontrado'} />
                         )
                     )}
                 </div>

@@ -73,10 +73,10 @@ export const getPacienteById = async (idPaciente) => {
 
 }
 
-export const getNotificacoesByIdPaciente = async (id_paciente) => {
+export const getNotificacoesByIdCuidador = async (id_cuidador) => {
 
     try {
-        const response = await api.get(`/notificacao/modificacoes/${id_paciente}`);
+        const response = await api.get(`/notificacao/modificacoes/${id_cuidador}`);
         console.log('444444====================================');
         console.log(response.data);
         console.log('====================================');

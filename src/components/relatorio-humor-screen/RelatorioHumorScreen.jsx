@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Card, Divider, Form, Input, List, Select, Skeleton, Space, Tag } from 'antd';
+import { Avatar, Card, Divider, Empty, Form, Input, List, Select, Skeleton, Space, Tag } from 'antd';
 import { getPacientesByIDCuidador, getRelatorioHumorbyIdPaciente, getTesteHumorByID } from "../../services/api";
 import Loading from "../loading/Loading";
 import './relatorio-humor-screen.css'
-import { LeftOutlined, SmileFilled } from "@ant-design/icons";
+import { LeftOutlined, RobotOutlined, SmileFilled } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 const { Option } = Select;
 
@@ -12,6 +12,11 @@ const { Option } = Select;
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
 
 function RelatorioHumorScreen() {
+
+    const emptyMessage = {
+        emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Teste feito ainda'} />
+    }
+
     const [paciente, setPaciente] = useState("");
     const [pacienteSelected, setPacienteSelected] = useState(null);
 
@@ -191,36 +196,36 @@ function RelatorioHumorScreen() {
                                             >
                                                 <Divider orientation="left">Exercicios realizados</Divider>
                                                 <div className="column-exercicios_area"
-                                                    
+
                                                 >
                                                     <Space size={[20, 0]}
                                                         style={{ width: 'max-content' }}
                                                     >
                                                         {
-                                                            
-                                                                // restante do código
+
+                                                            // restante do código
                                                             <div>
-                                                            {humorSelectedData.teste.exercicios && humorSelectedData.teste.exercicios.map((item) => (
+                                                                {humorSelectedData.teste.exercicios && humorSelectedData.teste.exercicios.map((item) => (
 
 
-                                                                <Card
-                                                                    hoverable
-                                                                    style={{
-                                                                        width: 160,
-                                                                    }}
-                                                                    cover={<img alt="example" src={item.icone} style={
-                                                                        {
-                                                                            height: '100%',
-                                                                            width: '100%'
-                                                                        }
-                                                                    } />}
-                                                                >
-                                                                    <Meta
-                                                                        title={item.nome} />
-                                                                </Card>
+                                                                    <Card
+                                                                        hoverable
+                                                                        style={{
+                                                                            width: 160,
+                                                                        }}
+                                                                        cover={<img alt="example" src={item.icone} style={
+                                                                            {
+                                                                                height: '100%',
+                                                                                width: '100%'
+                                                                            }
+                                                                        } />}
+                                                                    >
+                                                                        <Meta
+                                                                            title={item.nome} />
+                                                                    </Card>
 
 
-                                                            ))}
+                                                                ))}
                                                             </div>
                                                         }
                                                     </Space>
@@ -291,14 +296,15 @@ function RelatorioHumorScreen() {
 
                     </div>
 
-                    <div className="relatorio-humor_cards-field">
                         {loading ? (
                             <Loading /> // Exibe um indicador de carregamento enquanto os dados estão sendo carregados
                         ) : humorData ? (
+                    <div className="relatorio-humor_cards-field">
                             <>
 
                                 <List
                                     itemLayout="horizontal"
+                                    locale={emptyMessage}
                                     dataSource={humorData.testes}
                                     renderItem={(item) => (
                                         <List.Item
@@ -316,10 +322,10 @@ function RelatorioHumorScreen() {
                                     )}
                                 />
                             </>
-                        ) : (
-                            <p>Nenhum paciente selecionado</p>
-                        )}
                     </div>
+                        ) : (
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Paciente selecionado'}/>
+                        )}
 
                 </div>)}
 

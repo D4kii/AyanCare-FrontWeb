@@ -1,13 +1,12 @@
 .agenda_field {
     display: flex;
     width: 100vw;
-    height: 100vh;
-    justify-content: center;
+    justify-content: end;
     gap: 3vw;
 }
 
-.agenda-field_eventos-turnos {
-    width: 65vw;
+.agenda-field_eventos {
+    width: 75vw;
     height: 85vh;
     display: flex;
     flex-direction: column;
@@ -16,7 +15,7 @@
 }
 
 .agenda-field_calendario {
-    width: 65vw;
+    width: 75vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,21 +37,10 @@
     /* Isso oculta a barra de rolagem no eixo X */
 }
 
-::-webkit-scrollbar-track {
-    background-color: #F4F4F4;
-}
 
-::-webkit-scrollbar {
-    width: 6px;
-    background: #F4F4F4;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #dad7d7;
-}
 
 .agenda-field_calendario_calendario {
-    width: 60vw;
+    width: 98%;
     padding: 1rem;
     justify-content: center;
     display: flex;
@@ -64,18 +52,24 @@
     display: flex;
     flex-direction: column;
     height: 90%;
-    justify-content:  start;
+    justify-content: start;
     align-items: center;
 }
 
 .agenda-card-turno_field {
     display: flex;
     flex-direction: column;
-    height: 90%;
+    max-height: 100%;
+    height: max-content;
+    width: 102%;
     gap: 20px;
     justify-content: flex-start;
     margin-top: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: rgba(255, 255, 255, 0.5);
 }
+
 
 :where(.css-dev-only-do-not-override-i0102m).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
     z-index: 1;
@@ -104,6 +98,12 @@
     font-family: poppins;
 }
 
+.alarmes-turnos_list{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 3rem;
+}
+
 .ant-anchor {
     gap: 2rem;
     display: flex;
@@ -128,11 +128,11 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 80vh;
+    height: 71vh;
     transition-delay: 2s;
 }
 
-.agenda-field_eventos-turnos_select-day {
+.agenda-field_eventos_select-day {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,14 +150,12 @@
 }
 
 .alarmes_list-field {
-    margin-top: 1.5rem;
-    display: flex;
-    width: 65vw;
-    flex-direction: column;
+    width: 75vw;
     height: 85vh;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    gap: 3rem;
 }
 
 :where(.css-dev-only-do-not-override-nllxry).ant-menu-light.ant-menu-root.ant-menu-inline,

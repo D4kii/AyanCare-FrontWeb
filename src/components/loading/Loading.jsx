@@ -3,7 +3,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Space, Spin, Tooltip } from 'antd';
 import './loading-page.css'
 
-function Loading() {
+function Loading({size}) {
     return (
         <div className="loading-page">
             <div className="loading-page">
@@ -13,7 +13,7 @@ function Loading() {
                         indicator={
                             <LoadingOutlined
                                 style={{
-                                    fontSize: '5rem',
+                                    fontSize: size? size : '5rem',
                                     color: '#35225F'
                                 }}
                                 spin

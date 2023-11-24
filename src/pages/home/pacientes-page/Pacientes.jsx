@@ -5,7 +5,7 @@ import CardPacientes from '../../../components/card-pacientes/CardPaciente';
 import Perfil from '../../../images/equipe.jpg'
 import { SearchOutlined } from '@ant-design/icons'
 import './pacientes.css'
-import { Input } from 'antd';
+import { Empty, Input } from 'antd';
 
 import { getPacientesByIDCuidador } from '../../../services/api';
 
@@ -45,40 +45,43 @@ const Pacientes = ({ }) => {
     return (
         <div>
             <Menu />
-            <div className="paciente">
-                <h1 className='pacientes-page_title'>Pacientes</h1>
-                <Input type="search"
-                    placeholder="Pesquisar"
-                    style={{
-                        width: '40vw',
-                        maxWidth: '800px',
-                        fontFamily: 'manrope',
-                        fontSize: '1rem',
-                        color: '#7E6F94',
-                        fontWeight: 400
-                    }}
-                    prefix={<SearchOutlined style={{
-                        fontSize: '1.1rem',
-                        color: '#7E6F94'
-                    }} />}
-                />
-                <div className="card-pacientes_field">
-                    {
-                        paciente && paciente.conexao ? (
-                            paciente.conexao.map((paciente) => (
-                                <CardPacientes
-                                    key={paciente.id_paciente}
-                                    PacienteName={paciente.paciente}
-                                    PacienteProfilePicture={paciente.foto_paciente}
-                                />
-                            ))
-                        ) : (
-                            <p>Nenhum paciente conectado.</p>
-                        )
-                    }
+            <div>
+                <div className="paciente">
+                    <h1 className='pacientes-page_title'>Pacientes</h1>
+                    <Input type="search"
+                        placeholder="Pesquisar"
+                        style={{
+                            width: '40vw',
+                            maxWidth: '800px',
+                            fontFamily: 'manrope',
+                            fontSize: '1rem',
+                            color: '#7E6F94',
+                            fontWeight: 400
+                        }}
+                        prefix={<SearchOutlined style={{
+                            fontSize: '1.1rem',
+                            color: '#7E6F94'
+                        }} />}
+                    />
+                    <div className="card-pacientes_field">
+                        {
+                            paciente && paciente.conexao ? (
+                                paciente.conexao.map((paciente) => (
+                                    <CardPacientes
+                                        key={paciente.id_paciente}
+                                        PacienteName={paciente.paciente}
+                                        PacienteProfilePicture={paciente.foto_paciente}
+                                    />
+                                ))
+                            ) : (
+                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum paciente conectado'} />
+                            )
+                        }
 
 
+                    </div>
                 </div>
+
             </div>
         </div>
 

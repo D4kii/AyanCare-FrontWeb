@@ -6,6 +6,8 @@ import './contas-vinculadas.css'
 
 import { getPacientesByIDCuidador } from "../../services/api";
 import ModalConectar from "../conectar-modal/ModalConectar";
+import { Empty } from "antd";
+import Loading from "../loading/Loading";
 
 function ContasVinculadasScreen({ }) {
     // //Pegando o json do cuidador e o token como string do localStorage
@@ -30,7 +32,7 @@ function ContasVinculadasScreen({ }) {
             try {
                 //Api de Pacientes por id do cuidador
                 const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
-                
+
 
                 setPaciente(dataPacientesByCuidador);
                 setLoading(false);
@@ -46,39 +48,45 @@ function ContasVinculadasScreen({ }) {
     }, [idCuidador]);
 
     return (
-        <div className="contas-vinculadas_screen">
-            <div className="contas-vinculadas_titulo-criar-vinculo">
-                <h2 className="contas-vinculadas_title">
-                    Contas Vinculadas
-                </h2>
-                <Button
-                    nameButton={'Criar vínculo'}
-                    iconButton={<PlusOutlined />}
-                    heigthButton={'2rem'}
-                    textSize={'1rem'}
-                    onClick={showModalConexao}
-                />
-
-            </div>
-            <div className="contas-vinculadas_cards-pacientes">
-                {paciente && paciente.conexao ? (
-                    paciente.conexao.map((conexao) => (
-                        <CardPacientes
-                            PacienteName={conexao.paciente}
-                            PacienteProfilePicture={conexao.foto_paciente}
+        <>
+            {loading ?
+                <Loading />
+                :
+                <div className="contas-vinculadas_screen">
+                    <div className="contas-vinculadas_titulo-criar-vinculo">
+                        <h2 className="contas-vinculadas_title">
+                            Contas Vinculadas
+                        </h2>
+                        <Button
+                            nameButton={'Criar vínculo'}
+                            iconButton={<PlusOutlined />}
+                            heigthButton={'2rem'}
+                            textSize={'1rem'}
+                            onClick={showModalConexao}
                         />
-                    ))
-                ) : (
-                    <p>Nenhum Paciente Encontrado</p>
-                )}
 
-                <ModalConectar
-                    onOpen={openModalConexao}
-                    onCancel={handleCancelConexao}
-                />
-            </div>
+                    </div>
+                    <div className="contas-vinculadas_cards-pacientes">
+                        {paciente && paciente.conexao ? (
+                            paciente.conexao.map((conexao) => (
+                                <CardPacientes
+                                    PacienteName={conexao.paciente}
+                                    PacienteProfilePicture={conexao.foto_paciente}
+                                />
+                            ))
+                        ) : (
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Paciente Encontrado'} />
+                        )}
 
-        </div>
+                    </div>
+                    <ModalConectar
+                        onOpen={openModalConexao}
+                        onCancel={handleCancelConexao}
+                    />
+
+                </div>
+            }
+        </>
 
     );
 }

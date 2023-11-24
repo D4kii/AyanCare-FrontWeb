@@ -12,7 +12,7 @@ import { Button, Popover, Space, notification } from 'antd';
 import PopoverCardNotifications from "../popover-notifications/PopoverNotifications";
 import { useLocation } from "react-router-dom";
 import ModalConectar from "../conectar-modal/ModalConectar";
-import { getNotificacoesByIdPaciente } from "../../services/api";
+import { getNotificacoesByIdCuidador } from "../../services/api";
 import Loading from "../loading/Loading";
 
 function Menu() {
@@ -22,45 +22,45 @@ function Menu() {
     const [loading, setLoading] = useState(true);
     const [notificacoes, setNotificacoes] = useState([]);
 
-    // const fetchNotificacoes = async () => {
-    //     try {
-    //         const cuidadorLocalStorage = localStorage.getItem('cuidador');
-    //         const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
-    //         const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
-    //         const dadosNotificacoes = await getNotificacoesByIdCuidador(idCuidador);
-    //         setNotificacoes(dadosNotificacoes);
-    //         setLoading(false);
-    //     } catch (error) {
-    //         console.error('Erro ao buscar dados de notificações:', error);
-    //         // Lidar com erros, se necessário
-    //     }
-    // };
+    const fetchNotificacoes = async () => {
+        try {
+            const cuidadorLocalStorage = localStorage.getItem('cuidador');
+            const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
+            const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
+            const dadosNotificacoes = await getNotificacoesByIdCuidador(idCuidador);
+            setNotificacoes(dadosNotificacoes);
+            setLoading(false);
+        } catch (error) {
+            console.error('Erro ao buscar dados de notificações:', error);
+            // Lidar com erros, se necessário
+        }
+    };
 
-    // useEffect(() => {
-    //     setLoading(true);
-    //     const initialNotificacoes = fetchNotificacoes();
+    useEffect(() => {
+        setLoading(true);
+        const initialNotificacoes = fetchNotificacoes();
 
-    //     // Atualiza notificações a cada 5s
-    //     const intervalId = setInterval(() => {
-    //         const newNotificacoes = fetchNotificacoes();
-    //         if (newNotificacoes.length > initialNotificacoes.length) {
-    //             const novaNotificacao = newNotificacoes[newNotificacoes.length - 1];
-    //             openNotification('topRight', novaNotificacao);
-    //         }
-    //     }, 5 * 1000);
+        // Atualiza notificações a cada 5s
+        const intervalId = setInterval(() => {
+            const newNotificacoes = fetchNotificacoes();
+            if (newNotificacoes.length > initialNotificacoes.length) {
+                const novaNotificacao = newNotificacoes[newNotificacoes.length - 1];
+                openNotification('topRight', novaNotificacao);
+            }
+        }, 5 * 1000);
 
-    //     return () => {
-    //         clearInterval(intervalId); // Limpa o intervalo quando o componente for desmontado
-    //     };
-    // }, []); // O array vazio garante que o useEffect seja executado apenas uma vez
+        return () => {
+            clearInterval(intervalId); // Limpa o intervalo quando o componente for desmontado
+        };
+    }, []); // O array vazio garante que o useEffect seja executado apenas uma vez
 
-    // const openNotification = (placement, novaNotificacao) => {
-    //     notification.info({
-    //         message: novaNotificacao.nome,
-    //         description: novaNotificacao.descricao,
-    //         placement,
-    //     });
-    // };
+    const openNotification = (placement, novaNotificacao) => {
+        notification.info({
+            message: `Nova Notificação`,
+            description: novaNotificacao.descricao,
+            placement,
+        });
+    };
 
     const showModalSetting = () => {
         setOpenModalSetting(true);
@@ -142,7 +142,7 @@ function Menu() {
                             content={(
                                 <>
                                     {loading ? (
-                                        <Loading />
+                                        <Loading size={'2rem'} />
                                     ) : (
 
                                         <div className="notification-field">

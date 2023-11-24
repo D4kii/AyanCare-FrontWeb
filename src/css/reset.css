@@ -3,3 +3,26 @@
     padding: 0;
     border-radius: border-box;
 }
+
+::-webkit-scrollbar {
+    /* Torna o fundo da barra de rolagem transparente */
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent; /* Define o fundo da área de rolagem como transparente */
+  }
+
+::-webkit-scrollbar-thumb {
+    background-color: #CBC0E1;
+    border-radius: 5px;
+    /* Substitua 'yourColorHere' pela cor desejada */
+}
+::-webkit-scrollbar {
+    width: 5px; /* Largura da barra de rolagem (pode ajustar conforme necessário) */
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;  /* Torna a barra de rolagem vertical invisível */
+  }
+  
