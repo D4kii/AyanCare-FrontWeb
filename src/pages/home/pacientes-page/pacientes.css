@@ -14,7 +14,6 @@ body {
     gap: 43px;
     font-family: poppins;
 }
-
 .pacientes-page_title {
     font-family: Poppins;
     color: #35225F;
@@ -39,5 +38,8 @@ input {
 .card-pacientes_field{
     display: flex;
     gap: 2rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 

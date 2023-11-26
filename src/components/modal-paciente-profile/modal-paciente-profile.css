@@ -1,13 +1,13 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .roxo {
-    width: 52vw;
+    width: 100%;
     height: 20vh;
     background: linear-gradient(113deg, #35225F 1.18%, #1C1232 55.24%, #000 99.47%), #F8F0EC;
+}
+.paciente-profile{
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #FFF;
 }
 
 .img-paciente {
@@ -179,6 +179,7 @@
     padding: 0px 30px;
     flex-direction: column;
     align-items: flex-start;
+    height: 20vh;
     gap: 8px;
 }
 

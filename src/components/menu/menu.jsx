@@ -40,14 +40,14 @@ function Menu() {
         setLoading(true);
         const initialNotificacoes = fetchNotificacoes();
 
-        // Atualiza notificações a cada 5s
+        // Atualiza notificações a cada 30s
         const intervalId = setInterval(() => {
             const newNotificacoes = fetchNotificacoes();
             if (newNotificacoes.length > initialNotificacoes.length) {
                 const novaNotificacao = newNotificacoes[newNotificacoes.length - 1];
                 openNotification('topRight', novaNotificacao);
             }
-        }, 5 * 1000);
+        }, 60 * 1000);
 
         return () => {
             clearInterval(intervalId); // Limpa o intervalo quando o componente for desmontado

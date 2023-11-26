@@ -296,10 +296,10 @@ function RelatorioHumorScreen() {
 
                     </div>
 
+                    <div className="relatorio-humor_cards-field">
                         {loading ? (
                             <Loading /> // Exibe um indicador de carregamento enquanto os dados estão sendo carregados
                         ) : humorData ? (
-                    <div className="relatorio-humor_cards-field">
                             <>
 
                                 <List
@@ -322,10 +322,10 @@ function RelatorioHumorScreen() {
                                     )}
                                 />
                             </>
-                    </div>
                         ) : (
-                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Paciente selecionado'}/>
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Paciente selecionado'} />
                         )}
+                    </div>
 
                 </div>)}
 

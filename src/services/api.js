@@ -159,6 +159,22 @@ export const getTurnosByIDCuidador = async (id_cuidador) => {
     }
 }
 
+export const getContasDesativadasIDCuidador = async (id_cuidador) => {
+    try {
+        const response = await api.get(`/conexoes/inativas`, {
+            params: {
+                idCuidador: id_cuidador
+            }
+        });
+        console.log(response.data);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de contas inativas:', error);
+        throw error;
+    }
+}
+
 export const getPerguntasQuestionarioRelatorio = async () => {
     try {
         const response = await api.get(`/perguntas`);

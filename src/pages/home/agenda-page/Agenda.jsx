@@ -309,7 +309,7 @@ const Agenda = () => {
                                     <div className="agenda-field_turnos-card">
                                         <h3 className="turnos_turnos-titulo">{'Turnos'}</h3>
                                         <div className="agenda-card-turno_field turno_field">
-                                            {calendarioData?
+                                            {calendarioData && calendarioData.turnos?
                                             (calendarioData.turnos.map((turno) => (
                                                 <CardTurno
                                                     paciente={turno.cuidador}
