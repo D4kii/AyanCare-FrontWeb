@@ -73,6 +73,18 @@ export const getCuidador = async (token, idCuidador) => {
     }
 
 }
+export const getCores = async () => {
+
+    try {
+        const response = await api.get(`/cores`);
+        console.log(2, response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na solicitação GET de cores:', error);
+        throw error;
+    }
+
+}
 export const getPacienteById = async (idPaciente) => {
 
     try {

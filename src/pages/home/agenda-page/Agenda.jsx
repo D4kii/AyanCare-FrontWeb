@@ -254,9 +254,10 @@ const Agenda = () => {
 
                                     <FloatButton.Group
                                         trigger="hover"
-                    
+                                        
                                         style={{
-                                            right: 24,
+                                            right: 100,
+                                            bottom:100
                                         }}
                                         icon={<PlusOutlined  />}
                                     >

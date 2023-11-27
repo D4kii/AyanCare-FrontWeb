@@ -1,7 +1,10 @@
-import { DatePicker, Divider, Form, Input, Modal, Radio, Select, Switch, TimePicker } from "antd";
-import React, { useState } from "react";
+import { DatePicker, Divider, Form, Input, Modal, Radio, Select, Space, Switch, Tag, TimePicker } from "antd";
+import React, { useEffect, useState } from "react";
 import './create-evento.css'
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import TextArea from "antd/es/input/TextArea";
+import CheckableTag from "antd/es/tag/CheckableTag";
+import { getCores } from "../../services/api";
 
 const diasDaSemana = [
     {
@@ -32,9 +35,15 @@ const diasDaSemana = [
         label: 'Sábado',
         value: 'Sábado'
     }];
-function ModalCreateEvento({ setOpen, open }) {
-    const [switchChecked, setSwitchChecked] = useState(true);
 
+
+function ModalCreateEvento({ setOpen, open }) {
+    const [value, setValue] = useState(1);
+
+    const [valueDescription, setValueDescription] = useState('');
+
+    //Evento semanal? checked
+    const [switchChecked, setSwitchChecked] = useState(true);
     const changeCondition = (checked) => {
         setSwitchChecked(checked);
     };
@@ -45,10 +54,29 @@ function ModalCreateEvento({ setOpen, open }) {
     };
 
     //Valor cores
-    const [value, setValue] = useState(1);
-    const onChange = (e) => {
-        console.log('radio checked', e.target.value);
-        setValue(e.target.value);
+    const [cores, setCores] = useState([]);
+
+    useEffect(() => {
+        // Função para buscar cores da API
+        const fetchCores = async () => {
+            try {
+                const coresDaApi = await getCores(); // Substitua pela chamada real da sua API
+                setCores(coresDaApi);
+            } catch (error) {
+                console.error('Erro ao buscar cores:', error);
+            }
+        };
+
+        // Chama a função para buscar cores
+        fetchCores();
+    }, []); // Executa apenas uma vez quando o componente é montado
+
+
+    const [selectedTags, setSelectedTags] = useState([]);
+
+    // Função para lidar com a seleção de cores
+    const handleColorSelected = (tag, checked) => {
+        setSelectedTags(tag);
     };
 
     const onCancelModal = () => {
@@ -63,41 +91,48 @@ function ModalCreateEvento({ setOpen, open }) {
             footer={null}
             width={'60vw'}
             style={{
-                width: 'max-content',
+                maxWidth: '1100px',
             }}
         >
             <div
                 className="create-evento_screen Modal">
                 <Form
                     layout="vertical"
+                    style={{
+                        width: '90%',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        marginLeft: '5%'
+
+                    }}
                 >
                     <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
-
-                        }}>
+                    >
                         <Form.Item
                             label={'Título'}
                         >
-                            <Input />
+                            <Input style={{
+                                width: `700px`,
+                                height: `2.5rem`
+                            }} />
                         </Form.Item>
                         <Form.Item
-                        label={'Cor do evento'}
+                            label={'Cor do evento'}
                         >
-                            <Radio.Group 
-                            onChange={onChange} 
-                            value={value}
-                            style={{gap:'2rem', display:'flex'}}
-                            >
-                                <Radio value={1}/>
-                                <Radio value={2}/>
-                                <Radio value={3}/>
-                                <Radio value={4}/>
-                                <Radio value={5}/>
-                                <Radio value={6}/>
-                            </Radio.Group>
+                            <Space size={[0, 8]} wrap>
+                                {cores.cores?.map((cor) => (
+                                    <Tag
+                                        key={cor.id} // Ou alguma outra propriedade única
+                                        color={`rgb(${cor.hex})`}
+                                        onChange={(checked) => handleColorSelected(cor.hex, checked)}
+                                    >
+                                        {
+                                        ''}
+                                    </Tag>
+                                ))}
+                            </Space>
                         </Form.Item>
 
                     </div>
@@ -108,7 +143,9 @@ function ModalCreateEvento({ setOpen, open }) {
                             display: 'flex',
                             flexDirection: 'row-reverse',
                             alignItems: "center",
-                            justifyContent: 'space-between'
+                            justifyContent: 'space-between',
+                            width: '100%',
+                            gap: '5rem'
                         }}
                     >
                         <Switch
@@ -122,7 +159,8 @@ function ModalCreateEvento({ setOpen, open }) {
                                 mode="multiple"
                                 allowClear
                                 style={{
-                                    width: '500px',
+                                    height: `2.5rem`,
+                                    width: '400px'
                                 }}
                                 placeholder="Please select"
                                 onChange={handleChange}
@@ -135,7 +173,7 @@ function ModalCreateEvento({ setOpen, open }) {
                         style={{
                             display: 'flex',
                             justifyContent: 'space-between',
-                            width: '500px'
+                            width: '80%'
                         }}
                     >
                         <Form.Item
@@ -153,25 +191,27 @@ function ModalCreateEvento({ setOpen, open }) {
                     <div
                         style={{
                             display: 'flex',
-                            alignItems:'center',
-                            justifyContent:'space-between',
-                            width:'500px'
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            width: '80%'
                         }}
                     >
                         <Form.Item
                             label={'Local'}
                         >
-                            <Input></Input>
+                            <Input style={{
+                                height: `2.5rem`
+                            }} />
                         </Form.Item>
                         <Form.Item
-                        label={'Paciente'}
+                            label={'Paciente'}
                         >
                             <Select
                                 defaultValue="lucy"
                                 style={{
                                     width: 120,
-                                    height:'40px'
-                                    
+                                    height: '40px'
+
                                 }}
                                 onChange={handleChange}
                                 options={[
@@ -197,6 +237,20 @@ function ModalCreateEvento({ setOpen, open }) {
                         </Form.Item>
 
                     </div>
+                    <Form.Item
+                        label={'Descrição'}
+                    >
+                        <TextArea
+                            value={value}
+                            style={{ width: '700px' }}
+                            onChange={(e) => setValueDescription(e.target.value)}
+                            placeholder="Controlled autosize"
+                            autoSize={{
+                                minRows: 3,
+                                maxRows: 5,
+                            }}
+                        />
+                    </Form.Item>
 
                 </Form>
 
