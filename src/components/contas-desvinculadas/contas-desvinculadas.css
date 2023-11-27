@@ -5,7 +5,7 @@
 
 .contas-desvinculadas_content-title {
     color: #000;
-    font-family: Manrope;
+    font-family: poppins;
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -17,7 +17,7 @@
 
 .contas-desvinculadas_content{
     display: flex;
-    height: 15%;
+    height: 20%;
     align-items: center;
     justify-content: flex-start;
 }

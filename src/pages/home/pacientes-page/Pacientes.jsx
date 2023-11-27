@@ -74,7 +74,8 @@ const Pacientes = ({ }) => {
             >
                 <div className="paciente">
                     <h1 className='pacientes-page_title'>Pacientes</h1>
-                    <Input type="search"
+                    <Input
+                    className='input-search' type="search"
                         placeholder="Pesquisar"
                         style={{
                             width: '40vw',

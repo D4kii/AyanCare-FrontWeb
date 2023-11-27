@@ -43,6 +43,18 @@ export const createConexaoUsuarios = async (id_cuidador, id_paciente) => {
     }
 }
 
+export const createEventoSemanal = async (dados) => {
+    console.log(2, { dados });
+
+    try {
+        const response = await api.post(`/evento/semanal`, dados);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na em criar evento semanal:', error);
+        throw error;
+    }
+}
+
 
 //GET
 export const getCuidador = async (token, idCuidador) => {
@@ -196,7 +208,18 @@ export const getEventosSemanaisByID = async (id_evento_semanal) => {
 
     } catch (error) {
         console.error('Erro na solicitação GET de evento semanal:', error);
-        throw error;
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
     }
 }
 
@@ -210,13 +233,24 @@ export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_pac
             }
         });
         console.log('getEventosAlarmesByCuidadorAndMes====================================');
-        console.log({id_cuidador, mes, id_paciente});
+        console.log({ id_cuidador, mes, id_paciente });
         console.log('====================================');
         return response.data
 
     } catch (error) {
         console.error('Erro na solicitação GET de calendario:', error);
-        throw error;
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
     }
 }
 
@@ -231,13 +265,24 @@ export const getEventosAlarmesByCuidadorAndDate = async (id_cuidador, dia, id_pa
             }
         });
         console.log('getEventosAlarmesByCuidadorAndDate====================================');
-        console.log({id_cuidador, dia, id_paciente, dia_semana});
+        console.log({ id_cuidador, dia, id_paciente, dia_semana });
         console.log('====================================');
         return response.data
 
     } catch (error) {
-        console.error('Erro na solicitação GET de calendario:', error);
-        throw error;
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+
     }
 }
 
@@ -262,5 +307,50 @@ export const updateCuidador = async (idCuidador, dados) => {
         }
         throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
     }
-    
+
+}
+
+export const ativarContasDesvinculadas = async (idCuidador, idPaciente) => {
+    try {
+        const response = await api.put(`/conexao/ativar?idPaciente=${idPaciente}&idCuidador=${idCuidador}`);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na reconexão entre contas do Cuidador:', error);
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+    }
+
+}
+
+export const desativarContasVinculadas = async (idCuidador, idPaciente) => {
+    console.log({idCuidador, idPaciente});
+    try {
+        const response = await api.put(`/conexao/desativar?idPaciente=${idPaciente}&idCuidador=${idCuidador}`);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na tentativa de desativar contas do Cuidador:', error);
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+    }
+
 }

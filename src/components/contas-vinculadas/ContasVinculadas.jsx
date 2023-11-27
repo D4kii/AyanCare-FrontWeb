@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Button from "../button/Button";
 import CardPacientes from "../card-pacientes/CardPaciente";
-import { PlusOutlined } from '@ant-design/icons'
+import { DeleteTwoTone, DownOutlined, MoreOutlined, PlusOutlined } from '@ant-design/icons'
 import './contas-vinculadas.css'
 
-import { getPacientesByIDCuidador } from "../../services/api";
+import { getPacienteById, getPacientesByIDCuidador, desativarContasVinculadas } from "../../services/api";
 import ModalConectar from "../conectar-modal/ModalConectar";
-import { Empty } from "antd";
+import { Avatar, Dropdown, Empty, List, Modal, Skeleton, Space } from "antd";
 import Loading from "../loading/Loading";
+import ModalPacienteProfile from "../modal-paciente-profile/ModalPacienteProfile";
+
+const items = [
+    {
+        label: 'Desvincular',
+        key: '0',
+    }
+];
 
 function ContasVinculadasScreen({ }) {
+
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [idPacienteSelected, setIdPacienteSelected] = useState(null);
+
     // //Pegando o json do cuidador e o token como string do localStorage
     const cuidadorLocalStorage = localStorage.getItem('cuidador')
     const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
@@ -26,7 +39,49 @@ function ContasVinculadasScreen({ }) {
     const handleCancelConexao = () => {
         setOpenModalConexao(false);
     };
+    const [openModalProfile, setOpenModalProfile] = useState(false)
 
+    const [selectedPaciente, setSelectedPaciente] = useState(null);
+
+    const handleOpenPacienteProfile = async (idPaciente) => {
+        try {
+            const dadosPaciente = await getPacienteById(idPaciente);
+            setSelectedPaciente(dadosPaciente);
+            setOpenModalProfile(true);
+        } catch (error) {
+            console.error('Erro ao buscar dados do paciente:', error);
+        }
+    }
+
+    const handleCancel = () => {
+        setOpenModalProfile(false)
+    }
+
+    const handleOkModalConfirm = async () => {
+        setConfirmLoading(true);
+        console.log({idPacienteSelected, idCuidador});
+        try {
+            await desativarContasVinculadas(idCuidador, idPacienteSelected);
+            const newData =  await getPacientesByIDCuidador(idCuidador);
+            setPaciente(newData)
+            setConfirmLoading(false);
+            setOpen(false)
+        } catch (error) {
+            console.error('Erro ao desvincular contas:', error);
+        }
+
+    };
+
+    const showModal = (idPaciente) => {
+        console.log('aquii', idPaciente);
+        setIdPacienteSelected(idPaciente);
+        setOpen(true);
+    };
+
+    const handleCancelModalConfirm = () => {
+        console.log('Clicked cancel button');
+        setOpen(false);
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -46,6 +101,8 @@ function ContasVinculadasScreen({ }) {
             fetchData();
         }
     }, [idCuidador]);
+
+
 
     return (
         <>
@@ -67,22 +124,84 @@ function ContasVinculadasScreen({ }) {
 
                     </div>
                     <div className="contas-vinculadas_cards-pacientes">
-                        {paciente && paciente.conexao ? (
-                            paciente.conexao.map((conexao) => (
-                                <CardPacientes
-                                    PacienteName={conexao.paciente}
-                                    PacienteProfilePicture={conexao.foto_paciente}
+                        {
+                            paciente && paciente.conexao ? (
+                                <List
+                                    className="demo-loadmore-list"
+                                    itemLayout="horizontal"
+                                    dataSource={paciente.conexao}
+                                    renderItem={(item) => (
+                                        <List.Item
+                                            actions={[
+                                                <a key="list-loadmore-more" >ver relatórios</a>,
+                                                <a key="list-loadmore-more" >ver agenda</a>,
+                                                <Dropdown
+                                                    menu={{
+                                                        items,
+                                                        onClick:()=> showModal(item.id_paciente),
+                                                    }}
+                                                    trigger={['click']}
+
+                                                >
+                                                    <a onClick={(e) => e.preventDefault()}>
+                                                        <Space>
+                                                            <MoreOutlined />
+                                                        </Space>
+                                                    </a>
+                                                </Dropdown>
+                                            ]}
+                                            key={item.id_teste_humor}
+                                            style={{
+                                                padding: '1rem',
+                                                marginBottom: '1.5rem',
+                                                borderRadius: '4px',
+                                                border: '1px solid #DBD7E2'
+                                            }}
+                                        >
+                                            <Skeleton avatar title={item.paciente} loading={item.loading} active>
+                                                <List.Item.Meta
+                                                    style={{
+                                                        width: '18vw',
+                                                        height: '2.5rem',
+                                                        maxWidth: '700px',
+                                                        alignItems: 'center',
+                                                    }}
+
+                                                    avatar={<Avatar src={item.foto_paciente} />}
+                                                    title={<a onClick={() => handleOpenPacienteProfile(item.id_paciente)}>{item.paciente}</a>}
+                                                    description={item.observacao}
+                                                />
+                                                <div>{item.data}</div>
+                                            </Skeleton>
+                                        </List.Item>
+                                    )}
                                 />
-                            ))
-                        ) : (
-                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Paciente Encontrado'} />
-                        )}
+                            ) : loading ? (
+                                <loading />
+                            ) : (
+                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhuma conta desvinculada'} />
+                            )
+                        }
 
                     </div>
                     <ModalConectar
                         onOpen={openModalConexao}
                         onCancel={handleCancelConexao}
                     />
+                    <ModalPacienteProfile
+                        openModal={openModalProfile}
+                        onCancel={handleCancel}
+                        dataPaciente={selectedPaciente}
+                    />
+                    <Modal
+                        title="Title"
+                        open={open}
+                        onOk={handleOkModalConfirm}
+                        confirmLoading={confirmLoading}
+                        onCancel={handleCancelModalConfirm}
+                    >
+                        <p>Tem certeza que deseja devincular as contas?</p>
+                    </Modal>
 
                 </div>
             }

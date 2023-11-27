@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Select, Menu, Empty, FloatButton } from 'antd';
-import { LeftOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
+import { Select, Menu, Empty, FloatButton, Button } from 'antd';
+import { CommentOutlined, CustomerServiceOutlined, LeftOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import MenuCompoente from '../../../components/menu/menu';
@@ -252,16 +252,39 @@ const Agenda = () => {
                                         </div>
                                     </div>
 
-                                    <FloatButton
-                                        open={open}
-                                        shape='square'
-                                        onClick={() => setOpenModalCriarEvento(true)}
-                                        trigger="click"
-                                        style={{ right: 94,
-                                                bottom: 80 }}
-                                        icon={<PlusOutlined />}
-                                        tooltip={<div >Criar evento</div>}
-                                    />
+                                    <FloatButton.Group
+                                        trigger="hover"
+                    
+                                        style={{
+                                            right: 24,
+                                        }}
+                                        icon={<PlusOutlined  />}
+                                    >
+                                        <Button 
+                                        onClick={()=> setOpenModalCriarEvento(true)}
+                                        style={
+                                            {
+                                                right: 80,
+                                                height: '2.5rem',
+                                                bottom: 20,
+                                                border: 'none',
+                                                boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
+                                            }
+                                        }>
+                                            Criar Evento
+                                        </Button>
+                                        <Button style={
+                                            {
+                                                right: 70,
+                                                height: '2.5rem',
+                                                bottom: 0,
+                                                border: 'none',
+                                                boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
+                                            }
+                                        }>
+                                            Criar Turno
+                                        </Button>
+                                    </FloatButton.Group>
                                 </div>
                             </section>
                         ) : openKeys == '2' ? (
@@ -309,16 +332,16 @@ const Agenda = () => {
                                     <div className="agenda-field_turnos-card">
                                         <h3 className="turnos_turnos-titulo">{'Turnos'}</h3>
                                         <div className="agenda-card-turno_field turno_field">
-                                            {calendarioData && calendarioData.turnos?
-                                            (calendarioData.turnos.map((turno) => (
-                                                <CardTurno
-                                                    paciente={turno.cuidador}
+                                            {calendarioData && calendarioData.turnos ?
+                                                (calendarioData.turnos.map((turno) => (
+                                                    <CardTurno
+                                                        paciente={turno.cuidador}
 
-                                                />
+                                                    />
 
-                                            ))):(
-                                                <Empty description={'Sem turnos para hoje'}/>
-                                            )
+                                                ))) : (
+                                                    <Empty description={'Sem turnos para hoje'} />
+                                                )
                                             }
                                         </div>
                                     </div>
@@ -355,8 +378,8 @@ const Agenda = () => {
                 </div>
             </div>
             <ModalCreateEvento
-            open={openModalCriarEvento}
-            setOpen={setOpenModalCriarEvento}
+                open={openModalCriarEvento}
+                setOpen={setOpenModalCriarEvento}
             />
             <DrawerEvento
                 dadosEvento={dadosDadosEventoDrawer}

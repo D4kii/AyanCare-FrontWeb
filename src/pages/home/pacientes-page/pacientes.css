@@ -23,7 +23,7 @@ body {
     line-height: normal;
 }
 
-input {
+.input-search {
     display: flex;
     width: 550px;
     height: 40px;

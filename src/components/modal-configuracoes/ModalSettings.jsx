@@ -152,9 +152,11 @@ const ModalSetting = ({ open, onCancel }) => {
                   setImagemUseState={setImagem}
                 />
               ) : menuClick === '2' ? (
-                <ContasVinculadasScreen />
+                <ContasVinculadasScreen  />
               ) : menuClick === '3' ? (
-                <ContasDesvinculadasScreen />
+                <ContasDesvinculadasScreen
+                idCuidador={cuidador}
+                />
               ) : menuClick === '4' ? (
                 <RelatorioHumorScreen />
               ) : (
