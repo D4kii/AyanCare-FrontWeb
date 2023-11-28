@@ -254,24 +254,24 @@ const Agenda = () => {
 
                                     <FloatButton.Group
                                         trigger="hover"
-                                        
+
                                         style={{
                                             right: 100,
-                                            bottom:100
+                                            bottom: 100
                                         }}
-                                        icon={<PlusOutlined  />}
+                                        icon={<PlusOutlined />}
                                     >
-                                        <Button 
-                                        onClick={()=> setOpenModalCriarEvento(true)}
-                                        style={
-                                            {
-                                                right: 80,
-                                                height: '2.5rem',
-                                                bottom: 20,
-                                                border: 'none',
-                                                boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
-                                            }
-                                        }>
+                                        <Button
+                                            onClick={() => setOpenModalCriarEvento(true)}
+                                            style={
+                                                {
+                                                    right: 80,
+                                                    height: '2.5rem',
+                                                    bottom: 20,
+                                                    border: 'none',
+                                                    boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
+                                                }
+                                            }>
                                             Criar Evento
                                         </Button>
                                         <Button style={
@@ -379,6 +379,7 @@ const Agenda = () => {
                 </div>
             </div>
             <ModalCreateEvento
+                idCuidador={idCuidador}
                 open={openModalCriarEvento}
                 setOpen={setOpenModalCriarEvento}
             />

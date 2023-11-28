@@ -73,6 +73,24 @@ export const getCuidador = async (token, idCuidador) => {
     }
 
 }
+export const getConexaoByIDCuidadorAndPacienteName = async (id_cuidador, paciente_name) => {
+
+    try {
+        const response = await api.get(`/conexoes`, {
+            params: {
+                "idCuidador": id_cuidador,
+                "nomePaciente": paciente_name
+            }
+        });
+        console.log(77, response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na solicitação GET de conexao entre cuidador e paciente:', error);
+        throw error;
+    }
+
+}
+
 export const getCores = async () => {
 
     try {
