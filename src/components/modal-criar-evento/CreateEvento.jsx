@@ -1,4 +1,4 @@
-import { DatePicker, Divider, Form, Input, Modal, Radio, Select, Space, Switch, Tag, TimePicker } from "antd";
+import { Button, DatePicker, Divider, Form, Input, Modal, Radio, Select, Space, Switch, Tag, TimePicker } from "antd";
 import React, { useEffect, useState } from "react";
 import './create-evento.css'
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
@@ -76,6 +76,7 @@ function ModalCreateEvento({ setOpen, open }) {
 
     // Função para lidar com a seleção de cores
     const handleColorSelected = (tag, checked) => {
+        console.log(tag);
         setSelectedTags(tag);
     };
 
@@ -121,15 +122,23 @@ function ModalCreateEvento({ setOpen, open }) {
                         <Form.Item
                             label={'Cor do evento'}
                         >
-                            <Space size={[0, 8]} wrap>
+                            <Space size={[8, 8]} wrap>
                                 {cores.cores?.map((cor) => (
                                     <Tag
                                         key={cor.id} // Ou alguma outra propriedade única
                                         color={`rgb(${cor.hex})`}
-                                        onChange={(checked) => handleColorSelected(cor.hex, checked)}
+                                        onClick={(checked) => handleColorSelected(cor.id, checked)}
+                                        style={{
+                                            cursor:'pointer',
+                                            border: selectedTags == cor.id? '3px solid #35225F' : 'none',
+                                        }}
                                     >
-                                        {
-                                        ''}
+                                        <div 
+                                        style={{
+                                            height:'1rem',
+                                            width:'.3rem'
+                                        }}
+                                        />
                                     </Tag>
                                 ))}
                             </Space>
@@ -251,7 +260,11 @@ function ModalCreateEvento({ setOpen, open }) {
                             }}
                         />
                     </Form.Item>
-
+                            <Form.Item>
+                                <Button>
+                                    Criar Evento
+                                </Button>
+                            </Form.Item>
                 </Form>
 
             </div>

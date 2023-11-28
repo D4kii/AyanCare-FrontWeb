@@ -36,6 +36,7 @@ function CreateRelatorioModal(
         });
     };
 
+    const [perguntasEnviadas, setPerguntasEnviadas] = useState(0);
     const [loading, setLoading] = useState(true);
     const [pergunta, setPergunta] = useState("");
     const [paciente, setPaciente] = useState("");
@@ -110,39 +111,34 @@ function CreateRelatorioModal(
     console.log(2, paciente);
 
     const onFinishMadeQuestionario = async (values) => {
-        pergunta.perguntas.forEach(async dadosPergunta => {
-            try {
-
+        try {
+            for (const dadosPergunta of pergunta.perguntas) {
                 const questionario = {
                     "id_pergunta": dadosPergunta.id,
                     "id_relatorio": idRelatorio.relatorio.id,
                     "resposta": respostas[dadosPergunta.id]
                 };
-                console.log(questionario);
 
-                //Chama a API para criar o relatório
-                const response = await createQuestionarioRelatorio(questionario);
-
-                // Imprime os dados do relatório criado
-                Modal.success({
-                    content: 'Relatorio realizado com sucesso!',
-                    okText: 'ok',
-                    onOk: () => {
-                        // Navegar para a página de home após o usuário confirmar a modal
-                        setOpenModal(false)
-                    },
-                });
-
-                // Ativa o modo de questionário
-                setModoQuestionario(true);
-            } catch (error) {
-                // Lida com erros na chamada da API
-                ErrorMessage("Erro ao criar Questionário");
-                console.error('Erro ao criar Questionário:', error);
+                // Chama a API para criar o questionário
+                await createQuestionarioRelatorio(questionario);
             }
 
-        });
+            // Todas as perguntas foram enviadas, exibe a mensagem de sucesso
+            Modal.success({
+                content: 'Relatório realizado com sucesso!',
+                okText: 'Ok',
+                onOk: () => {
+                    setOpenModal(false);
+                },
+            });
+            setModoQuestionario(false)
+        } catch (error) {
+            ErrorMessage("Erro ao criar Questionário");
+            console.error('Erro ao criar Questionário:', error);
+        }
     };
+
+
 
 
     return (
@@ -201,7 +197,7 @@ function CreateRelatorioModal(
                 ) :
                     (
                         <Modal
-                            
+
                             open={open}
                             onCancel={onCancel}
                             title={'Vincule sua conta'}
@@ -213,6 +209,7 @@ function CreateRelatorioModal(
                         </Modal>
                     )}
             </ConfigProvider>
+
         </div >
     );
 }
