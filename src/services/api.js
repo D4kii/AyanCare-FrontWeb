@@ -54,6 +54,28 @@ export const createEventoSemanal = async (dados) => {
         throw error;
     }
 }
+export const createEventoUnitario = async (dados) => {
+    console.log(2, { dados });
+
+    try {
+        const response = await api.post(`/evento`, dados);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na em criar evento unitario:', error);
+        throw error;
+    }
+}
+export const createTurno = async (dados) => {
+    console.log(2, { dados });
+
+    try {
+        const response = await api.post(`/turno`, dados);
+        return response.data;
+    } catch (error) {
+        console.error('Erro na em criar turno:', error);
+        throw error;
+    }
+}
 
 
 //GET
@@ -82,7 +104,7 @@ export const getConexaoByIDCuidadorAndPacienteName = async (id_cuidador, pacient
                 "nomePaciente": paciente_name
             }
         });
-        console.log(77, response.data);
+        console.log(77, paciente_name);
         return response.data;
     } catch (error) {
         console.error('Erro na solicitação GET de conexao entre cuidador e paciente:', error);
@@ -125,6 +147,22 @@ export const getNotificacoesByIdCuidador = async (id_cuidador) => {
         return response.data;
     } catch (error) {
         console.error('Erro na solicitação GET de notificações:', error);
+        throw error;
+    }
+
+}
+
+export const getModificacoesByIDCuidador = async (id_cuidador) => {
+
+    try {
+        const response = await api.get(`/notificacoes`, {
+            params:{
+                idCuidador: id_cuidador
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erro na solicitação GET de modificações:', error);
         throw error;
     }
 
@@ -238,6 +276,27 @@ export const getEventosSemanaisByID = async (id_evento_semanal) => {
 
     } catch (error) {
         console.error('Erro na solicitação GET de evento semanal:', error);
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+    }
+}
+export const getEventosUnitariosByID = async (id_evento_unitario) => {
+    try {
+        const response = await api.get(`/evento/${id_evento_unitario}`);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de evento unitario:', error);
         if (error.response) {
             // O servidor retornou uma resposta com um status diferente de 2xx
             console.error('Status do erro:', error.response.status);

@@ -158,6 +158,7 @@ function CreateRelatorioModal(
                     <Modal
                         open={open}
                         onCancel={onCancel}
+                        title="Criar relatório"
                         footer={null}
                         width={'80vw'}
                         style={{

@@ -7,12 +7,13 @@
     align-items: flex-start;
 
 }
-.acesso-rapido_field{
+
+.acesso-rapido_field {
     height: 65vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .bem-vindo_field {
@@ -64,7 +65,17 @@ img {
     cursor: pointer;
 }
 
-h3 {
+.recentes-subtitle {
+    color: #9986BD;
+    width: 75vw;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.recentes-title {
     font-family: Poppins;
     font-size: 24px;
     font-style: normal;
@@ -97,9 +108,10 @@ h3 {
 }
 
 .informacao {
-    
-    margin-left: 250px;
+    margin-top: 2rem;
+    margin-left: 220px;
 }
+
 
 .recentes {
     display: flex;
@@ -111,17 +123,31 @@ h3 {
 
 .cards-do-relatorios {
     display: flex;
-    width: 70vw;
+    width: 75vw;
     gap: 40px;
     justify-content: space-between;
-    height: 25vh;
     align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
-hr {
-    width: 72vw;
-    height: 1px;
-    background-color: #d6c4f6;
+.cards-do-relatorios::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+.cards-do-relatorios::-webkit-scrollbar-thumb {
+    background: rgb(53, 34, 95);
+}
+
+.cards-do-relatorios::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-card .ant-card-actions>li >span {
+    font-size: 12px;
+    cursor: none;
+    color: #35225F;
 }
 
 .acesso {

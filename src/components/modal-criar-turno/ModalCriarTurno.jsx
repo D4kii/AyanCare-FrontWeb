@@ -1,11 +1,10 @@
-import { Button, DatePicker, Divider, Form, Input, Modal, Radio, Select, Space, Switch, Tag, TimePicker, message } from "antd";
+import { Button, DatePicker, Divider, Form, Input, Modal, Select, Space, Switch, Tag, TimePicker, message } from "antd";
 import React, { useEffect, useState } from "react";
-import './create-evento.css'
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import TextArea from "antd/es/input/TextArea";
-import CheckableTag from "antd/es/tag/CheckableTag";
-import { createEventoSemanal, createEventoUnitario, getConexaoByIDCuidadorAndPacienteName, getCores, getPacientesByIDCuidador } from "../../services/api";
+import { createTurno } from "../../services/api";
 import Loading from "../loading/Loading";
+import TextArea from "antd/es/input/TextArea";
+
+
 
 const diasDaSemana = [
     {
@@ -38,7 +37,7 @@ const diasDaSemana = [
     }];
 
 
-function ModalCreateEvento({ setOpen, open, idCuidador }) {
+function ModalCreateTurno({ setOpen, open, idCuidador }) {
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -49,7 +48,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
     const [value, setValue] = useState(1);
     //Evento semanal? checked
     const [switchChecked, setSwitchChecked] = useState(true);
-    const [selectedTags, setSelectedTags] = useState(false);
+    const [selectedTags, setSelectedTags] = useState([]);
     const [conexaoPacienteSelected, setConexaoPacienteSelected] = useState(null)
 
     useEffect(() => {
@@ -112,14 +111,11 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
 
     const onCancelModal = () => {
         setOpen(false)
-
-        form.resetFields();
     }
 
     //Pegando os valores para mandar para a api
     const onFinish = async (valuesEvento) => {
         try {
-            if (switchChecked) {
                 try {
                     try {
                         const conexao = await getConexaoByIDCuidadorAndPacienteName(idCuidador, valuesEvento.paciente.label);
@@ -143,7 +139,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                     console.log(1111111, dadosEventoSemanal);
 
                     try {
-                        const dataPostEventoSemanal = await createEventoSemanal(dadosEventoSemanal);
+                        const dataPostEventoSemanal = await createTurno(dadosEventoSemanal);
                         console.log(dataPostEventoSemanal);
 
                         Modal.success({
@@ -163,45 +159,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                 } catch (error) {
                     console.error('Não foi possível buscar a conexão pelo nome do paciente:', error);
                 }
-            } else if (switchChecked === false) {
-                // Lógica para eventos únicos
-                if (idCuidador) {
-
-                    const dadosEventoUnitario = {
-                        "nome": valuesEvento.titulo,
-                        "descricao": valuesEvento.descricao,
-                        "local": valuesEvento.local,
-                        "hora": valuesEvento['horario_evento'].format('HH:mm'),
-                        "dia": valuesEvento['data_evento_unico'].format('DD/MM/YYYY'),
-                        "idPaciente": valuesEvento.paciente.value,
-                        "idCuidador": idCuidador,
-                        "id_cor": selectedTags
-                    };
-
-                    console.log(1111111, dadosEventoUnitario);
-
-                    try {
-                        const dataPostEventoUnitario = await createEventoUnitario(dadosEventoUnitario);
-                        console.log(dataPostEventoUnitario);
-
-                        Modal.success({
-                            content: 'Evento único criado com sucesso!',
-                            okText: 'Ok',
-                            onOk: () => {
-                                setOpen(false);
-                                form.resetFields(); // Resetar os campos do formulário
-                            },
-                        });
-
-                        setLoading(false);
-                    } catch (error) {
-                        console.error('Erro ao criar o evento:', error.response.data);
-                        setLoading(false);
-                    }
-
-                }
-
-            }
+            
         } catch (error) {
             console.error('Erro ao processar o formulário:', error);
         }
@@ -211,7 +169,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
     return (
         <Modal
             open={open}
-            title={'Criar Evento'}
+            title={'Criar Turno'}
             onCancel={onCancelModal}
             footer={null}
             width={'60vw'}
@@ -219,7 +177,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                 maxWidth: '1100px',
             }}
         >
-            <div
+            {/* <div
                 className="create-evento_screen Modal">
                 <Form
                     form={form}
@@ -242,12 +200,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <Form.Item
                             label={'Título'}
                             name={'titulo'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Por favor, insira o título do evento!'
-                                }
-                            ]}
+                            rules={[{ required: true, message: 'Por favor, insira o título do evento!' }]}
                         >
                             <Input style={{
                                 maxWidth: '700px',
@@ -260,12 +213,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                                 label={'Cor do evento'}
                                 name={'cor_evento'}
                                 getValueFromEvent={selectedTags}
-                                rules={[
-                                    {
-                                        required: selectedTags ? false : true,
-                                        message: 'Por favor, Selecione uma cor!'
-                                    }
-                                ]}
                             >
                                 {cores.cores?.map((cor) => (
                                     <Tag
@@ -312,12 +259,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <Form.Item
                             label={'Dias da semana'}
                             name={'dias_semana_evento_semanal'}
-                            rules={[
-                                {
-                                    required: switchChecked ? true : false,
-                                    message: 'Por favor, selecione os dias do evento!'
-                                }
-                            ]}
                         >
                             <Select
                                 mode="multiple"
@@ -326,7 +267,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                                     height: `2.5rem`,
                                     width: '400px'
                                 }}
-                                placeholder="Escolha os dias da semana"
+                                placeholder="Please select"
                                 options={diasDaSemana}
                                 disabled={!switchChecked}
                             />
@@ -342,12 +283,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <Form.Item
                             label={'Data'}
                             name={'data_evento_unico'}
-                            rules={[
-                                {
-                                    required: switchChecked ? false : true,
-                                    message: 'Por favor, insira a data do evento!'
-                                }
-                            ]}
                         >
 
                             <DatePicker bordered={false}
@@ -358,12 +293,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <Form.Item
                             label={'Horário'}
                             name={'horario_evento'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Por favor, insira o horário do evento!'
-                                }
-                            ]}
                         >
                             <TimePicker bordered={false} format={'HH:mm'} />
                         </Form.Item>
@@ -381,12 +310,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <Form.Item
                             label={'Local'}
                             name={'local'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Por favor, insira o local do evento!'
-                                }
-                            ]}
                         >
                             <Input style={{
                                 height: `2.5rem`
@@ -395,12 +318,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <Form.Item
                             label={'Paciente'}
                             name={'paciente'}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Por favor, selecione o paciente!'
-                                }
-                            ]}
                         >
                             <Select
                                 style={{ width: 200 }}
@@ -412,7 +329,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                                         <Loading />
                                     </Select.Option>
                                 ) : (
-                                    paciente.conexao?.map(conexao => (
+                                    paciente.conexao.map(conexao => (
                                         <Select.Option key={conexao.id_paciente} value={conexao.id_paciente}>
                                             {conexao.paciente}
                                         </Select.Option>
@@ -425,12 +342,6 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                     <Form.Item
                         label={'Descrição'}
                         name={'descricao'}
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Por favor, insira uma descrição para o evento!'
-                            }
-                        ]}
                     >
                         <TextArea
                             style={{ width: '700px' }}
@@ -441,32 +352,16 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                             }}
                         />
                     </Form.Item>
-                    <div
-                        style={{
-                            display: 'flex',
-                            gap: '1rem'
-                        }}
-                    >
-                        <Button onClick={onCancelModal}>
-                            Cancelar
+                    <Form.Item>
+                        <Button htmlType="submit">
+                            Criar Evento
                         </Button>
-                        <Form.Item>
-                            <Button htmlType="submit"
-                                style={{
-                                    backgroundColor: '#35225F',
-                                    color: '#fff'
-                                }}>
-                                Criar Evento
-                            </Button>
-
-                        </Form.Item>
-
-                    </div>
+                    </Form.Item>
                 </Form>
 
-            </div>
+            </div> */}
         </Modal>
     );
 }
 
-export default ModalCreateEvento;
+export default ModalCreateTurno;

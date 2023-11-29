@@ -50,10 +50,6 @@ function MadeRelatorioScreen(
             }}
             layout="vertical"
             scrollToFirstError>
-
-            <h2 className="create-relatorio-modal_title">
-                Criar Relatório
-            </h2>
             <Form.Item
                 name={'paciente'}
                 label='Selecione um Paciente'
@@ -118,8 +114,13 @@ function MadeRelatorioScreen(
                     offset: 8,
                 }}
             >
-                <Button type="primary" htmlType="submit" >
-                    Criar Relatório
+                <Button type="primary" htmlType="submit" 
+                style={{
+                    backgroundColor:'#35225F',
+                    color:'#fff'
+                }}
+                >
+                    Próximo
                 </Button>
             </Form.Item>
 

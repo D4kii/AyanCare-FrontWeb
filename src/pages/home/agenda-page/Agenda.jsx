@@ -19,6 +19,7 @@ import {
     getTurnosByIDCuidador
 } from '../../../services/api';
 import ModalCreateEvento from '../../../components/modal-criar-evento/CreateEvento';
+import ModalCreateTurno from '../../../components/modal-criar-turno/ModalCriarTurno';
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -40,6 +41,7 @@ const alarmesData = [
 
 const Agenda = () => {
     const [openModalCriarEvento, setOpenModalCriarEvento] = useState(false)
+    const [openModalCriarTurno, setOpenModalCriarTurno] = useState(false)
 
     const [value, setValue] = useState(() => dayjs());
     const [selectedValue, setSelectedValue] = useState(() => dayjs());
@@ -110,7 +112,7 @@ const Agenda = () => {
         const { value } = selectedOption;
 
         const idPaciente = value;
-        const anoMesSelecionado = selectedValue.format('MM-YYYY');
+        const anoMesSelecionado = selectedValue.format('MM/YYYY');
 
 
         setPacienteSelected(value);
@@ -165,6 +167,7 @@ const Agenda = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [dadosDadosEventoDrawer, setDadosEventoDrawer] = useState({});
     const viewEvento = (e) => {
+        console.log(e);
         setDadosEventoDrawer(e)
         setOpenDrawer(true);
     }
@@ -233,22 +236,41 @@ const Agenda = () => {
                                                 height: '90%'
                                             }}>
                                             <div className="agenda-card-turno_field">
-                                                {dateSelectedCalendario && dateSelectedCalendario.calendario && dateSelectedCalendario.calendario.eventos_semanais ? (
+                                                {dateSelectedCalendario && dateSelectedCalendario.calendario ? (
+                                                    <div className="agenda-card-turno_field">
+                                                        {dateSelectedCalendario.calendario.eventos_semanais && dateSelectedCalendario.calendario.eventos_semanais.length > 0 && (
+                                                            <div div className="agenda-card-turno_field">
+                                                                {dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
+                                                                    <CardEvento
+                                                                        onClick={() => viewEvento(evento)}
+                                                                        key={evento.id}
+                                                                        title={evento.nome}
+                                                                        hexStatus={evento.cor}
+                                                                        type={'Semanal'}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        )}
 
-                                                    dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
-                                                        <CardEvento
-                                                            onClick={() => viewEvento(evento)}
-                                                            key={evento.id}
-                                                            title={evento.nome}
-                                                            hexStatus={evento.cor}
-                                                            type={'Semanal'}
-                                                        />
-                                                    ))
+                                                        {dateSelectedCalendario.calendario.eventos_unicos && dateSelectedCalendario.calendario.eventos_unicos.length > 0 && (
+                                                            <div div className="agenda-card-turno_field">
+                                                                {dateSelectedCalendario.calendario.eventos_unicos.map((evento) => (
+                                                                    <CardEvento
+                                                                        onClick={() => viewEvento(evento)}
+                                                                        key={evento.id}
+                                                                        title={evento.nome}
+                                                                        hexStatus={evento.cor}
+                                                                        type={'Único'}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 ) : (
                                                     <Empty description={'Sem eventos por hoje'} />
                                                 )}
-
                                             </div>
+
                                         </div>
                                     </div>
 
@@ -274,7 +296,9 @@ const Agenda = () => {
                                             }>
                                             Criar Evento
                                         </Button>
-                                        <Button style={
+                                        {/* <Button 
+                                        onClick={() => setOpenModalCriarTurno(true)}
+                                        style={
                                             {
                                                 right: 70,
                                                 height: '2.5rem',
@@ -284,7 +308,7 @@ const Agenda = () => {
                                             }
                                         }>
                                             Criar Turno
-                                        </Button>
+                                        </Button> */}
                                     </FloatButton.Group>
                                 </div>
                             </section>
@@ -378,6 +402,11 @@ const Agenda = () => {
 
                 </div>
             </div>
+            <ModalCreateTurno
+                idCuidador={idCuidador}
+                open={openModalCriarTurno}
+                setOpen={setOpenModalCriarTurno}
+            />
             <ModalCreateEvento
                 idCuidador={idCuidador}
                 open={openModalCriarEvento}

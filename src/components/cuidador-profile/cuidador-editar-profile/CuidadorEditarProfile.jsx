@@ -88,7 +88,11 @@ function CuidadorEditarProfile({ onCancel }) {
                 "nome": values.nome,
                 "foto": imagem,
                 "id_genero": JSON.parse(values.genero),
-                "descricao_experiencia": values.descricao_experiencia
+                "descricao_experiencia": values.descricao_experiencia,
+                "data_nascimento": values.data_nascimento,
+                "id_endereco_cuidador": cuidadorData.endereco_id,
+                "email": cuidadorData.email,
+                "senha": 'bomdia40028922'
             }
             // Substitua 'SEU_ID_DE_CUIDADOR' pelo ID correto do cuidador
             console.log(dadosUpdate);
@@ -145,7 +149,11 @@ function CuidadorEditarProfile({ onCancel }) {
                             ]}
 
                         >
-                            <DatePicker defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} />
+                            <Input 
+                            type="date"
+                            defaultValue={dayjs('01/01/2015', dateFormatList[0])} 
+                            format={dateFormatList[0]}
+                             />
                         </Form.Item>
 
                         <Form.Item

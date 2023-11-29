@@ -286,7 +286,7 @@ function RelatorioHumorScreen() {
                                     <Loading />
                                 </Option>
                             ) : (
-                                paciente.conexao.map(conexao => (
+                                paciente.conexao?.map(conexao => (
                                     <Option key={conexao.id_paciente} value={conexao.id_paciente}>
                                         {conexao.paciente}
                                     </Option>

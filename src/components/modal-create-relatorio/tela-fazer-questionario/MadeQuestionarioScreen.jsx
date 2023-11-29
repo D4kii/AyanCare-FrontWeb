@@ -1,4 +1,4 @@
-import { Button, Form, Radio } from "antd";
+import { Button, Flex, Form, Radio } from "antd";
 import React from "react";
 import '../create-relatorio-modal.css'
 import Loading from "../../loading/Loading";
@@ -39,6 +39,10 @@ function MadeQuestionarioScreen(
                 onFinish={onFinishQuestionario}
                 style={{
                     maxWidth: '80vw',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    marginLeft:'1rem',
                 }}
                 layout="vertical"
                 scrollToFirstError>
@@ -57,16 +61,26 @@ function MadeQuestionarioScreen(
                             name={perguntas.id}
                         >
                             <span>{perguntas.pergunta}</span>
-                            <Radio.Group
-                                onChange={(e) => handleChange(perguntas.id, e.target.value)}
-                                style={{
-                                    display: 'flex'
-                                }}
-                                value={respostas[perguntas.id]}
+                            <div
+                            style={{
+                                display:'Flex',
+                                maxWidth: '300px',
+                                display: 'flex',
+                                flexdire: 'column',
+                                gap: '1.5rem',                          }}
                             >
-                                <Radio value={true}>Sim</Radio>
-                                <Radio value={false}>Não</Radio>
-                            </Radio.Group>
+                                <Radio.Group
+                                    onChange={(e) => handleChange(perguntas.id, e.target.value)}
+                                    style={{
+                                        display: 'flex'
+                                    }}
+                                    value={respostas[perguntas.id]}
+                                >
+                                    <Radio value={true}>Sim</Radio>
+                                    <Radio value={false}>Não</Radio>
+                                </Radio.Group>
+
+                            </div>
                         </Form.Item>
                     ))
                 )}
@@ -74,7 +88,10 @@ function MadeQuestionarioScreen(
                 <Form.Item
 
                 >
-                    <Button type="primary" htmlType="submit" >
+                    <Button type="primary" htmlType="submit" 
+                    style={{
+                        backgroundColor:'#35225F '
+                    }}>
                         Criar Relatório
                     </Button>
                 </Form.Item>

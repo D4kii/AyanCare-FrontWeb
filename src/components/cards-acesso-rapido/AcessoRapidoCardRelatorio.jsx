@@ -1,21 +1,32 @@
 import React from 'react'
 import './card-relatorio-acesso-rapido.css'
 import userPhoto from '../../images/background-image.png'
+import { Card } from 'antd';
+import Meta from 'antd/es/card/Meta';
 
-function CardRelatorioAcessoRapido({ tituloCard, descricaoCard, nomePaciente }) {
+function CardRelatorioAcessoRapido({ data }) {
 
 
     return (
-        <button className="button-relatorio">
-            <div className="card-relatorio-acesso-rapido">
-                <span className="title">{tituloCard}</span>
-                <p className="description">{descricaoCard}</p>
-                <div className="actions">
-                    <img className="foto-paciente" src={userPhoto} />
-                    <p className="paciente-nome">Paciente: {nomePaciente}</p>
-                </div>
-            </div>
-        </button>);
+        <Card
+        style={{
+          width: '30vw',
+          maxWidth: '350px',
+          marginTop: 16,
+        }}
+        actions={
+           [`${data.hora_criacao}H`, data.data_criacao ]
+        }
+        type='inner'
+      >
+        <Card.Meta
+          title={data.nome}
+          description={data.descricao}
+        />
+        
+      </Card>
+
+        );
 }
 
 export default CardRelatorioAcessoRapido;

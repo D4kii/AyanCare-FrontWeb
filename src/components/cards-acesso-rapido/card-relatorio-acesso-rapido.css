@@ -95,3 +95,12 @@ p {
     -webkit-text-decoration-line: underline;
     text-decoration-line: underline;
 }
+
+:where(.css-dev-only-do-not-override-nllxry).ant-card .ant-card-meta-title {
+    color: #35225F;
+    font-size: 14px;
+}
+:where(.css-dev-only-do-not-override-nllxry).ant-card .ant-card-meta-description {
+    color: #9986BD;
+    font-size: 12.5px;
+}

@@ -44,9 +44,9 @@ function CuidadorProfile({
         <div className="cuidador-profile">
             <div className="cuidador-profile_background">
                 <div className="cuidador-profile_edit-profile"
-                style={{
-                    display: modoEdicao? 'none' : 'flex'
-                }}
+                    style={{
+                        display: modoEdicao ? 'none' : 'flex'
+                    }}
                 >
                     <Button
                         heigthButton={'30px'}
@@ -69,10 +69,11 @@ function CuidadorProfile({
 
                     <div className="cuidador-profile_informations-field_first-column">
                         <div className="profile-image_cuidador">
-                            <ProfilePicture
-                                imagem={imageUseState}
-                                setImagem={setImagemUseState}
-                            />
+                            <div className="profile-image_cuidador-field"
+                                style={{
+                                    background: imageUseState ? `lightgray 50% / cover no-repeat` : '#7E6F94',
+                                    backgroundImage: imageUseState ? `url(${imageUseState})` : 'none'
+                                }} />
                             <h3 className="profile-name_cuidador">{name}</h3>
                             <h3 className="profile-description_cuidador">cuidador</h3>
                         </div>
@@ -97,7 +98,7 @@ function CuidadorProfile({
                             {description}
                         </p>
                     </div>
-                    <div className="cuidador-profile_informations-field_third-column">
+                    {/* <div className="cuidador-profile_informations-field_third-column">
                         <h4 className="cuidador-profile_tarefas-title">Tarefas de hoje</h4>
                         <div className="cuidador-profile_tarefas-cards">
                             <List
@@ -114,7 +115,7 @@ function CuidadorProfile({
                                 )}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             )}
         </div>

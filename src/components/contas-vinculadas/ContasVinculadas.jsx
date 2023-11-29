@@ -179,7 +179,7 @@ function ContasVinculadasScreen({ }) {
                             ) : loading ? (
                                 <loading />
                             ) : (
-                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhuma conta desvinculada'} />
+                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhuma conta vinculada ainda'} />
                             )
                         }
 

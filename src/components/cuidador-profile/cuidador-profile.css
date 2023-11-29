@@ -24,6 +24,13 @@
     line-height: normal;
 }
 
+.profile-image_cuidador-field {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+}
+
 .cuidador-profile_background {
     width: 100%;
     height: 20vh;
@@ -107,11 +114,11 @@
     color: #7E6F94;
 }
 
-:where(.css-dev-only-do-not-override-1czi1ww).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title >a {
+:where(.css-dev-only-do-not-override-1czi1ww).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title>a {
     color: #35225F;
 }
 
-.cuidador-profile_informations-field_first-column_count-conection{
+.cuidador-profile_informations-field_first-column_count-conection {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -119,6 +126,6 @@
 }
 
 .profile-name_cuidador,
-.profile-description_cuidador{
+.profile-description_cuidador {
     margin-left: 0.5rem;
 }

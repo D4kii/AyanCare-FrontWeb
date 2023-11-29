@@ -8,7 +8,7 @@ import iconPaciente from '../../images/paciente-icon.png';
 import iconSino from '../../images/sino-icon.png';
 import iconConfig from '../../images/config-icon.png';
 import ModalSetting from "../modal-configuracoes/ModalSettings";
-import { Button, Popover, Space, notification } from 'antd';
+import { Button, Empty, Popover, Space, notification } from 'antd';
 import PopoverCardNotifications from "../popover-notifications/PopoverNotifications";
 import { useLocation } from "react-router-dom";
 import ModalConectar from "../conectar-modal/ModalConectar";
@@ -146,14 +146,18 @@ function Menu() {
                                     ) : (
 
                                         <div className="notification-field">
-                                            {notificacoes.notificacao?.map((notificacao) => (
+                                            {notificacoes.notificacao?
+                                            notificacoes.notificacao.map((notificacao) => (
                                                 <PopoverCardNotifications
                                                     key={notificacao.id}
                                                     title={notificacao.nome}
                                                     description={notificacao.descricao}
                                                     time={notificacao.hora_criacao}
                                                 />
-                                            ))}
+                                            ))
+                                            :
+                                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Sem notificações'}/>
+                                        }
                                         </div>
                                     )}
                                 </>

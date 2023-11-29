@@ -37,7 +37,11 @@
     /* Isso oculta a barra de rolagem no eixo X */
 }
 
-
+h3{
+    font-family: poppins;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 
 .agenda-field_calendario_calendario {
     width: 98%;

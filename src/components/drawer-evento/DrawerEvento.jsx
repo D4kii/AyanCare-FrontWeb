@@ -1,7 +1,7 @@
-import { Drawer, Space, Tag } from "antd";
+import { Descriptions, Drawer, Empty, Space, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
-import { getEventosSemanaisByID } from "../../services/api"; // Importe a função da sua API
+import { getEventosSemanaisByID, getEventosUnitariosByID } from "../../services/api"; // Importe a função da sua API
 import './drawer-eventos.css'
 
 function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
@@ -24,19 +24,28 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
             try {
                 // Verifica se há dados de evento e se o componente não está em um estado de loading
                 if (dadosEvento && !loading) {
-                    const eventData = await getEventosSemanaisByID(dadosEvento.id);
+                    let eventData;
+                    if (dadosEvento.dias) {
+                        // Se "dias" estiver presente em dadosEvento, chama o endpoint de eventos semanais
+                        eventData = await getEventosSemanaisByID(dadosEvento.id);
+                    } else {
+                        // Caso contrário, chama o endpoint de eventos únicos
+                        eventData = await getEventosUnitariosByID(dadosEvento.id);
+                    }
+
                     setEventoData(eventData);
-                    setcarregando(false)
+                    setcarregando(false);
                 }
             } catch (error) {
-                console.error('Erro ao buscar dados do evento semanal:', error);
-                setcarregando(false)
+                console.error('Erro ao buscar dados do evento:', error);
+                setcarregando(false);
                 // Lidar com erros, se necessário
             }
         };
 
         fetchEventoData(); // Chama a função de busca quando a propriedade dadosEvento ou loading muda
     }, [dadosEvento, loading]);
+
 
     console.log(eventoData);
     return (
@@ -99,19 +108,28 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                                                                     <span style={{ fontWeight: '700' }}>Descrição:</span> {eventoData.evento.descricao}
                                                                 </span>
                                                                 <div className="ver-evento_dias-field">
-                                                                    <span style={{ fontWeight: '700' }}>Dias:</span>
                                                                     <Space size={[0, 8]} wrap>
-                                                                        {eventoData.evento ? (
-                                                                            eventoData.evento.dias
-                                                                                .filter((diaSemana) => diaSemana.status) // Filtra os dias com status igual a true
-                                                                                .map((diaSemana) => (
-                                                                                    <Tag key={diaSemana.id} color={`rgb(${eventoData.evento.cor})`}>
-                                                                                        {diaSemana.dia}
-                                                                                    </Tag>
-                                                                                ))
+                                                                        {eventoData.evento.dias ? (
+                                                                            <div>
+                                                                                <span style={{ fontWeight: '700' }}>Dias:</span>
+
+                                                                                {eventoData.evento.dias
+                                                                                    .filter((diaSemana) => diaSemana.status) // Filtra os dias com status igual a true
+                                                                                    .map((diaSemana) => (
+                                                                                        <Tag key={diaSemana.id} color={`rgb(${eventoData.evento.cor})`}>
+                                                                                            {diaSemana.dia}
+                                                                                        </Tag>
+                                                                                    ))}
+                                                                            </div>
+                                                                        ) : eventoData.evento.dia ? (
+                                                                            <Tag key={eventoData.evento.id} color={`rgb(${eventoData.evento.cor})`}>
+                                                                                {eventoData.evento.dia}
+                                                                            </Tag>
                                                                         ) : (
-                                                                            null
-                                                                        )}
+
+                                                                            <Empty description={'Vazio'} />
+                                                                        )
+                                                                        }
                                                                     </Space>
                                                                 </div>
 
