@@ -85,14 +85,11 @@ function CuidadorEditarProfile({ onCancel }) {
         console.log('values', values + imagem);
         try {
             const dadosUpdate = {
+                "id": idCuidador,
                 "nome": values.nome,
                 "foto": imagem,
-                "id_genero": JSON.parse(values.genero),
                 "descricao_experiencia": values.descricao_experiencia,
                 "data_nascimento": values.data_nascimento,
-                "id_endereco_cuidador": cuidadorData.endereco_id,
-                "email": cuidadorData.email,
-                "senha": 'bomdia40028922'
             }
             // Substitua 'SEU_ID_DE_CUIDADOR' pelo ID correto do cuidador
             console.log(dadosUpdate);
@@ -154,21 +151,6 @@ function CuidadorEditarProfile({ onCancel }) {
                             defaultValue={dayjs('01/01/2015', dateFormatList[0])} 
                             format={dateFormatList[0]}
                              />
-                        </Form.Item>
-
-                        <Form.Item
-                            name={'genero'}
-                            label='Gênero'
-                        >
-                            <Select placeholder="selecione seu gênero"
-                                id="generoCadastro"
-                                style={{
-                                }}
-                            >
-                                <Option value="1">Homem</Option>
-                                <Option value="2">Mulher</Option>
-                                <Option value="3">Outro</Option>
-                            </Select>
                         </Form.Item>
                         <Form.Item
                             name="descricao_experiencia"

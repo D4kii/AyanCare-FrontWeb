@@ -23,7 +23,7 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
         <div>
             {hasData ?
                 (
-                    <Drawer width={700} closable={false} onClose={onClose} open={open}>
+                    <Drawer width={800} closable={false} onClose={onClose} open={open}>
                         <div>
                             <Form>
 

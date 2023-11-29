@@ -28,7 +28,7 @@ const items = [
   getItem('Mais', 'g2', null, [
     getItem('Contas Desvinculadas', '3', <MinusCircleOutlined />),
     getItem('Relatório de humor', '4', <SmileOutlined />),
-    getItem('Ajuda', '5', <QuestionCircleOutlined />)
+    getItem('Sujestões', '5', <QuestionCircleOutlined />)
   ], 'group'),
 ];
 

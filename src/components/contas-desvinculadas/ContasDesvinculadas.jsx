@@ -88,7 +88,7 @@ function ContasDesvinculadasScreen({ idCuidador }) {
 
                                             avatar={<Avatar src={item.foto_paciente} />}
                                             title={<a >{item.paciente}</a>}
-                                            description={item.observacao}
+                                            description={`#${item.id}`}
                                         />
                                         <div>{item.data}</div>
                                     </Skeleton>

@@ -25,7 +25,8 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                 // Verifica se há dados de evento e se o componente não está em um estado de loading
                 if (dadosEvento && !loading) {
                     let eventData;
-                    if (dadosEvento.dias) {
+                    if (dadosEvento.dia_semana) {
+                        console.log('idevento',dadosEvento);
                         // Se "dias" estiver presente em dadosEvento, chama o endpoint de eventos semanais
                         eventData = await getEventosSemanaisByID(dadosEvento.id);
                     } else {
@@ -111,7 +112,8 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                                                                     <Space size={[0, 8]} wrap>
                                                                         {eventoData.evento.dias ? (
                                                                             <div>
-                                                                                <span style={{ fontWeight: '700' }}>Dias:</span>
+                                                                                <span style={{ fontWeight: '700',
+                                                                            marginRight:'1rem' }}>Dias:</span>
 
                                                                                 {eventoData.evento.dias
                                                                                     .filter((diaSemana) => diaSemana.status) // Filtra os dias com status igual a true

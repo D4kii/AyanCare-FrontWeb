@@ -133,8 +133,8 @@ function ContasVinculadasScreen({ }) {
                                     renderItem={(item) => (
                                         <List.Item
                                             actions={[
-                                                <a key="list-loadmore-more" >ver relatórios</a>,
-                                                <a key="list-loadmore-more" >ver agenda</a>,
+                                                // <a key="list-loadmore-more" >ver relatórios</a>,
+                                                // <a key="list-loadmore-more" >ver agenda</a>,
                                                 <Dropdown
                                                     menu={{
                                                         items,
@@ -169,7 +169,7 @@ function ContasVinculadasScreen({ }) {
 
                                                     avatar={<Avatar src={item.foto_paciente} />}
                                                     title={<a onClick={() => handleOpenPacienteProfile(item.id_paciente)}>{item.paciente}</a>}
-                                                    description={item.observacao}
+                                                    description={`#${item.id}`}
                                                 />
                                                 <div>{item.data}</div>
                                             </Skeleton>

@@ -4,7 +4,7 @@ import './create-evento.css'
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import CheckableTag from "antd/es/tag/CheckableTag";
-import { createEventoSemanal, createEventoUnitario, getConexaoByIDCuidadorAndPacienteName, getCores, getPacientesByIDCuidador } from "../../services/api";
+import { createEventoSemanal, createEventoUnitario, getConexaoByIDCuidadorAndPacientID, getCores, getPacientesByIDCuidador } from "../../services/api";
 import Loading from "../loading/Loading";
 
 const diasDaSemana = [
@@ -122,43 +122,47 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
             if (switchChecked) {
                 try {
                     try {
-                        const conexao = await getConexaoByIDCuidadorAndPacienteName(idCuidador, valuesEvento.paciente.label);
-                        setConexaoPacienteSelected(conexao.conexao[0].id);
-                        console.log(56565656, conexao.conexao);
+                        const conexao = await getConexaoByIDCuidadorAndPacientID(idCuidador, valuesEvento.paciente.value);
+                        setConexaoPacienteSelected(conexao.conexao.id);
+                        console.log(56565656, conexao.conexao.id);
                     } catch (error) {
                         console.error('Erro ao buscar a conexão pelo nome do paciente:', error);
                         return;
                     }
+                    if (conexaoPacienteSelected) {
 
-                    const dadosEventoSemanal = {
-                        "nome": valuesEvento.titulo,
-                        "descricao": valuesEvento.descricao,
-                        "local": valuesEvento.local,
-                        "hora": valuesEvento['horario_evento'].format('HH:mm'),
-                        "id_paciente_cuidador": conexaoPacienteSelected,
-                        "dias": valuesEvento.dias_semana_evento_semanal,
-                        "cor_id": selectedTags
-                    };
 
-                    console.log(1111111, dadosEventoSemanal);
+                        const dadosEventoSemanal = {
+                            "nome": valuesEvento.titulo,
+                            "descricao": valuesEvento.descricao,
+                            "local": valuesEvento.local,
+                            "hora": valuesEvento['horario_evento'].format('HH:mm'),
+                            "id_paciente_cuidador": conexaoPacienteSelected,
+                            "dias": valuesEvento.dias_semana_evento_semanal,
+                            "cor_id": selectedTags
+                        };
 
-                    try {
-                        const dataPostEventoSemanal = await createEventoSemanal(dadosEventoSemanal);
-                        console.log(dataPostEventoSemanal);
+                        console.log(1111111, dadosEventoSemanal);
 
-                        Modal.success({
-                            content: 'Evento semanal criado com sucesso!',
-                            okText: 'Ok',
-                            onOk: () => {
-                                setOpen(false);
-                                form.resetFields(); // Resetar os campos do formulário
-                            },
-                        });
+                        try {
+                            const dataPostEventoSemanal = await createEventoSemanal(dadosEventoSemanal);
+                            console.log('evento semanal data', dataPostEventoSemanal);
 
-                        setLoading(false);
-                    } catch (error) {
-                        console.error('Erro ao criar o evento:', error.response.data);
-                        setLoading(false);
+                            Modal.success({
+                                content: 'Evento semanal criado com sucesso!',
+                                okText: 'Ok',
+                                onOk: () => {
+                                    setOpen(false);
+                                    form.resetFields(); // Resetar os campos do formulárioccc
+                                    window.location.reload();
+                                },
+                            });
+
+                            setLoading(false);
+                        } catch (error) {
+                            console.error('Erro ao criar o evento:', error.response.data);
+                            setLoading(false);
+                        }
                     }
                 } catch (error) {
                     console.error('Não foi possível buscar a conexão pelo nome do paciente:', error);
@@ -190,6 +194,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                             onOk: () => {
                                 setOpen(false);
                                 form.resetFields(); // Resetar os campos do formulário
+                                window.location.reload()
                             },
                         });
 

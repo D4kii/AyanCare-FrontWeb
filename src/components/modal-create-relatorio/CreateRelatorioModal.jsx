@@ -129,6 +129,7 @@ function CreateRelatorioModal(
                 okText: 'Ok',
                 onOk: () => {
                     setOpenModal(false);
+                    window.location.reload();
                 },
             });
             setModoQuestionario(false)

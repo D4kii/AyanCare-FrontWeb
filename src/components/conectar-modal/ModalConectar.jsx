@@ -53,34 +53,38 @@ function ModalConectar({ onOpen, onCancel }) {
     }, [idCuidador]);
     console.log(idCuidador);
 
-
     const onFinishMadeConection = async (values) => {
         try {
-            const pacienteID = values.idPaciente; // Não precisa do JSON.parse aqui
+            const pacienteID = values.idPaciente;
             const cuidadorID = idCuidador;
 
-            // Verifica se pacienteID é uma string não vazia antes de continuar
             if (pacienteID && typeof pacienteID === 'string') {
-                // Chama a API para criar a conexão
                 const response = await createConexaoUsuarios(cuidadorID, pacienteID);
+                console.log(response);
 
-                // Exibe a modal de sucesso
-                Modal.success({
-                    content: 'Conexão feita com sucesso',
-                    onOk: () => {
-                        // Fecha ambas as modais quando o usuário clicar em "OK"
-                        onCancel();
-                    },
-                });
+                if (response.response.status === 200) {
+                    // Conexão bem-sucedida
+                    Modal.success({
+                        content: 'Conexão feita com sucesso',
+                        onOk: onCancel,
+                    });
+                }
             } else {
-                // Lida com o caso em que pacienteID não é uma string válida
                 console.error('ID do paciente inválido:', pacienteID);
             }
         } catch (error) {
-            // Lida com erros na chamada da API
-            console.error('Erro ao criar conexão:', error);
+            console.log(error);
+            if (error.response.status === 409) {
+                // Contas já estão conectadas
+                Modal.error({
+                    content: 'Ambas as contas já estão conectadas, ou já tiveram uma conexão em algum momento. Verifique suas contas desvinculadas nas configurações.',
+                    
+                    onOk: onCancel,
+                });
+            }
         }
     };
+
 
 
     return (

@@ -95,16 +95,16 @@ export const getCuidador = async (token, idCuidador) => {
     }
 
 }
-export const getConexaoByIDCuidadorAndPacienteName = async (id_cuidador, paciente_name) => {
+export const getConexaoByIDCuidadorAndPacientID = async (id_cuidador, id_paciente) => {
 
     try {
         const response = await api.get(`/conexoes`, {
             params: {
                 "idCuidador": id_cuidador,
-                "nomePaciente": paciente_name
+                "idPaciente": id_paciente
             }
         });
-        console.log(77, paciente_name);
+        console.log(77, id_paciente);
         return response.data;
     } catch (error) {
         console.error('Erro na solicitação GET de conexao entre cuidador e paciente:', error);
@@ -156,7 +156,7 @@ export const getModificacoesByIDCuidador = async (id_cuidador) => {
 
     try {
         const response = await api.get(`/notificacoes`, {
-            params:{
+            params: {
                 idCuidador: id_cuidador
             }
         });
@@ -376,28 +376,33 @@ export const getEventosAlarmesByCuidadorAndDate = async (id_cuidador, dia, id_pa
 }
 
 //PUT
-
 export const updateCuidador = async (idCuidador, dados) => {
     try {
-        const response = await api.put(`/cuidador/${idCuidador}`, dados);
+        const response = await api.put(`/cuidador`, dados, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
         return response.data;
     } catch (error) {
         console.error('Erro na atualização do Cuidador:', error);
-        if (error.response) {
-            // O servidor retornou uma resposta com um status diferente de 2xx
-            console.error('Status do erro:', error.response.status);
-            console.error('Dados do erro:', error.response.data);
-        } else if (error.request) {
-            // A requisição foi feita, mas não recebeu uma resposta
-            console.error('Erro na requisição, sem resposta do servidor');
-        } else {
-            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
-            console.error('Erro ao configurar a requisição:', error.message);
-        }
-        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
-    }
 
-}
+        if (error.response && error.response.status === 400) {
+            // Se o status for 400, tente analisar o corpo da resposta como texto
+            try {
+                const errorMessage = JSON.parse(error.response.data);
+                console.error('Erro de sintaxe JSON:', errorMessage);
+            } catch (syntaxError) {
+                // Se houver um erro de sintaxe ao analisar o JSON, apenas imprima o corpo da resposta como texto
+                console.error('Corpo da resposta:', error.response.data);
+            }
+        }
+
+        throw error;
+    }
+};
+
+
 
 export const ativarContasDesvinculadas = async (idCuidador, idPaciente) => {
     try {
@@ -422,7 +427,7 @@ export const ativarContasDesvinculadas = async (idCuidador, idPaciente) => {
 }
 
 export const desativarContasVinculadas = async (idCuidador, idPaciente) => {
-    console.log({idCuidador, idPaciente});
+    console.log({ idCuidador, idPaciente });
     try {
         const response = await api.put(`/conexao/desativar?idPaciente=${idPaciente}&idCuidador=${idCuidador}`);
         return response.data;

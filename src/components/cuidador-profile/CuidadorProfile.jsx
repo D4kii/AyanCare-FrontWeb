@@ -10,15 +10,6 @@ import { Avatar, List } from "antd";
 import CuidadorEditarProfile from "./cuidador-editar-profile/CuidadorEditarProfile";
 
 
-const data = [
-    {
-        title: 'Realizar Relatório',
-    },
-    {
-        title: 'Iniciar Turno',
-    },
-];
-
 function CuidadorProfile({
     profilePicture,
     profileDescription,
@@ -98,24 +89,7 @@ function CuidadorProfile({
                             {description}
                         </p>
                     </div>
-                    {/* <div className="cuidador-profile_informations-field_third-column">
-                        <h4 className="cuidador-profile_tarefas-title">Tarefas de hoje</h4>
-                        <div className="cuidador-profile_tarefas-cards">
-                            <List
-                                itemLayout="horizontal"
-                                dataSource={data}
-                                renderItem={(item, index) => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                            title={<a href="">{item.title}</a>}
-                                            description="lalallalala"
-                                        />
-                                    </List.Item>
-                                )}
-                            />
-                        </div>
-                    </div> */}
+                    
                 </div>
             )}
         </div>

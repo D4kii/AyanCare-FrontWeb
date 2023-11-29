@@ -204,7 +204,7 @@ function RelatorioHumorScreen() {
                                                         {
 
                                                             // restante do código
-                                                            <div>
+                                                            <>
                                                                 {humorSelectedData.teste.exercicios && humorSelectedData.teste.exercicios.map((item) => (
 
 
@@ -226,7 +226,7 @@ function RelatorioHumorScreen() {
 
 
                                                                 ))}
-                                                            </div>
+                                                            </>
                                                         }
                                                     </Space>
 

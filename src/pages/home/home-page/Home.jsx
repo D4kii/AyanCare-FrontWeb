@@ -74,7 +74,7 @@ const Home = () => {
             :
             <div>
               {
-                modificacoes.notificacao ?
+                modificacoes && modificacoes.notificacao ?
                   (
                     <div className="cards-do-relatorios">
                       {modificacoes.notificacao.slice(-3).map((modificacao) => (
