@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.svg';
 import './menu.css';
 import iconHome from '../../images/home-icon.png';
 import iconCalendario from '../../images/agenda-icon.png';

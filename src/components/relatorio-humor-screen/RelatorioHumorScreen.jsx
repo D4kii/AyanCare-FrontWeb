@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Card, Divider, Empty, Form, Input, List, Select, Skeleton, Space, Tag } from 'antd';
+import { Avatar, Card, Descriptions, Divider, Empty, Form, Input, List, Select, Skeleton, Space, Tag } from 'antd';
 import { getPacientesByIDCuidador, getRelatorioHumorbyIdPaciente, getTesteHumorByID } from "../../services/api";
 import Loading from "../loading/Loading";
 import './relatorio-humor-screen.css'
@@ -38,8 +38,6 @@ function RelatorioHumorScreen() {
                 setPaciente(dataPacientesByCuidador);
                 // const dataCreateRelatorio = await createRelatorio();
 
-
-
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao buscar dados da API:', error);
@@ -71,7 +69,6 @@ function RelatorioHumorScreen() {
     console.log('select', humorData);
 
     const handleCardClick = async (key) => {
-        console.log('key', key);
         setHumorSelected(key);
 
         try {
@@ -86,14 +83,12 @@ function RelatorioHumorScreen() {
     const cancelCardClick = async () => {
         setHumorSelected(false);
     };
-
+    console.log('data', humorData.testes);
 
     return (
         <div>
             {humorSelected ? (
-
                 <div
-
                 >
                     {loading ?
                         (<Loading />)
@@ -112,46 +107,35 @@ function RelatorioHumorScreen() {
                                                 <h2 className="relatorio-humor_screen-title paciente-name">
                                                     {humorSelectedData.teste.paciente}
                                                 </h2>
-                                                <Input
-
-                                                    className='ver-relatorio-humor_date-time input-drawer'
-                                                    name='date'
-                                                    addonBefore="Data"
-                                                    style={{
-                                                        width: 'max-content',
-                                                        maxWidth: '150px',
-                                                        textAlign: 'center',
-                                                        fontSize: '1rem'
-                                                    }}
-                                                    value={humorSelectedData.teste.data}
-                                                    readOnly
-                                                />
-                                                <Input
-                                                    className='ver-relatorio-humor_date-time input-drawer'
-                                                    name='time'
-                                                    addonBefore="Horário"
-                                                    style={{
-                                                        width: '9rem',
-                                                        fontSize: '1rem'
-                                                    }}
-                                                    value={humorSelectedData.teste.horario}
-                                                    readOnly
-                                                />
-                                                <div className="ver-relatorio-humor_observacao">
-                                                    <span className="ver-relatorio-humor_observacao-title">
-                                                        Observação
-                                                    </span>
-                                                    <Input.TextArea
-
-                                                        value={humorSelectedData.teste.observacao}
-                                                        style={{
-                                                            width: '15rem',
-                                                            height: 'max-content',
-                                                            maxHeight: '12rem',
-                                                            resize: 'none'
-                                                        }}
-                                                    />
-                                                </div>
+                                                <Descriptions 
+                                                title={null} 
+                                                layout="horizontal" 
+                                                items={[
+                                                    {
+                                                        label: 'Data',
+                                                        children: humorSelectedData.teste.data
+                                                    },
+                                                    {
+                                                        label: 'Horário',
+                                                        children: humorSelectedData.teste.horario
+                                                    }
+                                                ]} />
+                                                <Descriptions 
+                                                title={null} 
+                                                layout="vertical" 
+                                                style={{
+                                                    width: '80%',
+                                                    height: 'max-content',
+                                                    maxHeight: '12rem',
+                                                    resize: 'none'
+                                                }}
+                                                items={[
+                                                    {
+                                                        label:'Descrição',
+                                                        children: humorSelectedData.teste.observacao
+                                                    }
+                                                ]} />
+                                                
 
                                             </div>
                                             <div className="column-Humor"
@@ -163,7 +147,6 @@ function RelatorioHumorScreen() {
                                                 <Space size={[0, 8]} wrap>
                                                     {
                                                         humorSelectedData.teste.humores.map((item) => (
-
 
                                                             <Tag
                                                                 style={{
@@ -308,13 +291,14 @@ function RelatorioHumorScreen() {
                                     dataSource={humorData.testes}
                                     renderItem={(item) => (
                                         <List.Item
-                                            actions={[<a key="list-loadmore-more" onClick={() => handleCardClick(item.id_teste_humor)}>ver mais</a>]}
+                                            actions={[<a key="list-loadmore-more" 
+                                            onClick={() => handleCardClick(item.id_teste_humor)}>ver mais</a>]}
                                             key={item.id_teste_humor}
                                         >
                                             <Skeleton avatar title={item.paciente} loading={item.loading} active>
                                                 <List.Item.Meta
                                                     title={<a href="">{item.paciente}</a>}
-                                                    description={item.observacao}
+                                                    description={item.observacao.length > 40 ? `${item.observacao.slice(0, 40)}...` : item.observacao}
                                                 />
                                                 <div>{item.data}</div>
                                             </Skeleton>

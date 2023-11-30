@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import '../signin/login.css';
 import SignInForms from "../../components/forms/SignInForms";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
-import image from "../../images/logo-branca.png"
+import image from "../../images/logo-branca.svg"
 import TitleAndSubtitle from "../../components/title-and-subtitle/TitleAndSubtile";
 import LinkCadastroLogin from "../../components/link-cadastro-login/LinkCadastroLogin";
 import { AuthContext } from "../../contexts/auth";

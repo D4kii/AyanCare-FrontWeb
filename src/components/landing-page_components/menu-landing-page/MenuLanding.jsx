@@ -1,6 +1,6 @@
 import React from "react";
 import './menu-landing-page.css'
-import image from '../../../images/logo-branca.png'
+import image from '../../../images/logo-branca.svg'
 import ButtonsLandingPage from "../buttons-landing-page/ButtonsLandingPage";
 
 function MenuLandingPage() {

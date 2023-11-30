@@ -26,7 +26,7 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                 if (dadosEvento && !loading) {
                     let eventData;
                     if (dadosEvento.dia_semana) {
-                        console.log('idevento',dadosEvento);
+                        console.log('idevento', dadosEvento);
                         // Se "dias" estiver presente em dadosEvento, chama o endpoint de eventos semanais
                         eventData = await getEventosSemanaisByID(dadosEvento.id);
                     } else {
@@ -102,38 +102,68 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                                                                         {dadosEvento.paciente}
                                                                     </span>
                                                                 </div>
-                                                                <span className="ver-evento_local-content">
-                                                                    <span style={{ fontWeight: '700' }}>Local:</span> {eventoData.evento.local}
-                                                                </span>
-                                                                <span className="ver-evento_description-content">
-                                                                    <span style={{ fontWeight: '700' }}>Descrição:</span> {eventoData.evento.descricao}
-                                                                </span>
-                                                                <div className="ver-evento_dias-field">
-                                                                    <Space size={[0, 8]} wrap>
-                                                                        {eventoData.evento.dias ? (
+                                                                {eventoData.evento.dias ? (
+                                                                    <>
+                                                                        <Descriptions title={null}
+                                                                            items={[
+                                                                                {
+                                                                                    label: 'Local',
+                                                                                    children: eventoData.evento.local
+                                                                                }
+                                                                            ]} />
+                                                                        <Descriptions title={null}
+                                                                            items={[
+                                                                                {
+                                                                                    label: 'Descrição',
+                                                                                    children: eventoData.evento.descricao
+                                                                                }
+                                                                            ]} />
+
+                                                                        <div className="ver-evento_dias-field">
                                                                             <div>
-                                                                                <span style={{ fontWeight: '700',
-                                                                            marginRight:'1rem' }}>Dias:</span>
 
-                                                                                {eventoData.evento.dias
-                                                                                    .filter((diaSemana) => diaSemana.status) // Filtra os dias com status igual a true
-                                                                                    .map((diaSemana) => (
-                                                                                        <Tag key={diaSemana.id} color={`rgb(${eventoData.evento.cor})`}>
-                                                                                            {diaSemana.dia}
-                                                                                        </Tag>
-                                                                                    ))}
+                                                                                <Space size={[0, 8]} wrap>
+                                                                                    {eventoData.evento.dias
+                                                                                        .filter((diaSemana) => diaSemana.status) // Filtra os dias com status igual a true
+                                                                                        .map((diaSemana) => (
+                                                                                            <Tag key={diaSemana.id} color={`rgb(${eventoData.evento.cor})`}>
+                                                                                                {diaSemana.dia}
+                                                                                            </Tag>
+                                                                                        ))}
+                                                                                </Space>
                                                                             </div>
-                                                                        ) : eventoData.evento.dia ? (
-                                                                            <Tag key={eventoData.evento.id} color={`rgb(${eventoData.evento.cor})`}>
-                                                                                {eventoData.evento.dia}
-                                                                            </Tag>
-                                                                        ) : (
+                                                                        </div>
+                                                                    </>
+                                                                ) : eventoData.evento.dia ? (
+                                                                    <>
+                                                                        <Descriptions title="Informações do evento"
+                                                                            layout="horizontal"
+                                                                            items={[
+                                                                                {
+                                                                                    label: 'Local',
+                                                                                    children: eventoData.evento.local
+                                                                                },
+                                                                                {
+                                                                                    label: 'Data',
+                                                                                    children: eventoData.evento.dia
+                                                                                }
+                                                                            ]} />
+                                                                            <Descriptions title={null}
+                                                                            layout="horizontal"
+                                                                            items={[
+                                                                                {
+                                                                                    label: 'Descrição',
+                                                                                    children: eventoData.evento.descricao
+                                                                                }
+                                                                            ]} />
 
-                                                                            <Empty description={'Vazio'} />
-                                                                        )
-                                                                        }
-                                                                    </Space>
-                                                                </div>
+                                                                        
+                                                                    </>
+                                                                ) : (
+
+                                                                    <Empty description={'Vazio'} />
+                                                                )
+                                                                }
 
                                                             </div>
                                                         </div>
@@ -150,8 +180,9 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                 :
                 (
                     null
-                )}
-        </div>
+                )
+            }
+        </div >
     );
 }
 

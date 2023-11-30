@@ -42,7 +42,7 @@ function MadeQuestionarioScreen(
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '1.5rem',
-                    marginLeft:'1rem',
+                    marginLeft: '1rem',
                 }}
                 layout="vertical"
                 scrollToFirstError>
@@ -62,12 +62,12 @@ function MadeQuestionarioScreen(
                         >
                             <span>{perguntas.pergunta}</span>
                             <div
-                            style={{
-                                display:'Flex',
-                                maxWidth: '300px',
-                                display: 'flex',
-                                flexdire: 'column',
-                                gap: '1.5rem',                          }}
+                                style={{
+                                    display: 'Flex',
+                                    maxWidth: '300px',
+                                    flexdire: 'column',
+                                    gap: '1.5rem',
+                                }}
                             >
                                 <Radio.Group
                                     onChange={(e) => handleChange(perguntas.id, e.target.value)}
@@ -88,10 +88,10 @@ function MadeQuestionarioScreen(
                 <Form.Item
 
                 >
-                    <Button type="primary" htmlType="submit" 
-                    style={{
-                        backgroundColor:'#35225F '
-                    }}>
+                    <Button type="primary" htmlType="submit"
+                        style={{
+                            backgroundColor: '#35225F '
+                        }}>
                         Criar Relatório
                     </Button>
                 </Form.Item>

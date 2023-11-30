@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import '../signup/signup.css';
 import SignUpForms from "../../components/forms/SignUpForms";
 import WelcomeContainer from "../../components/welcome-container/Welcome_Container";
-import imagem from "../../images/logo-branca.png"
+import imagem from "../../images/logo-branca.svg"
 import { createSessionUsuarioAutenticar } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";

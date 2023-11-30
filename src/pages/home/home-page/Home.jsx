@@ -77,7 +77,7 @@ const Home = () => {
                 modificacoes && modificacoes.notificacao ?
                   (
                     <div className="cards-do-relatorios">
-                      {modificacoes.notificacao.slice(-3).map((modificacao) => (
+                      {modificacoes.notificacao.slice(-5).map((modificacao) => (
                         <CardRelatorioAcessoRapido
                           data={modificacao}
                           key={modificacao.id}  // Certifique-se de fornecer uma chave única para cada elemento do array

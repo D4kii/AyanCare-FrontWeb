@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Popover, Space } from 'antd';
-import logo from '../../images/logo-branca.png'
+import logo from '../../images/logo-branca.svg'
 import './popover-notification-card.css'
 
 

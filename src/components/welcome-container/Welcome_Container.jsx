@@ -11,7 +11,11 @@ function WelcomeContainer({ title, text, logo }) {
         <div>
             <div className="container-field">
                 <div className="components_container-field">
-                    <img src={image} alt="Logo da empresa, com duas personas se abraçando" />
+                    <img src={image}
+                    style={{
+                        width: '15rem'
+                    }}
+                    alt="Logo da empresa, com duas personas se abraçando" />
                     <div className="text_components_container-field">
                         <h1>{titulo}</h1>
                         <span>{texto}</span>
