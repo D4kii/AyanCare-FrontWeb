@@ -31,13 +31,6 @@ function getItem(label, key, icon, children, type) {
     };
 }
 
-const alarmesData = [
-    { 'id': 1, 'nome': 'Alarme 1', 'description': '2x paracetamol, 2x dipirona', 'time': '08', 'status': true },
-    { 'id': 2, 'nome': 'Alarme 2', 'description': '2x paracetamol, 2x dipirona', 'time': '08', 'status': true },
-    { 'id': 3, 'nome': 'Alarme 3', 'description': '2x paracetamol, 2x dipirona', 'time': '08', 'status': true },
-];
-
-
 
 const Agenda = () => {
     const [openModalCriarEvento, setOpenModalCriarEvento] = useState(false)
@@ -57,7 +50,13 @@ const Agenda = () => {
     const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
 
     const [paciente, setPaciente] = useState("");
-    const [pacienteSelected, setPacienteSelected] = useState(null);
+    const [pacienteSelected, setPacienteSelected] = useState('todos');
+    // useEffect(() => {
+    //     if (pacienteSelected) {
+    //         handleChange({ value: pacienteSelected }); // Chama handleChange com o valor de pacienteSelected
+    //     }
+    // }, [pacienteSelected]);
+
     const [calendarioData, setCalendarioData] = useState(() => {
         const storedData = localStorage.getItem('calendarioData');
         return storedData ? JSON.parse(storedData) : null;
@@ -108,45 +107,72 @@ const Agenda = () => {
     };
 
 
+
     const handleChange = async (selectedOption) => {
-
-
         const { value } = selectedOption;
-
         const idPaciente = value;
         const anoMesSelecionado = selectedValue.format('MM/YYYY');
 
-
+        console.log(1111, value);
         setPacienteSelected(value);
 
-        try {
-            const dataCalendarioForMounthByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMesSelecionado, idPaciente);
+        if (value !== 'todos') {
+            // Restante do código para o caso de um paciente específico
+            try {
+                console.log('id', { idCuidador, anoMesSelecionado, idPaciente });
+                const dataCalendarioForMounthByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMesSelecionado, idPaciente);
 
-            console.log({ idCuidador, anoMesSelecionado, idPaciente });
-            setCalendarioData(dataCalendarioForMounthByPacienteAndCuidador);
-            setLoading(false);
+                setCalendarioData(dataCalendarioForMounthByPacienteAndCuidador);
+                setLoading(false);
 
-            localStorage.setItem('calendarioData', JSON.stringify(dataCalendarioForMounthByPacienteAndCuidador));
-            setPacienteSelected(selectedOption);
-            localStorage.setItem('pacienteSelected', JSON.stringify(selectedOption));
-        } catch (error) {
-            console.error('Erro ao buscar dados do calendário:', error);
-            setLoading(false);
+                localStorage.setItem('calendarioData', JSON.stringify(dataCalendarioForMounthByPacienteAndCuidador));
+                setPacienteSelected(selectedOption);
+                localStorage.setItem('pacienteSelected', JSON.stringify(selectedOption));
+            } catch (error) {
+                console.error('Erro ao buscar dados do calendário:', error);
+                setLoading(false);
+            }
+        } else {
+            try {
+                const pacientes = paciente.conexao.map((conexao) => conexao.id_paciente);
+                const promises = pacientes.map(async (idPaciente) => {
+                    const dataCalendario = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMesSelecionado, idPaciente);
+                    return { idPaciente, dataCalendario };
+                });
+
+                const resultados = await Promise.all(promises);
+
+                // Combine os resultados para um objeto com a chave "todos"
+                const dataCalendarioTodosPacientes = resultados.reduce((acumulador, resultado) => {
+                    acumulador.calendario = acumulador.calendario || {};
+                    acumulador.calendario.eventos_semanais = (acumulador.calendario.eventos_semanais || []).concat(resultado.dataCalendario.calendario.eventos_semanais || []);
+                    acumulador.calendario.eventos_unicos = (acumulador.calendario.eventos_unicos || []).concat(resultado.dataCalendario.calendario.eventos_unicos || []);
+                    acumulador.calendario.turnos = (acumulador.calendario.turnos || []).concat(resultado.dataCalendario.calendario.turnos || []);
+                    return acumulador;
+                }, { todos: true });
+
+                setCalendarioData(dataCalendarioTodosPacientes);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erro ao buscar dados do calendário para todos os pacientes:', error);
+                setLoading(false);
+            }
+
+
         }
     };
 
 
 
 
-    const [openKeys, setOpenKeys] = useState('2');
+    const [openKeys, setOpenKeys] = useState('1');
     const onSelectKey = (value) => {
         setOpenKeys(value.key);
     };
 
     const items = [
-        getItem('Eventos e turnos', '1'),
-        getItem('Calendário', '2'),
-        getItem('Alarmes', '3'),
+        getItem('Calendário', '1'),
+        getItem('Alarmes', '2'),
     ];
 
 
@@ -173,8 +199,6 @@ const Agenda = () => {
         setDadosEventoDrawer(e)
         setOpenDrawer(true);
     }
-    console.log('calendario', calendarioData);
-    console.log('value', value);
 
     const existemPacientes = paciente && paciente.conexao && paciente.conexao.length > 0;
 
@@ -231,126 +255,12 @@ const Agenda = () => {
                         }}
                     >
                         {openKeys == '1' ? (
-                            <section id='eventos-unicos&&semanais' className="agenda-field_eventos">
-                                <div className="agenda-field_eventos_select-day">
-                                    <LeftOutlined />
-                                    <h2 className="select-day_title">{selectedValue?.format('DD-MM-YYYY')}</h2>
-                                    <RightOutlined />
-                                </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-evenly'
-                                    }}
-                                >
-                                    <div className='eventos-turnos_list-field'>
-                                        <h3 className="turnos_turnos-titulo">{'Eventos'}</h3>
-                                        <div
-                                            style={{
-                                                height: '90%'
-                                            }}>
-                                            <div className="agenda-card-turno_field">
-                                                {dateSelectedCalendario &&
-                                                    (dateSelectedCalendario.calendario.eventos_unicos.length > 0 ||
-                                                        dateSelectedCalendario.calendario.eventos_semanais.length > 0) ? (
-                                                    <div className="agenda-card-turno_field">
-                                                        {dateSelectedCalendario.calendario.eventos_semanais &&
-                                                            dateSelectedCalendario.calendario.eventos_semanais.length > 0 && (
-                                                                <div className="agenda-card-turno_field">
-                                                                    {dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
-                                                                        <CardEvento
-                                                                            onClick={() => viewEvento(evento)}
-                                                                            key={evento.id}
-                                                                            title={evento.nome}
-                                                                            hexStatus={evento.cor}
-                                                                            type={'Semanal'}
-                                                                        />
-                                                                    ))}
-                                                                </div>
-                                                            )}
-
-                                                        {dateSelectedCalendario.calendario.eventos_unicos &&
-                                                            dateSelectedCalendario.calendario.eventos_unicos.length > 0 && (
-                                                                <div className="agenda-card-turno_field">
-                                                                    {dateSelectedCalendario.calendario.eventos_unicos.map((evento) => (
-                                                                        <CardEvento
-                                                                            onClick={() => viewEvento(evento)}
-                                                                            key={evento.id}
-                                                                            title={evento.nome}
-                                                                            hexStatus={evento.cor}
-                                                                            type={'Único'}
-                                                                        />
-                                                                    ))}
-                                                                </div>
-                                                            )}
-                                                    </div>
-                                                ) : (
-                                                    <Empty description={'Sem eventos por hoje'} />
-                                                )}
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                    <FloatButton.Group
-                                        trigger="hover"
-                                        style={{
-                                            right: 100,
-                                            bottom: 100,
-                                        }}
-                                        icon={<PlusOutlined />}
-                                    >
-                                        {existemPacientes ? (
-                                            <Button
-                                                onClick={handleClickCriarEvento}
-                                                style={{
-                                                    right: 80,
-                                                    height: '2.5rem',
-                                                    bottom: 20,
-                                                    border: 'none',
-                                                    boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
-                                                }}
-                                            >
-                                                Criar Evento
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                disabled
-                                                style={{
-                                                    right: 120,
-                                                    height: '2.5rem',
-                                                    bottom: 20,
-                                                    border: 'none',
-                                                    boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
-                                                }}
-                                            >
-                                                Nenhum paciente vinculado
-                                            </Button>
-                                        )}
-                                        {/* <Button 
-                                        onClick={handleClickCriarEvento}
-                                        style={
-                                            {
-                                                right: 70,
-                                                height: '2.5rem',
-                                                bottom: 0,
-                                                border: 'none',
-                                                boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
-                                            }
-                                        }>
-                                            Criar Turno
-                                        </Button> */}
-                                    </FloatButton.Group>
-
-                                </div>
-                            </section>
-                        ) : openKeys == '2' ? (
                             <div id='calendario' className="agenda-field_calendario">
                                 <div className="agenda-field_calendario-field">
                                     <div className="agenda-field_calendario_calendario">
                                         <Select
                                             defaultValue={pacienteSelected}
+
                                             style={{
                                                 width: 130,
                                                 marginBottom: '-2.8rem'
@@ -369,6 +279,9 @@ const Agenda = () => {
                                                     </Select.Option>
                                                 ))
                                             )}
+                                            <Select.Option key={'all'} value={'todos'}>
+                                                Todos
+                                            </Select.Option>
                                         </Select>
                                         <CalendarComponent
                                             onPanelChange={onPanelChange}
@@ -378,6 +291,120 @@ const Agenda = () => {
                                         />
                                     </div>
                                 </div>
+                                <section id='eventos-unicos&&semanais' className="agenda-field_eventos">
+                                    <div className="agenda-field_eventos_select-day">
+                                        <LeftOutlined />
+                                        <h2 className="select-day_title">{selectedValue?.format('DD-MM-YYYY')}</h2>
+                                        <RightOutlined />
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-evenly'
+                                        }}
+                                    >
+                                        <div className='eventos-turnos_list-field'>
+                                            <h3 className="turnos_turnos-titulo">{'Eventos'}</h3>
+                                            <div
+                                                style={{
+                                                    height: '90%'
+                                                }}>
+                                                <div className="agenda-card-turno_field">
+                                                    {dateSelectedCalendario &&
+                                                        (dateSelectedCalendario.calendario.eventos_unicos.length > 0 ||
+                                                            dateSelectedCalendario.calendario.eventos_semanais.length > 0) ? (
+                                                        <div className="agenda-card-turno_field">
+                                                            {dateSelectedCalendario.calendario.eventos_semanais &&
+                                                                dateSelectedCalendario.calendario.eventos_semanais.length > 0 && (
+                                                                    <div className="agenda-card-turno_field">
+                                                                        {dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
+                                                                            <CardEvento
+                                                                                onClick={() => viewEvento(evento)}
+                                                                                key={evento.id}
+                                                                                title={evento.nome}
+                                                                                hexStatus={evento.cor}
+                                                                                type={'Semanal'}
+                                                                            />
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+
+                                                            {dateSelectedCalendario.calendario.eventos_unicos &&
+                                                                dateSelectedCalendario.calendario.eventos_unicos.length > 0 && (
+                                                                    <div className="agenda-card-turno_field">
+                                                                        {dateSelectedCalendario.calendario.eventos_unicos.map((evento) => (
+                                                                            <CardEvento
+                                                                                onClick={() => viewEvento(evento)}
+                                                                                key={evento.id}
+                                                                                title={evento.nome}
+                                                                                hexStatus={evento.cor}
+                                                                                type={'Único'}
+                                                                            />
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                        </div>
+                                                    ) : (
+                                                        <Empty description={'Sem eventos por hoje'} />
+                                                    )}
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <FloatButton.Group
+                                            trigger="click"
+                                            style={{
+                                                right: 100,
+                                                bottom: 100,
+                                            }}
+                                            icon={<PlusOutlined />}
+                                        >
+                                            {existemPacientes ? (
+                                                <Button
+                                                    onClick={handleClickCriarEvento}
+                                                    style={{
+                                                        right: 80,
+                                                        height: '2.5rem',
+                                                        bottom: 20,
+                                                        border: 'none',
+                                                        boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
+                                                    }}
+                                                >
+                                                    Criar Evento
+                                                </Button>
+                                            ) : (
+                                                <Button
+                                                    disabled
+                                                    style={{
+                                                        right: 120,
+                                                        height: '2.5rem',
+                                                        bottom: 20,
+                                                        border: 'none',
+                                                        boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
+                                                    }}
+                                                >
+                                                    Nenhum paciente vinculado
+                                                </Button>
+                                            )}
+                                            {/* <Button 
+                                        onClick={handleClickCriarEvento}
+                                        style={
+                                            {
+                                                right: 70,
+                                                height: '2.5rem',
+                                                bottom: 0,
+                                                border: 'none',
+                                                boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
+                                            }
+                                        }>
+                                            Criar Turno
+                                        </Button> */}
+                                        </FloatButton.Group>
+
+                                    </div>
+                                </section>
                             </div>
                         ) : (
                             <div className='alarmes_list-field'>

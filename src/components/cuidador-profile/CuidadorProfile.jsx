@@ -29,7 +29,6 @@ function CuidadorProfile({
 
     const fotoPerfil = profilePicture
     const description = profileDescription
-    console.log(description);
     const name = nameProfile
 
     return (

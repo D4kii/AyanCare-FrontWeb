@@ -50,7 +50,6 @@ function ModalConectar({ onOpen, onCancel }) {
             fetchData();
         }
     }, [idCuidador]);
-    console.log(idCuidador);
 
     const onFinishMadeConection = async (values) => {
         try {
@@ -59,7 +58,6 @@ function ModalConectar({ onOpen, onCancel }) {
 
             if (pacienteID && typeof pacienteID === 'string') {
                 const response = await createConexaoUsuarios(cuidadorID, pacienteID);
-                console.log(response);
 
                 if (response.response.status === 200) {
                     // Conexão bem-sucedida

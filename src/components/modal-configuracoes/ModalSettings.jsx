@@ -39,7 +39,6 @@ const ModalSetting = ({ open, onCancel }) => {
   const [cuidador, setCuidador] = useState(null);
 
   const onClick = (e) => {
-    console.log(menuClick);
     setMenuClick(e.key);
   };
 

@@ -99,7 +99,7 @@ const Pacientes = ({ }) => {
                                     dataSource={paciente.conexao}
                                     renderItem={(item) => (
                                         <List.Item
-                                            actions={[<a key="list-loadmore-more" >ver relatórios</a>, <a key="list-loadmore-more" >ver agenda</a>]}
+                                            actions={[<a key="list-loadmore-more" onClick={() => handleOpenPacienteProfile(item.id_paciente)}>ver perfil</a>]}
                                             key={item.id_teste_humor}
                                             style={{
                                                 padding: '1rem',
@@ -118,7 +118,7 @@ const Pacientes = ({ }) => {
                                                     }}
 
                                                     avatar={<Avatar src={item.foto_paciente} />}
-                                                    title={<a onClick={() => handleOpenPacienteProfile(item.id_paciente)}>{item.paciente}</a>}
+                                                    title={<a >{item.paciente}</a>}
                                                     description={item.observacao}
                                                 />
                                                 <div>{item.data}</div>

@@ -82,7 +82,6 @@ function CuidadorEditarProfile({ onCancel, setNewDataCuidador }) {
     }, [form, idCuidador, tokenLocalStorage]);
 
     const onFinish = async (values) => {
-        console.log('values', values + imagem);
         try {
             const dadosUpdate = {
                 "id": idCuidador,

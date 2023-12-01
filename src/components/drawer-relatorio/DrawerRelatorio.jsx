@@ -7,9 +7,6 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
 
     const relatorio = dadosRelatorio;
 
-    console.log('11====================================');
-    console.log(dadosRelatorio);
-    console.log('====================================');
 
     const showDrawer = () => {
         setOpen(true);

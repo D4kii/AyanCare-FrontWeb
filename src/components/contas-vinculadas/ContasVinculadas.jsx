@@ -59,7 +59,6 @@ function ContasVinculadasScreen({ }) {
 
     const handleOkModalConfirm = async () => {
         setConfirmLoading(true);
-        console.log({idPacienteSelected, idCuidador});
         try {
             await desativarContasVinculadas(idCuidador, idPacienteSelected);
             const newData =  await getPacientesByIDCuidador(idCuidador);
@@ -73,13 +72,11 @@ function ContasVinculadasScreen({ }) {
     };
 
     const showModal = (idPaciente) => {
-        console.log('aquii', idPaciente);
         setIdPacienteSelected(idPaciente);
         setOpen(true);
     };
 
     const handleCancelModalConfirm = () => {
-        console.log('Clicked cancel button');
         setOpen(false);
     };
     useEffect(() => {

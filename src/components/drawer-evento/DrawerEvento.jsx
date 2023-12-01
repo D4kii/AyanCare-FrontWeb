@@ -26,7 +26,6 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                 if (dadosEvento && !loading) {
                     let eventData;
                     if (dadosEvento.dia_semana) {
-                        console.log('idevento', dadosEvento);
                         // Se "dias" estiver presente em dadosEvento, chama o endpoint de eventos semanais
                         eventData = await getEventosSemanaisByID(dadosEvento.id);
                     } else {
@@ -48,7 +47,6 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
     }, [dadosEvento, loading]);
 
 
-    console.log(eventoData);
     return (
         <div>
             {dadosEvento ?

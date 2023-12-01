@@ -438,6 +438,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                         <TextArea
                             style={{ width: '700px' }}
                             placeholder="Controlled autosize"
+                            maxLength={254}
                             autoSize={{
                                 minRows: 3,
                                 maxRows: 5,

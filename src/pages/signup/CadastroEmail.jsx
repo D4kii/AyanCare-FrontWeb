@@ -37,7 +37,7 @@ function Signup() {
             "senha": fieldsValue.password,
             "id_genero": fieldsValue.gender
         };
-        console.log();
+        ;
 
         fetch('http://localhost:8080/v1/ayan/cuidador', {
             method: 'POST',

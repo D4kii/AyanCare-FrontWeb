@@ -68,11 +68,11 @@ const Home = () => {
           </div>
           <Divider />
 
-          {loading ?
-            <Loading />
-            :
             <div>
               {
+                loading?
+                <Loading />
+                :
                 modificacoes && modificacoes.notificacao ?
                   (
                     <div className="cards-do-relatorios">
@@ -89,7 +89,7 @@ const Home = () => {
               }
             </div>
 
-          }
+          
 
 
         </div>

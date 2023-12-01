@@ -40,7 +40,6 @@ function ContasDesvinculadasScreen({ idCuidador }) {
         }
     }, [idCuidador]);
 
-    console.log(paciente);
 
     return (
         <div className="contas-desvinculadas_screen">

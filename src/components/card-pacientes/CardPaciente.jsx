@@ -8,7 +8,6 @@ function CardPacientes({ PacienteName, PacienteAge, PacienteProfilePicture }) {
     const nomePaciente = PacienteName
     const idadePaciente = PacienteAge
     const imagemPerfilPaciente = PacienteProfilePicture
-    console.log(imagemPerfilPaciente);
 
     return (
         <div className="card">

@@ -47,14 +47,12 @@ function CreateRelatorioModal(
     const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
     const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
 
-    console.log(respostas);
     const toggleModoQuestionario = () => {
         setModoQuestionario((prevModoQuestionario) => !prevModoQuestionario);
     };
 
     const handleChange = (selectedOption) => {
         const { value } = selectedOption;
-        console.log(`selected ${value}`);
     };
 
 
@@ -71,8 +69,6 @@ function CreateRelatorioModal(
             const response = await createRelatorio(relatorio);
 
 
-            // Imprime os dados do relatório criado
-            console.log(response.data.relatorio.id);
 
             setIdRelatorio(response.data)
 
@@ -108,7 +104,6 @@ function CreateRelatorioModal(
         }
     }, [idCuidador]);
 
-    console.log(2, paciente);
 
     const onFinishMadeQuestionario = async (values) => {
         try {
