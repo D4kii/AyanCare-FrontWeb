@@ -87,7 +87,6 @@ function Menu() {
 
                     <img src={logo} alt="Logo AyanCare" />
                     <a className="btn-conectar">+ Conectar</a>
-                    <p className="p-menu">Menu</p>
                 </div>
 
                 <div className="navigation-icon">

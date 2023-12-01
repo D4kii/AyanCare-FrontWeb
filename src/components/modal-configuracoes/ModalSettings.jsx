@@ -150,6 +150,7 @@ const ModalSetting = ({ open, onCancel }) => {
                   imageUseState={cuidador ? cuidador.foto : null}
                   idCuidador={cuidador ? cuidador.id : null}
                   setImagemUseState={setImagem}
+                  setDataCuidador={setCuidador}
                 />
               ) : menuClick === '2' ? (
                 <ContasVinculadasScreen  />

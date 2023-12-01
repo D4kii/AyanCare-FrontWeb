@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 
 
 
-function CuidadorEditarProfile({ onCancel }) {
+function CuidadorEditarProfile({ onCancel, setNewDataCuidador }) {
 
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
 
@@ -57,17 +57,17 @@ function CuidadorEditarProfile({ onCancel }) {
         ],
     };
 
+    // ...
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const cuidadorResponse = await getCuidador(tokenLocalStorage, idCuidador);
                 setCuidadorData(cuidadorResponse.cuidador);
-
-
+                setImagem(cuidadorResponse.cuidador.foto)
                 form.setFieldsValue({
                     nome: cuidadorResponse.cuidador.nome,
-                    foto: cuidadorResponse.cuidador.foto,
-                    data_nascimento: '01/01/2007',
+                    data_nascimento: dayjs(cuidadorResponse.cuidador.data_nascimento, 'DD/MM/YYYY').format('YYYY-MM-DD'), // Configuração do valor inicial
                     genero: cuidadorResponse.cuidador.genero.values,
                     descricao_experiencia: cuidadorResponse.cuidador.descricao_experiencia,
                 });
@@ -92,117 +92,120 @@ function CuidadorEditarProfile({ onCancel }) {
                 "data_nascimento": values.data_nascimento,
             }
             // Substitua 'SEU_ID_DE_CUIDADOR' pelo ID correto do cuidador
-            console.log(dadosUpdate);
             const updateCuidadorProfile = await updateCuidador(idCuidador, dadosUpdate);
+            console.log(updateCuidadorProfile);
+            setNewDataCuidador(updateCuidadorProfile.cuidador)
             onCancel(); // Fecha o modal após a atualização
         } catch (error) {
             console.error('Erro ao atualizar dados do cuidador:', error);
         }
     };
+    console.log('Imagem:', imagem);
     // Preenche automaticamente os campos do formulário
     console.log('hhh', cuidadorData);
     return (
         <div>
 
-            {loading?
-            (<Loading/>)
-            :
+            {loading ?
+                (<Loading />)
+                :
                 (<div>
-                {cuidadorData ?
-                    <Form
-                        form={form}
-                        name="register"
-                        onFinish={onFinish}
-                        layout="vertical"
-                        style={{
-                            height: '50vh'
-                        }}
-                    >
-                        <Form.Item
-                            name={'foto'}
-                            className="profile-image_cuidador">
-                            <ProfilePicture
-                                imagem={imagem}
-                                setImagem={setImagem}
-
-                            />
-                        </Form.Item>
-                        <Form.Item
-                            name={'nome'}
-                            label='Nome'
-                        >
-                            <Input
-                            />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="data_nascimento"
-                            label='Data de Nascimento'
-                            {...config}
-                            rules={[
-                                {
-                                    validator: validateAge
-                                },
-                            ]}
-
-                        >
-                            <Input 
-                            type="date"
-                            defaultValue={dayjs('01/01/2015', dateFormatList[0])} 
-                            format={dateFormatList[0]}
-                             />
-                        </Form.Item>
-                        <Form.Item
-                            name="descricao_experiencia"
-                            label="Descrição  de experiência:"
-
-                        >
-                            <Input.TextArea
-                                showCount maxLength={300}
-                                style={{
-                                    height: '15vh'
-                                }}
-                            />
-                        </Form.Item>
-
-                        <div
+                    {cuidadorData ?
+                        <Form
+                            form={form}
+                            name="register"
+                            onFinish={onFinish}
+                            layout="vertical"
                             style={{
-                                display: 'flex',
-                                gap: '1rem',
-                                justifyContent: 'flex-end', // Alinhe os botões à direita
+                                height: '50vh'
                             }}
                         >
+                            <Form.Item
+                                name={'foto'}
+                                className="profile-image_cuidador">
+                                <ProfilePicture
+                                    imagem={imagem}
+                                    setImagem={setImagem}
+
+                                />
+                            </Form.Item>
+                            <Form.Item
+                                name={'nome'}
+                                label='Nome'
+                                rules={[
+                                    {
+
+                                    }
+                                ]}
+                            >
+                                <Input
+                                />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="data_nascimento"
+                                label='Data de Nascimento'
+                                {...config}
+                                rules={[
+                                    {
+                                        validator: validateAge
+                                    },
+                                ]}
+                            >
+                                <Input type="date" defaultValue={dayjs('DD/MM/YYYY').format('YYYY-MM-DD')} />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="descricao_experiencia"
+                                label="Descrição  de experiência:"
+
+                            >
+                                <Input.TextArea
+                                    showCount maxLength={300}
+                                    style={{
+                                        height: '15vh'
+                                    }}
+                                />
+                            </Form.Item>
+
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    gap: '1rem',
+                                    justifyContent: 'flex-end', // Alinhe os botões à direita
+                                }}
+                            >
+                                <Button
+                                    onClick={onCancel}
+                                >
+                                    Cancelar
+                                </Button>
+                                <Button
+                                    type="primary"  // Adicione o tipo de botão 'primary'
+                                    htmlType="submit"  // Defina o tipo de HTML como 'submit'
+                                    style={{
+                                        background: '#35225F',
+                                        color: '#fff'
+                                    }}
+                                >
+                                    Salvar
+                                </Button>
+                            </div>
+
+
+                        </Form>
+                        :
+                        <div>
+
+                            <p>algo deu errado</p>
                             <Button
                                 onClick={onCancel}
                             >
-                                Cancelar
-                            </Button>
-                            <Button
-                                type="primary"  // Adicione o tipo de botão 'primary'
-                                htmlType="submit"  // Defina o tipo de HTML como 'submit'
-                                style={{
-                                    background: '#35225F',
-                                    color: '#fff'
-                                }}
-                            >
-                                Salvar
+                                Voltar
                             </Button>
                         </div>
-
-
-                    </Form>
-                    :
-                    <div>
-
-                        <p>algo deu errado</p>
-                        <Button
-                            onClick={onCancel}
-                        >
-                            Voltar
-                        </Button>
-                    </div>
-                }
-            </div>)}
+                    }
+                </div>)}
         </div>
     );
 }

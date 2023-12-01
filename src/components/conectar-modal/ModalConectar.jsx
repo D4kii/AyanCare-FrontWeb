@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import Modal from "antd/es/modal/Modal";
 import React, { useEffect, useState } from "react";
 import SubmitButton from "../button/SubmitButton";
@@ -20,7 +20,6 @@ function isValidJSON(str) {
     }
 }
 const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
-
 
 
 function ModalConectar({ onOpen, onCancel }) {
@@ -78,8 +77,14 @@ function ModalConectar({ onOpen, onCancel }) {
                 // Contas já estão conectadas
                 Modal.error({
                     content: 'Ambas as contas já estão conectadas, ou já tiveram uma conexão em algum momento. Verifique suas contas desvinculadas nas configurações.',
-                    
+
                     onOk: onCancel,
+                });
+            } else if (error.response.status === 400) {
+                console.log(400);
+                messageApi.open({
+                    type: 'warning',
+                    content: 'Erro na conexão de contas, tente novamente mais tarde.',
                 });
             }
         }

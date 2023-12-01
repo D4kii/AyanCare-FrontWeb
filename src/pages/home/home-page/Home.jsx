@@ -21,20 +21,19 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataModificacoesCuidador = await getModificacoesByIDCuidador(idCuidador)
-        setModificacoes(dataModificacoesCuidador)
-        setLoading(false)
+        const dataModificacoesCuidador = await getModificacoesByIDCuidador(idCuidador);
+        setModificacoes(dataModificacoesCuidador);
+        setLoading(false);
       } catch (erro) {
         console.log('Algo deu errado com o acesso rápido: ', erro);
-        setLoading(false)
+        setLoading(false);
       }
+    };
 
-    }
     if (idCuidador) {
-      fetchData()
+      fetchData();
     }
-
-  }, [idCuidador])
+  }, [idCuidador]); // Certifique-se de que idCuidador é estável
 
   console.log(modificacoes);
 

@@ -169,7 +169,7 @@ function ContasVinculadasScreen({ }) {
 
                                                     avatar={<Avatar src={item.foto_paciente} />}
                                                     title={<a onClick={() => handleOpenPacienteProfile(item.id_paciente)}>{item.paciente}</a>}
-                                                    description={`#${item.id}`}
+                                                    description={`#${item.id_paciente}`}
                                                 />
                                                 <div>{item.data}</div>
                                             </Skeleton>

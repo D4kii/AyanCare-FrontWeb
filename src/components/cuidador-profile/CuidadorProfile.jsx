@@ -16,7 +16,8 @@ function CuidadorProfile({
     nameProfile,
     imageUseState,
     setImagemUseState,
-    idCuidador
+    idCuidador,
+    setDataCuidador
 }) {
     const [modoEdicao, setModoEdicao] = useState(false);
     const handleEditarPerfil = () => {
@@ -54,6 +55,7 @@ function CuidadorProfile({
             {modoEdicao ? (
                 <CuidadorEditarProfile
                     onCancel={cancelEditarPerfil}
+                    setNewDataCuidador={setDataCuidador}
                 />
             ) : (
                 <div className="cuidador-profile_informations-field">

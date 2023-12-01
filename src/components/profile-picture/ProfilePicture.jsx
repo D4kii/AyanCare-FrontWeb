@@ -1,101 +1,97 @@
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import React, { useState } from "react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../services/firebase";
-import './profile-picture.css'
 import { UserOutlined, CameraFilled } from "@ant-design/icons";
-import { Button, Progress } from "antd";
+import { Button, Progress, Spin } from "antd";
+import "./profile-picture.css";
+import Loading from "../loading/Loading";
 
 const ProfilePicture = ({ imagem, setImagem, progress, setProgress }) => {
-  if (imagem == "") {
-    console.log(
-      'aqui', imagem
-    )
-  }
+  const [loadingImage, setLoadingImage] = useState(false);
 
   const handleUpload = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const file = event.target?.files[0]
-    console.log('setimage', setImagem);
+    const file = event.target?.files[0];
     if (!file) return;
 
-    //data atual
     const currentDate = new Date();
-
-    // Formatando a data, hora, minutos, segundos e milissegundos
     const formattedDate = currentDate.toISOString().replace(/[-T:.Z]/g, "");
-
-    // Combine a data formatada com o nome original do arquivo
     const fileName = `${formattedDate}`;
 
     const storageRef = ref(storage, `images/${fileName}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    console.log(1, setImagem);
+    setLoadingImage(true);
+
     uploadTask.on(
       "state_change",
-      snapshot => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        setProgress(progress)
+      (snapshot) => {
+        const newProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(newProgress);
       },
-      error => {
-        alert(error)
+      (error) => {
+        alert(error);
+        setLoadingImage(false);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(url => {
-          setImagem(url)
-          console.log('image', imagem);
-        })
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setImagem(url);
+          setLoadingImage(false);
+        });
       }
-    )
+    );
   };
-
 
   return (
     <div className="profile-picture_field">
-
-      <div className="profile-picture_file-field"
-
+      <div
+        className="profile-picture_file-field"
         style={{
           background: imagem == "" ? `url(${<UserOutlined />}) no-repeat fixed center center` : `url(${imagem}) no-repeat fixed center center`,
-        }}>
-        {imagem ?
-          (<div alt="Foto de perfil"
+        }}
+      >
+        {imagem ? (
+          <div
+            alt="Foto de perfil"
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: '100%',
-              background: imagem ? `lightgray 50% / cover no-repeat` : '#7E6F94',
-              backgroundImage: imagem ? `url(${imagem})` : 'none'
-            }} />) : null}
-        {imagem == null && progress ?
-          (<Progress type="circle"
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "100%",
+              background: imagem ? `lightgray 50% / cover no-repeat` : "#7E6F94",
+              backgroundImage: imagem ? `url(${imagem})` : "none",
+            }}
+          />
+        ) : null}
+        {imagem == null && progress ? (
+          <Progress
+            type="circle"
             style={{
-              height: '3rem',
-            }} percent={progress} />) : null}
-        <input
-          id="inputImagem"
-          type="file"
-          onChange={handleUpload}
-          style={{
-            display: 'none'
-          }}
-        />
+              height: "3rem",
+            }}
+            percent={progress}
+          />
+        ) : null}
+        {loadingImage && (
+          <div className="loading-overlay">
+            <Loading />
+          </div>
+        )}
+        <input id="inputImagem" type="file" onChange={handleUpload} style={{ display: "none" }} />
       </div>
-      <label className="profile-picture_button" htmlFor="inputImagem"
+      <label
+        className="profile-picture_button"
+        htmlFor="inputImagem"
         style={{
-          cursor: 'pointer',
-          width: 'max-content'
-        }}>
-        <CameraFilled style={{
-          fontSize: '2rem',
-          color: '#A7A5A4'
-        }} />
+          cursor: "pointer",
+          width: "max-content",
+        }}
+      >
+        <CameraFilled style={{ fontSize: "2rem", color: "#A7A5A4" }} />
       </label>
     </div>
   );
 };
-
 
 export default ProfilePicture;

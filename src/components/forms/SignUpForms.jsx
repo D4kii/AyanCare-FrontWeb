@@ -3,7 +3,7 @@ import ProfilePicture from "../profile-picture/ProfilePicture.jsx";
 import './forms.css';
 import TitleAndSubtitle from "../title-and-subtitle/TitleAndSubtile.jsx";
 import LinkCadastroLogin from "../link-cadastro-login/LinkCadastroLogin.jsx";
-import { Form, Input, DatePicker, Select } from "antd";
+import { Form, Input, DatePicker, Select, Alert } from "antd";
 import SubmitButton from "../button/SubmitButton.jsx";
 import image from '../../images/background-image.png'
 
@@ -170,6 +170,7 @@ function SignUpForms({
                     subtitle={'Bem-vindo a tela de cadastro! Insira seu e-mail e senha para seguirmos na próxima etapa.'}
                 />
             </div>
+            
             <div className='form_inputs-field'>
                 <Form.Item
                     name="image"
@@ -204,6 +205,7 @@ function SignUpForms({
                             name={nameUser}
                             type={typeText}
                             id="nomeCadastro"
+                            placeholder="Ex: Fernando Silva"
                             value={nome}
                             onChange={setStateName}
 
@@ -233,11 +235,11 @@ function SignUpForms({
 
                     >
                         <DatePicker
-                            format={"DD-MM-YYYY"}
+                            format={"DD/MM/YYYY"}
                             id="nascimentoCadastro"
                             value={birth}
                             onChange={setStateBirth}
-
+                            placeholder="Ex: 12/12/1999"
                             style={{
                                 width: widthForSmallInputs,
                                 maxWidth: maxWidthForSmallInputs,
@@ -256,7 +258,8 @@ function SignUpForms({
                             },
                         ]}
                     >
-                        <Select placeholder="selecione seu gênero"
+                        <Select 
+                        placeholder="Ex: Homem"
                             id="generoCadastro"
                             value={idGenero}
                             onChange={setStateIdGenero}
@@ -287,6 +290,7 @@ function SignUpForms({
                     >
                         <Input.TextArea
                             showCount maxLength={300}
+                            placeholder="ex: Tenho experiência trabalhando com idosos desde..."
                             value={experienceDescription}
                             onChange={setStateExperienceDescription}
                             style={{
@@ -319,6 +323,7 @@ function SignUpForms({
                         type={typeEmail}
                         id="emailCadastro"
                         value={email}
+                        placeholder="Ex: fernando.s@gmail.com"
                         onChange={setStateEmail}
                         style={{
                             width: widthForBiggestInputs,
@@ -331,6 +336,7 @@ function SignUpForms({
                 <Form.Item
                     name="password"
                     label={fieldSenha}
+                    
                     rules={[
                         {
                             validator: validatePassword,
@@ -380,6 +386,14 @@ function SignUpForms({
                         }} />
                 </Form.Item>
             </div>
+            <Alert
+                message="Atenção"
+                description="Lembrando que esta aplicação é somente para cuidadores. Se você não é um cuidador, temos uma versão mobile para pacientes!"
+                type="info"
+                style={{width:400}}
+                showIcon
+                closable
+            />
             <SubmitButton form={form} nameButton={'Próximo'} />
 
             <LinkCadastroLogin caminho={'cadastro'} />

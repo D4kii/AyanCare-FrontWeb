@@ -1,6 +1,8 @@
 .contas-desvinculadas_screen{
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .contas-desvinculadas_content-title {

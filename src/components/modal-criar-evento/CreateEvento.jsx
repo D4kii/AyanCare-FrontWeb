@@ -121,56 +121,49 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
         try {
             if (switchChecked) {
                 try {
-                    try {
-                        const conexao = await getConexaoByIDCuidadorAndPacientID(idCuidador, valuesEvento.paciente.value);
-                        setConexaoPacienteSelected(conexao.conexao.id);
-                        console.log(56565656, conexao.conexao.id);
-                    } catch (error) {
-                        console.error('Erro ao buscar a conexão pelo nome do paciente:', error);
+                    const conexao = await getConexaoByIDCuidadorAndPacientID(idCuidador, valuesEvento.paciente.value);
+
+                    if (!conexao || !conexao.conexao) {
+                        console.error('Conexão não encontrada.');
                         return;
                     }
-                    if (conexaoPacienteSelected) {
 
+                    setConexaoPacienteSelected(conexao.conexao.id);
+                    console.log(56565656, conexao.conexao.id);
 
-                        const dadosEventoSemanal = {
-                            "nome": valuesEvento.titulo,
-                            "descricao": valuesEvento.descricao,
-                            "local": valuesEvento.local,
-                            "hora": valuesEvento['horario_evento'].format('HH:mm'),
-                            "id_paciente_cuidador": conexaoPacienteSelected,
-                            "dias": valuesEvento.dias_semana_evento_semanal,
-                            "cor_id": selectedTags
-                        };
+                    const dadosEventoSemanal = {
+                        "nome": valuesEvento.titulo,
+                        "descricao": valuesEvento.descricao,
+                        "local": valuesEvento.local,
+                        "hora": valuesEvento['horario_evento'].format('HH:mm'),
+                        "id_paciente_cuidador": conexaoPacienteSelected,
+                        "dias": valuesEvento.dias_semana_evento_semanal,
+                        "cor_id": selectedTags
+                    };
 
-                        console.log(1111111, dadosEventoSemanal);
+                    console.log(1111111, dadosEventoSemanal);
 
-                        try {
-                            const dataPostEventoSemanal = await createEventoSemanal(dadosEventoSemanal);
-                            console.log('evento semanal data', dataPostEventoSemanal);
+                    const dataPostEventoSemanal = await createEventoSemanal(dadosEventoSemanal);
+                    console.log('evento semanal data', dataPostEventoSemanal);
 
-                            Modal.success({
-                                content: 'Evento semanal criado com sucesso!',
-                                okText: 'Ok',
-                                onOk: () => {
-                                    setOpen(false);
-                                    form.resetFields(); // Resetar os campos do formulárioccc
-                                    window.location.reload();
-                                },
-                            });
+                    Modal.success({
+                        content: 'Evento semanal criado com sucesso!',
+                        okText: 'Ok',
+                        onOk: () => {
+                            setOpen(false);
+                            form.resetFields(); // Resetar os campos do formulário
+                            window.location.reload();
+                        },
+                    });
 
-                            setLoading(false);
-                        } catch (error) {
-                            console.error('Erro ao criar o evento:', error.response.data);
-                            setLoading(false);
-                        }
-                    }
+                    setLoading(false);
                 } catch (error) {
-                    console.error('Não foi possível buscar a conexão pelo nome do paciente:', error);
+                    console.error('Erro ao criar o evento semanal:', error.response?.data || error.message);
+                    setLoading(false);
                 }
-            } else if (switchChecked === false) {
+            } else if (!switchChecked) {
                 // Lógica para eventos únicos
                 if (idCuidador) {
-
                     const dadosEventoUnitario = {
                         "nome": valuesEvento.titulo,
                         "descricao": valuesEvento.descricao,
@@ -200,17 +193,17 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
 
                         setLoading(false);
                     } catch (error) {
-                        console.error('Erro ao criar o evento:', error.response.data);
+                        console.error('Erro ao criar o evento único:', error.response?.data || error.message);
                         setLoading(false);
                     }
-
                 }
-
             }
         } catch (error) {
-            console.error('Erro ao processar o formulário:', error);
+            console.error('Erro ao processar o formulário:', error.message);
         }
     };
+
+
 
 
     return (
@@ -328,7 +321,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                                 mode="multiple"
                                 allowClear
                                 style={{
-                                    height: `2.5rem`,
+                                    minHeight: `2.5rem`,
                                     width: '400px'
                                 }}
                                 placeholder="Escolha os dias da semana"
@@ -358,6 +351,7 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                             <DatePicker bordered={false}
                                 disabled={switchChecked}
                                 format={'DD/MM/YYYY'}
+                                showToday={false}
                             />
                         </Form.Item>
                         <Form.Item
@@ -370,7 +364,11 @@ function ModalCreateEvento({ setOpen, open, idCuidador }) {
                                 }
                             ]}
                         >
-                            <TimePicker bordered={false} format={'HH:mm'} />
+                            <TimePicker
+                                bordered={false}
+                                format={'HH:mm'}
+                                showNow={false}
+                            />
                         </Form.Item>
                     </div>
 
