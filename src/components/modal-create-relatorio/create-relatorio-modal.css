@@ -3,6 +3,14 @@
     justify-content: flex-start;
     overflow-y: scroll;
     overflow-x: hidden;
+    background-color: #fff;
+}
+
+.create-relatorio_description {
+    font-size: .9rem;
+    font-weight: 400;
+    color: #9986BD;
+    font-family: poppins
 }
 
 .create-relatorio_forms {
@@ -17,9 +25,9 @@
 .create-relatorio-modal_title {
     color: #35225F;
     font-family: Poppins;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
 }
 
@@ -36,7 +44,7 @@
     max-width: none;
 }
 
-:where(.css-dev-only-do-not-override-1k95tbk).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+:where(.css-dev-only-do-not-override-gzk9ku).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
     border-color: #35225F;
     background-color: #35225F;
 }

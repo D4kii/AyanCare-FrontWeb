@@ -101,7 +101,8 @@ hr {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    width: 70vw;
+    width: 60vw;
+    max-width: 1100px;
     gap: 30px;
     display: flex;
     flex-wrap: wrap;

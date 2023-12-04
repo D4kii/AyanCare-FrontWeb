@@ -5,56 +5,59 @@ import moment from 'moment/moment';
 
 const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) => {
 
-  console.log({value, onSelect, onPanelChange, calendarioData});
+  console.log({ value, onSelect, onPanelChange, calendarioData });
 
   const dateCellRender = (value) => {
+    console.log('calendarioData:', calendarioData);
+
     if (calendarioData && calendarioData.calendario) {
       const eventosSemanais = calendarioData.calendario.eventos_semanais || [];
       const turnos = calendarioData.calendario.turnos || [];
       const eventosUnicos = calendarioData.calendario.eventos_unicos || [];
-  
+
       const eventosSemanaisDoDia = eventosSemanais.filter((evento) =>
         evento.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
       );
-  
+
       const eventosUnicosDoDia = eventosUnicos.filter((evento) => {
         const eventoDataFormatada = moment(evento.dia, 'DD/MM/YYYY');
         const dataAtualFormatada = moment(value.format('DD/MM/YYYY'), 'DD/MM/YYYY');
-      
+
         return eventoDataFormatada.isSame(dataAtualFormatada, 'day');
       });
-      
-  
+
+
       const turnoDoDia = turnos.filter((turno) =>
         turno.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
       );
-  
+
       const cores = {};
-  
+
       return (
         <ul className="events">
           {/* Eventos Semanais */}
           {eventosSemanaisDoDia.map((evento) => {
+            console.log('Evento Semanal:', evento);
             const cor = evento.dias[0].cor;
             // Verifica se a cor já foi mapeada
             if (!cores[evento.id]) {
               cores[evento.id] = cor;
             }
-  
+
             return (
               <li key={evento.nome}>
                 <Badge color={`rgb(${cores[evento.id]})`} text={evento.nome} />
               </li>
             );
           })}
-  
+
           {/* Eventos Únicos */}
           {eventosUnicosDoDia.map((evento) => (
             <li key={evento.nome}>
-              <Badge color={'#52c41a'} text={evento.nome} />
+              <Badge color={`rgb(${evento.cor})`} text={evento.nome} />
             </li>
           ))}
-  
+
           {/* Turnos */}
           {turnoDoDia.map((turno) => {
             const cor = turno.dias[0].cor;
@@ -70,56 +73,58 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
       const eventosSemanaisTodosPacientes = calendarioData
         .map((pacienteData) => pacienteData.calendario.eventos_semanais || [])
         .flat();
-  
+
       const turnosTodosPacientes = calendarioData
         .map((pacienteData) => pacienteData.calendario.turnos || [])
         .flat();
-  
+
       const eventosUnicosTodosPacientes = calendarioData
         .map((pacienteData) => pacienteData.calendario.eventos_unicos || [])
         .flat();
-  
+
       const eventosSemanaisDoDia = eventosSemanaisTodosPacientes.filter((evento) =>
         evento.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
       );
-  
+
       const eventosUnicosDoDia = eventosUnicosTodosPacientes.filter((evento) => {
         const eventoDataFormatada = moment(evento.dia, 'DD/MM/YYYY');
         const dataAtualFormatada = moment(value.format('DD/MM/YYYY'), 'DD/MM/YYYY');
-      
+
         return eventoDataFormatada.isSame(dataAtualFormatada, 'day');
       });
-      
+
       const turnoDoDia = turnosTodosPacientes.filter((turno) =>
         turno.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
       );
-  
+
       const cores = {};
-  
+
       return (
         <ul className="events">
           {/* Eventos Semanais */}
           {eventosSemanaisDoDia.map((evento) => {
+
+            console.log('Evento Semanal:', evento);
             const cor = evento.dias[0].cor;
             // Verifica se a cor já foi mapeada
             if (!cores[evento.id]) {
               cores[evento.id] = cor;
             }
-  
+
             return (
               <li key={evento.nome}>
                 <Badge color={`rgb(${cores[evento.id]})`} text={evento.nome} />
               </li>
             );
           })}
-  
+
           {/* Eventos Únicos */}
           {eventosUnicosDoDia.map((evento) => (
             <li key={evento.nome}>
-              <Badge color={'#52c41a'} text={evento.nome} />
+              <Badge color={`rgb(${evento.cor})`} text={evento.nome} />
             </li>
           ))}
-  
+
           {/* Turnos */}
           {turnoDoDia.map((turno) => {
             const cor = turno.dias[0].cor;
@@ -131,11 +136,11 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
           })}
         </ul>
       );
-        }
-  
+    }
+
     return null;
   };
-  
+
 
 
   return (

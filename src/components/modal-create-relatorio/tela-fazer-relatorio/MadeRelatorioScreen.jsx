@@ -1,7 +1,7 @@
 import React from "react";
 import '../create-relatorio-modal.css'
 import Loading from '../../loading/Loading'
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Divider, Form, Input, Modal, Select } from "antd";
 
 const layout = {
     labelCol: {
@@ -50,6 +50,22 @@ function MadeRelatorioScreen(
             }}
             layout="vertical"
             scrollToFirstError>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '.5rem'
+                }}
+            >
+                <h2 className="create-relatorio-modal_title">
+                    Relatório
+                </h2>
+                <h4 className="create-relatorio_description">
+                    Este formulário permite que você selecione um paciente específico para criar um relatório diário sobre o seu dia. Escolha o paciente da lista abaixo para começar.
+                </h4>
+                <Divider />
+            </div>
+
             <Form.Item
                 name={'paciente'}
                 label='Selecione um Paciente'
@@ -67,6 +83,7 @@ function MadeRelatorioScreen(
 
                 <Select
                     defaultValue=""
+                    placeholder="Clique aqui..."
                     style={{ width: 200 }}
                     onChange={handleChange}
                     labelInValue="Paciente"
@@ -95,14 +112,13 @@ function MadeRelatorioScreen(
                     }
                 ]}
                 style={{
-                    fontWeight: 500,
                     fontSize: '5rem',
                     fontFamily: 'poppins'
                 }}
             >
                 <Input.TextArea
                     style={{
-                        width: '65vw',
+                        width: '100vw',
                         height: '50vh',
                         resize: 'none'
                     }}
@@ -114,11 +130,11 @@ function MadeRelatorioScreen(
                     offset: 8,
                 }}
             >
-                <Button type="primary" htmlType="submit" 
-                style={{
-                    backgroundColor:'#35225F',
-                    color:'#fff'
-                }}
+                <Button type="primary" htmlType="submit"
+                    style={{
+                        backgroundColor: '#35225F',
+                        color: '#fff'
+                    }}
                 >
                     Próximo
                 </Button>

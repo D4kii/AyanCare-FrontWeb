@@ -237,12 +237,12 @@ const Agenda = () => {
                         }}
                     >
                         <Menu
-                            defaultSelectedKeys={'2'}
+                            defaultSelectedKeys={'1'}
                             mode="horizontal"
                             openKeys={openKeys}
                             onClick={onSelectKey}
                             style={{
-                                width: '400px'
+                                width: 'calc(max-content + 1rem)'
                             }}
                             items={items}
                         />
@@ -266,7 +266,7 @@ const Agenda = () => {
                                                 marginBottom: '-2.8rem'
                                             }}
                                             onChange={handleChange}
-                                            labelInValue="Paciente"
+                                            placeholder="Clique aqui"
                                         >
                                             {loading ? (
                                                 <Select.Option key="loading" value="loading">
@@ -293,9 +293,7 @@ const Agenda = () => {
                                 </div>
                                 <section id='eventos-unicos&&semanais' className="agenda-field_eventos">
                                     <div className="agenda-field_eventos_select-day">
-                                        <LeftOutlined />
                                         <h2 className="select-day_title">{selectedValue?.format('DD-MM-YYYY')}</h2>
-                                        <RightOutlined />
                                     </div>
                                     <div
                                         style={{
@@ -409,9 +407,7 @@ const Agenda = () => {
                         ) : (
                             <div className='alarmes_list-field'>
                                 <div className="agenda-field_eventos_select-day">
-                                    <LeftOutlined />
                                     <h2 className="select-day_title">{selectedValue?.format('DD-MM-YYYY')}</h2>
-                                    <RightOutlined />
                                 </div>
                                 <div className="alarmes-turnos_list">
                                     <div className="agenda-field_turnos-card">

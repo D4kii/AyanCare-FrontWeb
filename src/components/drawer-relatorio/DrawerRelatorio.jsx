@@ -66,40 +66,59 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
                                                     readOnly
                                                 />
                                             </div>
-                                            <div className="ver-relatorio_text-field">
-                                                <p className="ver-relatorio_text-field text-drawer">
-                                                    {relatorio.texto}
-                                                </p>
+                                            <div
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection:'column',
+                                                gap:'1rem'
+                                            }}
+                                            >
+                                                <h3 className='ver-relatorio_field-screen-relatorio-subtitle'>Relatório</h3>
+                                                <div className="ver-relatorio_text-field">
+                                                    <p className="ver-relatorio_text-field text-drawer">
+                                                        {relatorio.texto}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="ver-relatorio_questionario">
-                                                {dadosRelatorio.perguntas.length == 0 ?
-                                                    <p>Sem perguntas</p>
-                                                    :
-                                                    (relatorio.perguntas.map((perguntas) => (
-                                                        <Form.Item
-                                                            style={{
-                                                                width: '50vw'
-                                                            }}
-                                                            key={perguntas.id}
-                                                            name={perguntas.id}
-                                                        >
-                                                            <span>{perguntas.pergunta}</span>
-                                                            <Radio.Group
-                                                                onChange={(e) => handleChange(perguntas.id, e.target.value)}
+                                            <div
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection:'column',
+                                                gap:'1rem'
+                                            }}
+                                            >
+                                                <h3 className='ver-relatorio_field-screen-relatorio-subtitle'>Questionário</h3>
+                                                <div className="ver-relatorio_questionario">
+                                                    {dadosRelatorio.perguntas.length == 0 ?
+                                                        <p>Sem perguntas</p>
+                                                        :
+                                                        (relatorio.perguntas.map((perguntas) => (
+                                                            <Form.Item
                                                                 style={{
-                                                                    display: 'flex'
+                                                                    width: '50vw'
                                                                 }}
-                                                                value={perguntas.resposta}
+                                                                key={perguntas.id}
+                                                                name={perguntas.id}
                                                             >
-                                                                <Radio value={true}>Sim</Radio>
-                                                                <Radio value={false}>Não</Radio>
-                                                            </Radio.Group>
-                                                        </Form.Item>
-                                                    )
-                                                    )
+                                                                <span>{perguntas.pergunta}</span>
+                                                                <Radio.Group
+                                                                    onChange={(e) => handleChange(perguntas.id, e.target.value)}
+                                                                    style={{
+                                                                        display: 'flex'
+                                                                    }}
+                                                                    value={perguntas.resposta}
+                                                                >
+                                                                    <Radio value={true}>Sim</Radio>
+                                                                    <Radio value={false}>Não</Radio>
+                                                                </Radio.Group>
+                                                            </Form.Item>
+                                                        )
+                                                        )
 
-                                                    )
-                                                }
+                                                        )
+                                                    }
+                                                </div>
+
                                             </div>
                                         </div>
                                     )

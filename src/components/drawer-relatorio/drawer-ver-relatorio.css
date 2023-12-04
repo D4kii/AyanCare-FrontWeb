@@ -35,12 +35,13 @@
 }
 
 .ver-relatorio_field-screen{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow-y: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     gap: 2rem;
 }
 
@@ -58,7 +59,12 @@ border-radius: 4px;
     padding: 1rem;
 }
 
-:where(.css-dev-only-do-not-override-i0102m).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
-    border-color: #35225F;
-    background-color: #35225F;
+.ver-relatorio_field-screen-relatorio-subtitle{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+:where(.css-dev-only-do-not-override-nllxry).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    border-color: #9986BD;
+    background-color: #9986BD;
 }

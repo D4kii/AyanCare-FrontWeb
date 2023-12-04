@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import { getEventosSemanaisByID, getEventosUnitariosByID } from "../../services/api"; // Importe a função da sua API
 import './drawer-eventos.css'
+import dayjs from 'dayjs';
 
 function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
 
@@ -107,6 +108,10 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                                                                                 {
                                                                                     label: 'Local',
                                                                                     children: eventoData.evento.local
+                                                                                },
+                                                                                {
+                                                                                    label: 'Horário',
+                                                                                    children: dayjs(eventoData.evento.horario, 'HH:mm:ss').format('HH:mm')
                                                                                 }
                                                                             ]} />
                                                                         <Descriptions title={null}
@@ -144,6 +149,10 @@ function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
                                                                                 {
                                                                                     label: 'Data',
                                                                                     children: eventoData.evento.dia
+                                                                                },
+                                                                                {
+                                                                                    label: 'Horário',
+                                                                                    children: dayjs(eventoData.evento.horario, 'HH:mm:ss').format('HH:mm')
                                                                                 }
                                                                             ]} />
                                                                             <Descriptions title={null}

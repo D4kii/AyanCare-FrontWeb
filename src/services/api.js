@@ -31,6 +31,13 @@ export const createQuestionarioRelatorio = async (questionario) => {
     )
 }
 
+export const createPerguntaQuestionarioRelatorio = async (dados) => {
+    console.log('dados',dados);
+    return (
+        await api.post("/Pergunta", dados)
+    )
+}
+
 export const createConexaoUsuarios = async (id_cuidador, id_paciente) => {
     console.log(3, { id_cuidador, id_paciente });
 
@@ -44,7 +51,6 @@ export const createConexaoUsuarios = async (id_cuidador, id_paciente) => {
 }
 
 export const createEventoSemanal = async (dados) => {
-    console.log(2, { dados });
 
     try {
         const response = await api.post(`/evento/semanal`, dados);
@@ -54,6 +60,7 @@ export const createEventoSemanal = async (dados) => {
         throw error;
     }
 }
+
 export const createEventoUnitario = async (dados) => {
     console.log(2, { dados });
 

@@ -83,13 +83,13 @@ function CreateRelatorioModal(
     useEffect(() => {
         const fetchData = async () => {
             try {
-                //Api de perguntas
+                // Api de perguntas
                 const dataPerguntasQuestionario = await getPerguntasQuestionarioRelatorio();
-                //Api de Pacientes por id do cuidador
+                // Api de Pacientes por id do cuidador
                 const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
-
+    
                 // const dataCreateRelatorio = await createRelatorio();
-
+    
                 setPaciente(dataPacientesByCuidador);
                 setPergunta(dataPerguntasQuestionario)
                 setLoading(false);
@@ -98,15 +98,18 @@ function CreateRelatorioModal(
                 setLoading(false);
             }
         };
-
-        if (idCuidador) {
+    
+        // Condição para verificar se idCuidador existe e loading é false
+        if (idCuidador && !loading) {
             fetchData();
         }
-    }, [idCuidador]);
+    }, [idCuidador, loading]);
+    
 
 
     const onFinishMadeQuestionario = async (values) => {
         try {
+            setLoading(true)
             for (const dadosPergunta of pergunta.perguntas) {
                 const questionario = {
                     "id_pergunta": dadosPergunta.id,
@@ -128,8 +131,10 @@ function CreateRelatorioModal(
                 },
             });
             setModoQuestionario(false)
+            setLoading(false)
         } catch (error) {
             ErrorMessage("Erro ao criar Questionário");
+            setLoading(false)
             console.error('Erro ao criar Questionário:', error);
         }
     };
@@ -154,7 +159,6 @@ function CreateRelatorioModal(
                     <Modal
                         open={open}
                         onCancel={onCancel}
-                        title="Criar relatório"
                         footer={null}
                         width={'80vw'}
                         style={{
@@ -170,12 +174,14 @@ function CreateRelatorioModal(
                             {modoQuestionario ? (
                                 <MadeQuestionarioScreen
                                     loadingParameterUseState={loading}
+                                    setLoadingParameterUseState={setLoading}
                                     perguntaParameterUseState={pergunta}
                                     respostasParameterUseState={respostas}
                                     toggleModoQuestionarioFunction={toggleModoQuestionario}
                                     idRelatorioParameterUseState={idRelatorio}
                                     onFinishQuestionarioFunction={onFinishMadeQuestionario}
                                     setRespostasParameterUseState={setRespostas}
+                                    idCuidador={idCuidador}
                                 />
                             ) : (
                                 <MadeRelatorioScreen
