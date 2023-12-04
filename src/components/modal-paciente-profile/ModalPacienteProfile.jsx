@@ -74,7 +74,12 @@ function ModalPacienteProfile({ openModal, onCancel, dataPaciente }) {
                                         dataSource={dataPaciente.paciente.medicamentos}
                                         renderItem={(item) => (
                                             <List.Item
-                                                actions={[<a style={{ cursor: 'default', color: 'purple' }} key="list-loadmore-edit">{item.quantidade}</a>, <a style={{ cursor: 'default', color: 'purple' }} key="list-loadmore-edit">Validade: {item.validade}</a>]}
+                                                actions={
+                                                    [
+                                                        <a style={{ cursor: 'default', color: 'purple' }} key="list-loadmore-edit">{item.quantidade}</a>,
+                                                        <a style={{ cursor: 'default', color: 'purple' }} key="list-loadmore-edit">Validade: {item.validade}</a>
+                                                    ]
+                                                }
                                             >
                                                 <Collapse
                                                     size="small"

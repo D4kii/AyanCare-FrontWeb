@@ -70,7 +70,6 @@ function ModalConectar({ onOpen, onCancel }) {
                 console.error('ID do paciente inválido:', pacienteID);
             }
         } catch (error) {
-            console.log(error);
             if (error.response.status === 409) {
                 // Contas já estão conectadas
                 Modal.error({

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Select, Menu, Empty, FloatButton, Button } from 'antd';
-import { CommentOutlined, CustomerServiceOutlined, LeftOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
+import { Select, Menu, Empty, FloatButton, Button, List, Collapse } from 'antd';
+import { CaretRightOutlined, CommentOutlined, CustomerServiceOutlined, LeftOutlined, PlusOutlined, RightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import MenuCompoente from '../../../components/menu/menu';
@@ -33,6 +33,8 @@ function getItem(label, key, icon, children, type) {
 
 
 const Agenda = () => {
+
+    
     const [openModalCriarEvento, setOpenModalCriarEvento] = useState(false)
     const [openModalCriarTurno, setOpenModalCriarTurno] = useState(false)
 
@@ -51,11 +53,7 @@ const Agenda = () => {
 
     const [paciente, setPaciente] = useState("");
     const [pacienteSelected, setPacienteSelected] = useState('todos');
-    // useEffect(() => {
-    //     if (pacienteSelected) {
-    //         handleChange({ value: pacienteSelected }); // Chama handleChange com o valor de pacienteSelected
-    //     }
-    // }, [pacienteSelected]);
+
 
     const [calendarioData, setCalendarioData] = useState(() => {
         const storedData = localStorage.getItem('calendarioData');
@@ -82,18 +80,25 @@ const Agenda = () => {
 
     const [dateSelectedCalendario, setDateSelectedCalendario] = useState(null)
     const onSelectDate = async (newValue) => {
-        if (!pacienteSelected) {
-            // Se pacienteSelected for nulo, não execute o código restante
-            return;
-        }
-
-        const idPaciente = pacienteSelected.value;
         const dataSelecionada = newValue.format('DD/MM/YYYY');
         const diaSemanaSelecionada = getDiaSemana(newValue.day());
 
         try {
-            const dataCalendarioForDateByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
+            let dataCalendarioForDateByPacienteAndCuidador = [];
 
+            if (pacienteSelected === 'todos' && paciente && paciente.conexao) {
+                dataCalendarioForDateByPacienteAndCuidador = await Promise.all(
+                    paciente.conexao.map(async (conexao) => {
+                        const idPaciente = conexao.id_paciente;
+                        const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
+                        return { idPaciente, eventos };
+                    })
+                );
+            } else {
+                const idPaciente = pacienteSelected;
+                const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
+                dataCalendarioForDateByPacienteAndCuidador = eventos
+            }
 
             setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador);
             setLoading(false);
@@ -103,23 +108,22 @@ const Agenda = () => {
             console.error('Erro ao buscar dados do calendário:', error);
             setLoading(false);
         }
-
     };
 
 
 
+
     const handleChange = async (selectedOption) => {
-        const { value } = selectedOption;
-        const idPaciente = value;
+        const value = selectedOption;  // Correção: extrair o valor diretamente
+        const idPaciente = selectedOption;
         const anoMesSelecionado = selectedValue.format('MM/YYYY');
 
-        console.log(1111, value);
-        setPacienteSelected(value);
+        console.log('id', { idCuidador, anoMesSelecionado, idPaciente });
+        setPacienteSelected(selectedOption);
 
         if (value !== 'todos') {
             // Restante do código para o caso de um paciente específico
             try {
-                console.log('id', { idCuidador, anoMesSelecionado, idPaciente });
                 const dataCalendarioForMounthByPacienteAndCuidador = await getEventosAlarmesByCuidadorAndMes(idCuidador, anoMesSelecionado, idPaciente);
 
                 setCalendarioData(dataCalendarioForMounthByPacienteAndCuidador);
@@ -141,6 +145,7 @@ const Agenda = () => {
                 });
 
                 const resultados = await Promise.all(promises);
+                console.log('AQUIII', resultados);
 
                 // Combine os resultados para um objeto com a chave "todos"
                 const dataCalendarioTodosPacientes = resultados.reduce((acumulador, resultado) => {
@@ -212,6 +217,9 @@ const Agenda = () => {
         }
     };
 
+    console.log('AAAAAAQUII', dateSelectedCalendario);
+
+
     return (
         <div>
             <MenuCompoente />
@@ -242,7 +250,7 @@ const Agenda = () => {
                             openKeys={openKeys}
                             onClick={onSelectKey}
                             style={{
-                                width: 'calc(max-content + 1rem)'
+                                width: '5srem'
                             }}
                             items={items}
                         />
@@ -259,8 +267,6 @@ const Agenda = () => {
                                 <div className="agenda-field_calendario-field">
                                     <div className="agenda-field_calendario_calendario">
                                         <Select
-                                            defaultValue={pacienteSelected}
-
                                             style={{
                                                 width: 130,
                                                 marginBottom: '-2.8rem'
@@ -308,7 +314,8 @@ const Agenda = () => {
                                                     height: '90%'
                                                 }}>
                                                 <div className="agenda-card-turno_field">
-                                                    {dateSelectedCalendario &&
+
+                                                    {dateSelectedCalendario && pacienteSelected !== 'todos' &&
                                                         (dateSelectedCalendario.calendario.eventos_unicos.length > 0 ||
                                                             dateSelectedCalendario.calendario.eventos_semanais.length > 0) ? (
                                                         <div className="agenda-card-turno_field">
@@ -342,7 +349,62 @@ const Agenda = () => {
                                                                     </div>
                                                                 )}
                                                         </div>
+                                                    ) : dateSelectedCalendario && pacienteSelected == 'todos' &&
+                                                        dateSelectedCalendario.length > 0 ? (
+                                                        <List
+                                                            itemLayout="vertical"
+                                                            dataSource={dateSelectedCalendario}
+                                                            renderItem={(item) => (
+                                                                <List.Item>
+                                                                    <Collapse
+                                                                        bordered={false}
+                                                                        defaultActiveKey={['1']}
+                                                                        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+                                                                         items={[
+                                                                            {
+                                                                                key: item.idPaciente,
+                                                                                label: `Paciente: ${item.eventos.calendario.eventos_semanais[1]?.paciente  || ''}`,
+                                                                                // children:
+                                                                                //     <div>
+                                                                                //         {dateSelectedCalendario.calendario.eventos_semanais &&
+                                                                                //             dateSelectedCalendario.calendario.eventos_semanais.length > 0 && (
+                                                                                //                 <div className="agenda-card-turno_field">
+                                                                                //                     {dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
+                                                                                //                         <CardEvento
+                                                                                //                             onClick={() => viewEvento(evento)}
+                                                                                //                             key={evento.id}
+                                                                                //                             title={evento.nome}
+                                                                                //                             hexStatus={evento.cor}
+                                                                                //                             type={'Semanal'}
+                                                                                //                         />
+                                                                                //                     ))}
+                                                                                //                 </div>
+                                                                                //             )}
+
+                                                                                //         {dateSelectedCalendario.calendario.eventos_unicos &&
+                                                                                //             dateSelectedCalendario.calendario.eventos_unicos.length > 0 && (
+                                                                                //                 <div className="agenda-card-turno_field">
+                                                                                //                     {dateSelectedCalendario.calendario.eventos_unicos.map((evento) => (
+                                                                                //                         <CardEvento
+                                                                                //                             onClick={() => viewEvento(evento)}
+                                                                                //                             key={evento.id}
+                                                                                //                             title={evento.nome}
+                                                                                //                             hexStatus={evento.cor}
+                                                                                //                             type={'Único'}
+                                                                                //                         />
+                                                                                //                     ))}
+                                                                                //                 </div>
+                                                                                //             )}
+                                                                                //     </div>
+                                                                                // ,
+                                                                            }
+                                                                        ]} />
+
+                                                                </List.Item>
+                                                            )}
+                                                        />
                                                     ) : (
+
                                                         <Empty description={'Sem eventos por hoje'} />
                                                     )}
                                                 </div>

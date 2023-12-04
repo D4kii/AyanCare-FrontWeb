@@ -5,10 +5,8 @@ import moment from 'moment/moment';
 
 const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) => {
 
-  console.log({ value, onSelect, onPanelChange, calendarioData });
 
   const dateCellRender = (value) => {
-    console.log('calendarioData:', calendarioData);
 
     if (calendarioData && calendarioData.calendario) {
       const eventosSemanais = calendarioData.calendario.eventos_semanais || [];
@@ -37,7 +35,6 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
         <ul className="events">
           {/* Eventos Semanais */}
           {eventosSemanaisDoDia.map((evento) => {
-            console.log('Evento Semanal:', evento);
             const cor = evento.dias[0].cor;
             // Verifica se a cor já foi mapeada
             if (!cores[evento.id]) {
@@ -46,7 +43,7 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
 
             return (
               <li key={evento.nome}>
-                <Badge color={`rgb(${cores[evento.id]})`} text={evento.nome} />
+                <Badge color={`rgb(${cores[evento.id]})`} text={evento.nome}  />
               </li>
             );
           })}
@@ -104,7 +101,6 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
           {/* Eventos Semanais */}
           {eventosSemanaisDoDia.map((evento) => {
 
-            console.log('Evento Semanal:', evento);
             const cor = evento.dias[0].cor;
             // Verifica se a cor já foi mapeada
             if (!cores[evento.id]) {
