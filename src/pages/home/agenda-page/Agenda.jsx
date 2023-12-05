@@ -34,7 +34,7 @@ function getItem(label, key, icon, children, type) {
 
 const Agenda = () => {
 
-    
+
     const [openModalCriarEvento, setOpenModalCriarEvento] = useState(false)
     const [openModalCriarTurno, setOpenModalCriarTurno] = useState(false)
 
@@ -91,13 +91,67 @@ const Agenda = () => {
                     paciente.conexao.map(async (conexao) => {
                         const idPaciente = conexao.id_paciente;
                         const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
-                        return { idPaciente, eventos };
+
+                        console.log('Eventos para paciente', idPaciente, eventos);
+                        // Inicializar os eventos_semanais, eventos_unicos e turnos
+                        const eventosFiltrados = {
+                            idPaciente,
+                            eventos: {
+                                calendario: {
+                                    eventos_semanais: [],
+                                    eventos_unicos: [],
+                                    turnos: [],
+                                },
+                            },
+                        };
+
+                        // Adicionar os eventos específicos se existirem
+                        if (eventos.eventos_semanais) {
+                            eventosFiltrados.eventos.calendario.eventos_semanais = eventos.eventos_semanais;
+                        }
+
+                        if (eventos.eventos_unicos) {
+                            eventosFiltrados.eventos.calendario.eventos_unicos = eventos.eventos_unicos;
+                        }
+
+                        if (eventos.turnos) {
+                            eventosFiltrados.eventos.calendario.turnos = eventos.turnos;
+                        }
+
+                        return eventosFiltrados;
                     })
                 );
             } else {
                 const idPaciente = pacienteSelected;
                 const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
-                dataCalendarioForDateByPacienteAndCuidador = eventos
+    
+                console.log('Eventos para paciente', idPaciente, eventos);
+                // Inicializar os eventos_semanais, eventos_unicos e turnos
+                const eventosFiltrados = {
+                    idPaciente,
+                    eventos: {
+                        calendario: {
+                            eventos_semanais: [],
+                            eventos_unicos: [],
+                            turnos: [],
+                        },
+                    },
+                };
+
+                // Adicionar os eventos específicos se existirem
+                if (eventos.eventos_semanais) {
+                    eventosFiltrados.eventos.calendario.eventos_semanais = eventos.eventos_semanais;
+                }
+
+                if (eventos.eventos_unicos) {
+                    eventosFiltrados.eventos.calendario.eventos_unicos = eventos.eventos_unicos;
+                }
+
+                if (eventos.turnos) {
+                    eventosFiltrados.eventos.calendario.turnos = eventos.turnos;
+                }
+
+                dataCalendarioForDateByPacienteAndCuidador = [eventosFiltrados];
             }
 
             setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador);
@@ -109,6 +163,10 @@ const Agenda = () => {
             setLoading(false);
         }
     };
+
+
+
+
 
 
 
@@ -353,52 +411,59 @@ const Agenda = () => {
                                                         dateSelectedCalendario.length > 0 ? (
                                                         <List
                                                             itemLayout="vertical"
+                                                            bordered={false}
                                                             dataSource={dateSelectedCalendario}
                                                             renderItem={(item) => (
                                                                 <List.Item>
-                                                                    <Collapse
-                                                                        bordered={false}
-                                                                        defaultActiveKey={['1']}
-                                                                        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-                                                                         items={[
-                                                                            {
-                                                                                key: item.idPaciente,
-                                                                                label: `Paciente: ${item.eventos.calendario.eventos_semanais[1]?.paciente  || ''}`,
-                                                                                // children:
-                                                                                //     <div>
-                                                                                //         {dateSelectedCalendario.calendario.eventos_semanais &&
-                                                                                //             dateSelectedCalendario.calendario.eventos_semanais.length > 0 && (
-                                                                                //                 <div className="agenda-card-turno_field">
-                                                                                //                     {dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
-                                                                                //                         <CardEvento
-                                                                                //                             onClick={() => viewEvento(evento)}
-                                                                                //                             key={evento.id}
-                                                                                //                             title={evento.nome}
-                                                                                //                             hexStatus={evento.cor}
-                                                                                //                             type={'Semanal'}
-                                                                                //                         />
-                                                                                //                     ))}
-                                                                                //                 </div>
-                                                                                //             )}
+                                                                    {(item.eventos.calendario.eventos_semanais[0] && item.eventos.calendario.eventos_semanais[0].paciente) &&
+                                                                        <Collapse
+                                                                            style={{
+                                                                                maxWidth: ' 380px',
+                                                                                width: '38vw'
+                                                                            }}
+                                                                            bordered={false}
+                                                                            defaultActiveKey={['1']}
+                                                                            expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+                                                                            items={[
+                                                                                {
+                                                                                    key: item.idPaciente,
+                                                                                    label: `Paciente: ${item.eventos.calendario.eventos_semanais[0]?.paciente || ''}`,
+                                                                                    children:
+                                                                                        <div>
+                                                                                            {item.eventos.calendario.eventos_semanais &&
+                                                                                                item.eventos.calendario.eventos_semanais.length > 0 && (
+                                                                                                    <div className="agenda-card-turno_field">
+                                                                                                        {item.eventos.calendario.eventos_semanais.map((evento) => (
+                                                                                                            <CardEvento
+                                                                                                                onClick={() => viewEvento(evento)}
+                                                                                                                key={evento.id}
+                                                                                                                title={evento.nome}
+                                                                                                                hexStatus={evento.cor}
+                                                                                                                type={'Semanal'}
+                                                                                                            />
+                                                                                                        ))}
+                                                                                                    </div>
+                                                                                                )}
 
-                                                                                //         {dateSelectedCalendario.calendario.eventos_unicos &&
-                                                                                //             dateSelectedCalendario.calendario.eventos_unicos.length > 0 && (
-                                                                                //                 <div className="agenda-card-turno_field">
-                                                                                //                     {dateSelectedCalendario.calendario.eventos_unicos.map((evento) => (
-                                                                                //                         <CardEvento
-                                                                                //                             onClick={() => viewEvento(evento)}
-                                                                                //                             key={evento.id}
-                                                                                //                             title={evento.nome}
-                                                                                //                             hexStatus={evento.cor}
-                                                                                //                             type={'Único'}
-                                                                                //                         />
-                                                                                //                     ))}
-                                                                                //                 </div>
-                                                                                //             )}
-                                                                                //     </div>
-                                                                                // ,
-                                                                            }
-                                                                        ]} />
+                                                                                            {item.eventos.calendario.eventos_unicos &&
+                                                                                                item.eventos.calendario.eventos_unicos.length > 0 && (
+                                                                                                    <div className="agenda-card-turno_field">
+                                                                                                        {item.eventos.calendario.eventos_unicos.map((evento) => (
+                                                                                                            <CardEvento
+                                                                                                                onClick={() => viewEvento(evento)}
+                                                                                                                key={evento.id}
+                                                                                                                title={evento.nome}
+                                                                                                                hexStatus={evento.cor}
+                                                                                                                type={'Único'}
+                                                                                                            />
+                                                                                                        ))}
+                                                                                                    </div>
+                                                                                                )}
+                                                                                        </div>
+                                                                                    ,
+                                                                                }
+                                                                            ]} />
+                                                                    }
 
                                                                 </List.Item>
                                                             )}
