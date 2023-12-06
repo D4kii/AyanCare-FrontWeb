@@ -33,37 +33,13 @@ function MadeQuestionarioScreen(
         setRespostasParameterUseState(newRespostas);
     };
 
-    const handleAddPergunta = async (values) => {
-        console.log(values);
-        try {
-            // Lógica para criar a pergunta na API
-            const newPerguntas = values.map((pergunta) => pergunta.pergunta);
-            const response = await createPerguntaQuestionarioRelatorio({
-                "pergunta": newPerguntas,
-                "id_cuidador": idCuidador,
-            });
-    
-            // Limpar o formulário ou realizar qualquer outra ação necessária
-            setCarregandoPerguntaFeita(false);
-            console.log('Perguntas criadas com sucesso:', response.data);
-            setLoadingParameterUseState(true)
-        } catch (error) {
-            setCarregandoPerguntaFeita(false);
-            console.error('Erro ao criar pergunta:', error);
-        }
-    };
-    
-
-
-
-
 
     const pergunta = perguntaParameterUseState;
     const loading = loadingParameterUseState;
     const respostas = respostasParameterUseState;
     const onFinishQuestionario = onFinishQuestionarioFunction;
     const toggleModoQuestionario = toggleModoQuestionarioFunction;
-    console.log(idRelatorioParameterUseState);
+    console.log(respostas[perguntas.id]);
     return (
         <div>
             {loading ? (
@@ -134,61 +110,6 @@ function MadeQuestionarioScreen(
                             </Form.Item>
                         ))
                     )}
-                    <Form.List
-                        name="perguntas"
-                        onFinish={(values) => handleAddPergunta(values.perguntas)}
-                    >
-                        {(fields, { add, remove }) => (
-                            <>
-                                {fields.map(({ key, name, ...restField }) => (
-                                    <Space
-                                        key={key}
-                                        style={{
-                                            display: 'flex',
-                                            marginBottom: 8,
-                                        }}
-                                        align="baseline"
-                                    >
-                                        <Form.Item
-                                            {...restField}
-                                            name={[name, 'pergunta']}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Por favor, insira a pergunta',
-                                                },
-                                            ]}
-                                        >
-                                            <Input placeholder="Pergunta" />
-                                        </Form.Item>
-                                        <MinusCircleTwoTone
-                                            twoToneColor="#F74C50"
-                                            onClick={() => remove(name)}
-                                        />
-                                        {carregandoPerguntaFeita ? (
-                                            <SmileOutlined rotate={180} />
-                                        ) : (
-                                            <CheckCircleTwoTone
-                                                twoToneColor="#52c41a"
-                                                onClick={() => handleAddPergunta(form.getFieldsValue().perguntas)}
-                                            />
-
-                                        )}
-                                    </Space>
-                                ))}
-                                <Form.Item>
-                                    <Button
-                                        type="dashed"
-                                        onClick={() => add()}
-                                        block
-                                        icon={<PlusOutlined />}
-                                    >
-                                        Adicionar Pergunta
-                                    </Button>
-                                </Form.Item>
-                            </>
-                        )}
-                    </Form.List>
 
 
 

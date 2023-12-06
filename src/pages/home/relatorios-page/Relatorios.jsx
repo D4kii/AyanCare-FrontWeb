@@ -123,6 +123,7 @@ const Relatorios = () => {
             open={openDrawer}
             setOpen={setOpenDrawer}
             loading={loading}
+            setLoading={setLoading}
             />
         </div>
     );

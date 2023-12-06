@@ -79,14 +79,23 @@ const Agenda = () => {
     }, [idCuidador]);
 
     const [dateSelectedCalendario, setDateSelectedCalendario] = useState(null)
+    useEffect(() => {
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('pt-BR', {
+          format: 'DD/MM/YYYY',
+        });
+        onSelectDate(formattedDate)
+        setDateSelectedCalendario(formattedDate);
+      }, []);
     const onSelectDate = async (newValue) => {
         const dataSelecionada = newValue.format('DD/MM/YYYY');
+        console.log('selecionado',dataSelecionada);
         const diaSemanaSelecionada = getDiaSemana(newValue.day());
 
         try {
             let dataCalendarioForDateByPacienteAndCuidador = [];
 
-            if (pacienteSelected === 'todos' && paciente && paciente.conexao) {
+            if (pacienteSelected == 'todos' && paciente && paciente.conexao) {
                 dataCalendarioForDateByPacienteAndCuidador = await Promise.all(
                     paciente.conexao.map(async (conexao) => {
                         const idPaciente = conexao.id_paciente;
@@ -95,7 +104,6 @@ const Agenda = () => {
                         console.log('Eventos para paciente', idPaciente, eventos);
                         // Inicializar os eventos_semanais, eventos_unicos e turnos
                         const eventosFiltrados = {
-                            idPaciente,
                             eventos: {
                                 calendario: {
                                     eventos_semanais: [],
@@ -106,16 +114,16 @@ const Agenda = () => {
                         };
 
                         // Adicionar os eventos específicos se existirem
-                        if (eventos.eventos_semanais) {
-                            eventosFiltrados.eventos.calendario.eventos_semanais = eventos.eventos_semanais;
+                        if (eventos.calendario.eventos_semanais) {
+                            eventosFiltrados.eventos.calendario.eventos_semanais = eventos.calendario.eventos_semanais;
                         }
 
-                        if (eventos.eventos_unicos) {
-                            eventosFiltrados.eventos.calendario.eventos_unicos = eventos.eventos_unicos;
+                        if (eventos.calendario.eventos_unicos) {
+                            eventosFiltrados.eventos.calendario.eventos_unicos = eventos.calendario.eventos_unicos;
                         }
 
-                        if (eventos.turnos) {
-                            eventosFiltrados.eventos.calendario.turnos = eventos.turnos;
+                        if (eventos.calendario.turnos) {
+                            eventosFiltrados.eventos.calendario.turnos = eventos.calendario.turnos;
                         }
 
                         return eventosFiltrados;
@@ -124,7 +132,7 @@ const Agenda = () => {
             } else {
                 const idPaciente = pacienteSelected;
                 const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
-    
+
                 console.log('Eventos para paciente', idPaciente, eventos);
                 // Inicializar os eventos_semanais, eventos_unicos e turnos
                 const eventosFiltrados = {
@@ -137,21 +145,19 @@ const Agenda = () => {
                         },
                     },
                 };
-
                 // Adicionar os eventos específicos se existirem
-                if (eventos.eventos_semanais) {
-                    eventosFiltrados.eventos.calendario.eventos_semanais = eventos.eventos_semanais;
+                if (eventos.calendario.eventos_semanais) {
+                    eventosFiltrados.eventos.calendario.eventos_semanais = eventos.calendario.eventos_semanais;
+                }
+                if (eventos.calendario.eventos_unicos) {
+                    eventosFiltrados.eventos.calendario.eventos_unicos = eventos.calendario.eventos_unicos;
                 }
 
-                if (eventos.eventos_unicos) {
-                    eventosFiltrados.eventos.calendario.eventos_unicos = eventos.eventos_unicos;
+                if (eventos.calendario.turnos) {
+                    eventosFiltrados.eventos.calendario.turnos = eventos.calendario.turnos;
                 }
 
-                if (eventos.turnos) {
-                    eventosFiltrados.eventos.calendario.turnos = eventos.turnos;
-                }
-
-                dataCalendarioForDateByPacienteAndCuidador = [eventosFiltrados];
+                dataCalendarioForDateByPacienteAndCuidador = eventosFiltrados;
             }
 
             setDateSelectedCalendario(dataCalendarioForDateByPacienteAndCuidador);
@@ -177,7 +183,7 @@ const Agenda = () => {
         const anoMesSelecionado = selectedValue.format('MM/YYYY');
 
         console.log('id', { idCuidador, anoMesSelecionado, idPaciente });
-        setPacienteSelected(selectedOption);
+        setPacienteSelected(idPaciente);
 
         if (value !== 'todos') {
             // Restante do código para o caso de um paciente específico
@@ -288,7 +294,6 @@ const Agenda = () => {
                         flexDirection: 'column',
                         justifyContent: 'start',
                         alignItems: 'center',
-                        marginRight: '8vw'
                     }}
                 >
                     <div
@@ -298,6 +303,7 @@ const Agenda = () => {
                             justifyContent: 'center',
                             gap: '3rem',
                             height: '10vh',
+                            width: 'max-content',
                             position: 'relative',
 
                         }}
@@ -308,7 +314,7 @@ const Agenda = () => {
                             openKeys={openKeys}
                             onClick={onSelectKey}
                             style={{
-                                width: '5srem'
+                                width: '15rem'
                             }}
                             items={items}
                         />
@@ -343,7 +349,7 @@ const Agenda = () => {
                                                     </Select.Option>
                                                 ))
                                             )}
-                                            <Select.Option key={'all'} value={'todos'}>
+                                            <Select.Option key={'todos'} value={'todos'}>
                                                 Todos
                                             </Select.Option>
                                         </Select>
@@ -373,14 +379,14 @@ const Agenda = () => {
                                                 }}>
                                                 <div className="agenda-card-turno_field">
 
-                                                    {dateSelectedCalendario && pacienteSelected !== 'todos' &&
-                                                        (dateSelectedCalendario.calendario.eventos_unicos.length > 0 ||
-                                                            dateSelectedCalendario.calendario.eventos_semanais.length > 0) ? (
+                                                    {pacienteSelected !== 'todos' && dateSelectedCalendario &&
+                                                        (dateSelectedCalendario.eventos?.calendario.eventos_unicos.length > 0 ||
+                                                            dateSelectedCalendario.eventos?.calendario.eventos_semanais.length > 0) ? (
                                                         <div className="agenda-card-turno_field">
-                                                            {dateSelectedCalendario.calendario.eventos_semanais &&
-                                                                dateSelectedCalendario.calendario.eventos_semanais.length > 0 && (
+                                                            {dateSelectedCalendario.eventos.calendario.eventos_semanais &&
+                                                                dateSelectedCalendario.eventos.calendario.eventos_semanais.length > 0 && (
                                                                     <div className="agenda-card-turno_field">
-                                                                        {dateSelectedCalendario.calendario.eventos_semanais.map((evento) => (
+                                                                        {dateSelectedCalendario.eventos.calendario.eventos_semanais.map((evento) => (
                                                                             <CardEvento
                                                                                 onClick={() => viewEvento(evento)}
                                                                                 key={evento.id}
@@ -392,10 +398,10 @@ const Agenda = () => {
                                                                     </div>
                                                                 )}
 
-                                                            {dateSelectedCalendario.calendario.eventos_unicos &&
-                                                                dateSelectedCalendario.calendario.eventos_unicos.length > 0 && (
+                                                            {dateSelectedCalendario.eventos.calendario.eventos_unicos &&
+                                                                dateSelectedCalendario.eventos.calendario.eventos_unicos.length > 0 && (
                                                                     <div className="agenda-card-turno_field">
-                                                                        {dateSelectedCalendario.calendario.eventos_unicos.map((evento) => (
+                                                                        {dateSelectedCalendario.eventos.calendario.eventos_unicos.map((evento) => (
                                                                             <CardEvento
                                                                                 onClick={() => viewEvento(evento)}
                                                                                 key={evento.id}
@@ -415,12 +421,13 @@ const Agenda = () => {
                                                             dataSource={dateSelectedCalendario}
                                                             renderItem={(item) => (
                                                                 <List.Item>
-                                                                    {(item.eventos.calendario.eventos_semanais[0] && item.eventos.calendario.eventos_semanais[0].paciente) &&
+                                                                    {(item.eventos?.calendario.eventos_semanais[0] && item.eventos.calendario.eventos_semanais[0].paciente) &&
                                                                         <Collapse
                                                                             style={{
                                                                                 maxWidth: ' 380px',
                                                                                 width: '38vw'
                                                                             }}
+                                                                            ghost
                                                                             bordered={false}
                                                                             defaultActiveKey={['1']}
                                                                             expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
@@ -588,11 +595,11 @@ const Agenda = () => {
 
                 </div>
             </div>
-            <ModalCreateTurno
+            {/* <ModalCreateTurno
                 idCuidador={idCuidador}
                 open={openModalCriarTurno}
                 setOpen={setOpenModalCriarTurno}
-            />
+            /> */}
             <ModalCreateEvento
                 idCuidador={idCuidador}
                 open={openModalCriarEvento}

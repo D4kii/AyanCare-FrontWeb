@@ -32,7 +32,7 @@ export const createQuestionarioRelatorio = async (questionario) => {
 }
 
 export const createPerguntaQuestionarioRelatorio = async (dados) => {
-    console.log('dados',dados);
+    console.log('dados', dados);
     return (
         await api.post("/Pergunta", dados)
     )
@@ -364,6 +364,28 @@ export const getEventosAlarmesByCuidadorAndDate = async (id_cuidador, dia, id_pa
         console.log({ id_cuidador, dia, id_paciente, dia_semana });
         console.log('====================================');
         return response.data
+
+    } catch (error) {
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+
+    }
+}
+
+export const getPDFRelatorio = async (id_relatorio) => {
+    try {
+        const response = await api.get(`/relatorio/pdf/${id_relatorio}`);
+        return response
 
     } catch (error) {
         if (error.response) {

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Drawer, Form, Input, Radio } from 'antd';
 import './drawer-ver-relatorio.css'
 import Loading from '../loading/Loading';
+import { getPDFRelatorio } from '../../services/api';
 
-function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
+function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading, setLoading }) {
+
+    const [pdfRelatorio, setPdfRelatorio] = useState(null);
 
     const relatorio = dadosRelatorio;
 
+    console.log('id:',relatorio.id);
 
     const showDrawer = () => {
         setOpen(true);
@@ -16,13 +20,50 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
     };
     const hasData = Object.keys(dadosRelatorio).length > 0
 
+    const madePDF = async () => {
+        const url = `http://localhost:8080/v1/ayan/relatorio/pdf/${relatorio.id}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na requisição: ${response.status}`);
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                // Cria um URL temporário para o blob
+                const blobUrl = URL.createObjectURL(blob);
+
+                // Cria um link temporário
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = 'relatorio.pdf'; // Nome do arquivo PDF
+
+                // Adiciona o link ao corpo do documento
+                document.body.appendChild(link);
+
+                // Aciona o clique no link para iniciar o download
+                link.click();
+
+                // Remove o link do corpo do documento
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Erro ao baixar o PDF:', error);
+            });
+
+    }
+
+
+
     return (
         <div>
             {hasData ?
                 (
                     <Drawer width={800} closable={false} onClose={onClose} open={open}>
                         <div>
-                            <Form>
+                            <Form
+                            >
 
 
                                 {loading ?
@@ -67,11 +108,11 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
                                                 />
                                             </div>
                                             <div
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection:'column',
-                                                gap:'1rem'
-                                            }}
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    gap: '1rem'
+                                                }}
                                             >
                                                 <h3 className='ver-relatorio_field-screen-relatorio-subtitle'>Relatório</h3>
                                                 <div className="ver-relatorio_text-field">
@@ -81,11 +122,11 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
                                                 </div>
                                             </div>
                                             <div
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection:'column',
-                                                gap:'1rem'
-                                            }}
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    gap: '1rem'
+                                                }}
                                             >
                                                 <h3 className='ver-relatorio_field-screen-relatorio-subtitle'>Questionário</h3>
                                                 <div className="ver-relatorio_questionario">
@@ -120,12 +161,17 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading }) {
                                                 </div>
 
                                             </div>
+
                                         </div>
                                     )
 
                                 }
+                                <Button
+                                    onClick={() => madePDF()}
+                                >Gerar PDF</Button>
                             </Form>
                         </div>
+
 
                     </Drawer>
                 )

@@ -81,31 +81,37 @@ function CreateRelatorioModal(
     };
 
     useEffect(() => {
+        console.log('====================================');
+        console.log('DENTRO DO useEffect');
+        console.log('====================================');
+    
         const fetchData = async () => {
             try {
                 // Api de perguntas
                 const dataPerguntasQuestionario = await getPerguntasQuestionarioRelatorio();
+    
                 // Api de Pacientes por id do cuidador
                 const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
     
-                // const dataCreateRelatorio = await createRelatorio();
-    
                 setPaciente(dataPacientesByCuidador);
-                setPergunta(dataPerguntasQuestionario)
+                setPergunta(dataPerguntasQuestionario);
                 setLoading(false);
             } catch (error) {
                 console.error('Erro ao buscar dados da API:', error);
                 setLoading(false);
             }
         };
-    
         // Condição para verificar se idCuidador existe e loading é false
-        if (idCuidador && !loading) {
+        if (idCuidador && loading) {
             fetchData();
         }
-    }, [idCuidador, loading]);
+    }, [loading]);
     
-
+    
+    
+console.log('=============CUIDADOR=======================');
+console.log(idCuidador);
+console.log('====================================');
 
     const onFinishMadeQuestionario = async (values) => {
         try {
@@ -138,7 +144,6 @@ function CreateRelatorioModal(
             console.error('Erro ao criar Questionário:', error);
         }
     };
-
 
 
 
