@@ -59,9 +59,7 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
         .map((pacienteData) => pacienteData.calendario.eventos_semanais || [])
         .flat();
 
-      const turnosTodosPacientes = calendarioData
-        .map((pacienteData) => pacienteData.calendario.turnos || [])
-        .flat();
+     
 
       const eventosUnicosTodosPacientes = calendarioData
         .map((pacienteData) => pacienteData.calendario.eventos_unicos || [])
@@ -77,10 +75,6 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
 
         return eventoDataFormatada.isSame(dataAtualFormatada, 'day');
       });
-
-      const turnoDoDia = turnosTodosPacientes.filter((turno) =>
-        turno.dias.some((dia) => dia.id_dia_semana === (value.day() % 7) + 1)
-      );
 
       const cores = {};
 
@@ -109,15 +103,7 @@ const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) =
             </li>
           ))}
 
-          {/* Turnos */}
-          {turnoDoDia.map((turno) => {
-            const cor = turno.dias[0].cor;
-            return (
-              <li key={turno.id}>
-                <Tag color={`rgb(${cor})`}>Turno: {turno.paciente}</Tag>
-              </li>
-            );
-          })}
+        
         </ul>
       );
     }
