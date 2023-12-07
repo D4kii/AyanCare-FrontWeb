@@ -3,6 +3,7 @@ import axios from "axios";
 export const api = axios.create({
     // baseURL: "https://ayancare-api.cyclic.cloud/v1/ayan",
     baseURL: "http://localhost:8080/v1/ayan",
+    // baseURL: "https://ayan-backend.azurewebsites.net/v1/ayan",
 });
 
 // POST
@@ -111,10 +112,25 @@ export const getConexaoByIDCuidadorAndPacientID = async (id_cuidador, id_pacient
                 "idPaciente": id_paciente
             }
         });
-        console.log(77, id_paciente);
         return response.data;
     } catch (error) {
         console.error('Erro na solicitação GET de conexao entre cuidador e paciente:', error);
+        throw error;
+    }
+
+}
+export const getConexaoByIDCuidadorAndPacientName = async (id_cuidador, paciente_name) => {
+
+    try {
+        const response = await api.get(`/conexoes`, {
+            params: {
+                "idCuidador": id_cuidador,
+                "nomePaciente": paciente_name
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erro na solicitação GET de conexao entre cuidador e nome do paciente:', error);
         throw error;
     }
 
@@ -262,13 +278,17 @@ export const getContasDesativadasIDCuidador = async (id_cuidador) => {
     }
 }
 
-export const getPerguntasQuestionarioRelatorio = async () => {
+export const getQuestionarioByRelatorio = async (id_relatorio) => {
     try {
-        const response = await api.get(`/perguntas`);
+        const response = await api.get(`/questionarios`,{
+            params:{
+                idRelatorio: id_relatorio
+            }
+        });
         return response.data
 
     } catch (error) {
-        console.error('Erro na solicitação GET de perguntas do questionario:', error);
+        console.error('Erro na solicitação GET do questionario por relatorio:', error);
         throw error;
     }
 }

@@ -35,7 +35,6 @@ function MadeRelatorioScreen(
 
     const hasPacientes = paciente.status
 
-    console.log(1, paciente.status);
 
     return (
 

@@ -14,17 +14,24 @@ function CardRelatorio({ textoRelatorio, dataRelatorio, horarioRelatorio, onClic
         >
 
             <div className="card-relatorio">
-                <div className="card-relatorio_icon">
-                    <FileTextFilled
-                        style={{
-                            fontSize: '2.5rem',
-                            color: '#9986BD'
-                        }}
-                    />
-                </div>
-                <div className="card-relatorio_content">
-                    <h2 className="card-relatorio_content-title">Relatório</h2>
-                    <span className="card-relatorio_content-preview">{texto}</span>
+                <div
+                style={{
+                    display:'flex',
+                    gap:'1rem'
+                }}>
+                    <div className="card-relatorio_icon">
+                        <FileTextFilled
+                            style={{
+                                fontSize: '2.5rem',
+                                color: '#9986BD'
+                            }}
+                        />
+                    </div>
+                    <div className="card-relatorio_content">
+                        <h2 className="card-relatorio_content-title">Relatório</h2>
+                        <span className="card-relatorio_content-preview">{texto}</span>
+                    </div>
+
                 </div>
                 <div className="card-relatorio_content-time">
                     <p className="data">{data}</p>

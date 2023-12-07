@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 
 import MenuCompoente from '../../../components/menu/menu';
 import CalendarComponent from '../../../components/calendario/Calendar';
-import CardTurno from '../../../components/card-turno/CardTurno';
 import CardEvento from '../../../components/card-evento/CardEvento';
 import CardAlarme from '../../../components/card-alarme/CardAlarme';
 import Loading from '../../../components/loading/Loading';
@@ -15,11 +14,9 @@ import './agenda.css';
 import {
     getEventosAlarmesByCuidadorAndDate,
     getEventosAlarmesByCuidadorAndMes,
-    getPacientesByIDCuidador,
-    getTurnosByIDCuidador
+    getPacientesByIDCuidador
 } from '../../../services/api';
 import ModalCreateEvento from '../../../components/modal-criar-evento/CreateEvento';
-import ModalCreateTurno from '../../../components/modal-criar-turno/ModalCriarTurno';
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -36,7 +33,6 @@ const Agenda = () => {
 
 
     const [openModalCriarEvento, setOpenModalCriarEvento] = useState(false)
-    const [openModalCriarTurno, setOpenModalCriarTurno] = useState(false)
 
     const [value, setValue] = useState(() => dayjs());
     const [selectedValue, setSelectedValue] = useState(() => dayjs());
@@ -102,13 +98,12 @@ const Agenda = () => {
                         const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
 
                         console.log('Eventos para paciente', idPaciente, eventos);
-                        // Inicializar os eventos_semanais, eventos_unicos e turnos
+                        // Inicializar os eventos_semanais, eventos_unicos 
                         const eventosFiltrados = {
                             eventos: {
                                 calendario: {
                                     eventos_semanais: [],
                                     eventos_unicos: [],
-                                    turnos: [],
                                 },
                             },
                         };
@@ -122,9 +117,6 @@ const Agenda = () => {
                             eventosFiltrados.eventos.calendario.eventos_unicos = eventos.calendario.eventos_unicos;
                         }
 
-                        if (eventos.calendario.turnos) {
-                            eventosFiltrados.eventos.calendario.turnos = eventos.calendario.turnos;
-                        }
 
                         return eventosFiltrados;
                     })
@@ -134,14 +126,13 @@ const Agenda = () => {
                 const eventos = await getEventosAlarmesByCuidadorAndDate(idCuidador, dataSelecionada, idPaciente, diaSemanaSelecionada);
 
                 console.log('Eventos para paciente', idPaciente, eventos);
-                // Inicializar os eventos_semanais, eventos_unicos e turnos
+                // Inicializar os eventos_semanais, eventos_unicos 
                 const eventosFiltrados = {
                     idPaciente,
                     eventos: {
                         calendario: {
                             eventos_semanais: [],
-                            eventos_unicos: [],
-                            turnos: [],
+                            eventos_unicos: []
                         },
                     },
                 };
@@ -153,9 +144,6 @@ const Agenda = () => {
                     eventosFiltrados.eventos.calendario.eventos_unicos = eventos.calendario.eventos_unicos;
                 }
 
-                if (eventos.calendario.turnos) {
-                    eventosFiltrados.eventos.calendario.turnos = eventos.calendario.turnos;
-                }
 
                 dataCalendarioForDateByPacienteAndCuidador = eventosFiltrados;
             }
@@ -216,7 +204,6 @@ const Agenda = () => {
                     acumulador.calendario = acumulador.calendario || {};
                     acumulador.calendario.eventos_semanais = (acumulador.calendario.eventos_semanais || []).concat(resultado.dataCalendario.calendario.eventos_semanais || []);
                     acumulador.calendario.eventos_unicos = (acumulador.calendario.eventos_unicos || []).concat(resultado.dataCalendario.calendario.eventos_unicos || []);
-                    acumulador.calendario.turnos = (acumulador.calendario.turnos || []).concat(resultado.dataCalendario.calendario.turnos || []);
                     return acumulador;
                 }, { todos: true });
 
@@ -520,19 +507,6 @@ const Agenda = () => {
                                                     Nenhum paciente vinculado
                                                 </Button>
                                             )}
-                                            {/* <Button 
-                                        onClick={handleClickCriarEvento}
-                                        style={
-                                            {
-                                                right: 70,
-                                                height: '2.5rem',
-                                                bottom: 0,
-                                                border: 'none',
-                                                boxShadow: '0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05)'
-                                            }
-                                        }>
-                                            Criar Turno
-                                        </Button> */}
                                         </FloatButton.Group>
 
                                     </div>
@@ -544,22 +518,7 @@ const Agenda = () => {
                                     <h2 className="select-day_title">{selectedValue?.format('DD-MM-YYYY')}</h2>
                                 </div>
                                 <div className="alarmes-turnos_list">
-                                    <div className="agenda-field_turnos-card">
-                                        <h3 className="turnos_turnos-titulo">{'Turnos'}</h3>
-                                        <div className="agenda-card-turno_field turno_field">
-                                            {calendarioData && calendarioData.turnos ?
-                                                (calendarioData.turnos.map((turno) => (
-                                                    <CardTurno
-                                                        paciente={turno.cuidador}
-
-                                                    />
-
-                                                ))) : (
-                                                    <Empty description={'Sem turnos para hoje'} />
-                                                )
-                                            }
-                                        </div>
-                                    </div>
+                                    
                                     <div
                                         style={{
                                             display: 'flex',
@@ -595,11 +554,6 @@ const Agenda = () => {
 
                 </div>
             </div>
-            {/* <ModalCreateTurno
-                idCuidador={idCuidador}
-                open={openModalCriarTurno}
-                setOpen={setOpenModalCriarTurno}
-            /> */}
             <ModalCreateEvento
                 idCuidador={idCuidador}
                 open={openModalCriarEvento}

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Button from "../button/Button";
 import CardPacientes from "../card-pacientes/CardPaciente";
 import { DeleteTwoTone, DownOutlined, MoreOutlined, PlusOutlined } from '@ant-design/icons'
 import './contas-vinculadas.css'
 
 import { getPacienteById, getPacientesByIDCuidador, desativarContasVinculadas } from "../../services/api";
 import ModalConectar from "../conectar-modal/ModalConectar";
-import { Avatar, Dropdown, Empty, List, Modal, Skeleton, Space } from "antd";
+import { Avatar, Button, Dropdown, Empty, List, Modal, Skeleton, Space } from "antd";
 import Loading from "../loading/Loading";
 import ModalPacienteProfile from "../modal-paciente-profile/ModalPacienteProfile";
 
@@ -112,12 +111,17 @@ function ContasVinculadasScreen({ }) {
                             Contas Vinculadas
                         </h2>
                         <Button
-                            nameButton={'Criar vínculo'}
-                            iconButton={<PlusOutlined />}
-                            heigthButton={'2rem'}
-                            textSize={'1rem'}
+                            name='Criar vínculo'
+                            style={{
+                                backgroundColor:'#34225F',
+                                color:'#fff',
+                                height:'2.5rem'
+                            }}
+                            icon={<PlusOutlined />}
                             onClick={showModalConexao}
-                        />
+                        >
+                            Criar vínculo
+                        </Button>
 
                     </div>
                     <div className="contas-vinculadas_cards-pacientes">

@@ -32,7 +32,7 @@ const LandingPage = () => {
                     subtitleCard={'Praticidade'}
                     imageCard={calendarioImage}
                     descriptionImageCard={'Um teclado, um tablet aberto em um software de agendamento, um caderno aberto e um celular em cima de uma mesa de escritório.'}
-                    textCard={'Você pode fazer do nosso aplicativo a sua agenda, gerenciando seus turnos, os alarmes e eventos dos seus pacientes.'} />
+                    textCard={'Você pode fazer do nosso aplicativo a sua agenda, gerenciando alarmes e eventos dos seus pacientes.'} />
                 <CardsAboutUs
                     titleCard={'Se conecte'}
                     subtitleCard={'Facilidade'}

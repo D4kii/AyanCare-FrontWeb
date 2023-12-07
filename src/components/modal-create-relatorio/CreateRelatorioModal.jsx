@@ -7,7 +7,7 @@ import MadeQuestionarioScreen from "./tela-fazer-questionario/MadeQuestionarioSc
 import MadeRelatorioScreen from "./tela-fazer-relatorio/MadeRelatorioScreen";
 
 //API
-import { getPacientesByIDCuidador, getPerguntasQuestionarioRelatorio, createRelatorio, createQuestionarioRelatorio } from "../../services/api";
+import { getPacientesByIDCuidador, createRelatorio, createQuestionarioRelatorio, getQuestionarioByRelatorio } from "../../services/api";
 
 
 
@@ -38,11 +38,11 @@ function CreateRelatorioModal(
 
     const [perguntasEnviadas, setPerguntasEnviadas] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [pergunta, setPergunta] = useState("");
+    const [questionario, setQuestionario] = useState("");
     const [paciente, setPaciente] = useState("");
     const [respostas, setRespostas] = useState({});
     const [modoQuestionario, setModoQuestionario] = useState(false);
-    const [idRelatorio, setIdRelatorio] = useState({})
+    const [idRelatorio, setIdRelatorio] = useState(null)
 
     const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
     const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
@@ -56,6 +56,25 @@ function CreateRelatorioModal(
     };
 
 
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log(1);
+            try {
+                // Api de Pacientes por id do cuidador
+                const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
+                setPaciente(dataPacientesByCuidador);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erro ao buscar pacientes por cuidador da API:', error);
+                setLoading(false);
+            }
+        }
+        // Condição para verificar se idCuidador existe e loading é false
+        if (idCuidador) {
+            console.log(4);
+            fetchData();
+        }
+    }, [idCuidador]);
     const onFinishMadeRelatorio = async (values) => {
         try {
             const relatorio = {
@@ -68,9 +87,19 @@ function CreateRelatorioModal(
             // Chama a API para criar o relatório
             const response = await createRelatorio(relatorio);
 
+            console.log('ID RELATORIO',response);
 
-
-            setIdRelatorio(response.data)
+            console.log('AQUIII', response.data.relatorio.id);
+            setIdRelatorio(response.data.relatorio.id)
+            try {
+                // Api de perguntas
+                const dataQuestionario = await getQuestionarioByRelatorio(idRelatorio);
+                setQuestionario(dataQuestionario);
+                setLoading(false)
+            } catch (error) {
+                console.error('Erro ao buscar questionario da API:', error);
+                setLoading(false);
+            }
 
             // Ativa o modo de questionário
             setModoQuestionario(true);
@@ -80,51 +109,47 @@ function CreateRelatorioModal(
         }
     };
 
-    useEffect(() => {
-        console.log('====================================');
-        console.log('DENTRO DO useEffect');
-        console.log('====================================');
-    
-        const fetchData = async () => {
-            try {
-                // Api de perguntas
-                const dataPerguntasQuestionario = await getPerguntasQuestionarioRelatorio();
-    
-                // Api de Pacientes por id do cuidador
-                const dataPacientesByCuidador = await getPacientesByIDCuidador(idCuidador);
-    
-                setPaciente(dataPacientesByCuidador);
-                setPergunta(dataPerguntasQuestionario);
-                setLoading(false);
-            } catch (error) {
-                console.error('Erro ao buscar dados da API:', error);
-                setLoading(false);
-            }
-        };
-        // Condição para verificar se idCuidador existe e loading é false
-        if (idCuidador && loading) {
-            fetchData();
-        }
-    }, [loading]);
-    
-    
-    
-console.log('=============CUIDADOR=======================');
-console.log(idCuidador);
-console.log('====================================');
+    console.log(12, idRelatorio); // Removido ".relatorio.id" daqui
+    // useEffect(() => {
+    //     console.log(3333333333333, idRelatorio);
+    //     const fetchData = async () => {
+    //         setLoading(true)
+    //         try {
+    //             // Api de perguntas
+    //             const dataQuestionario = await getQuestionarioByRelatorio(idRelatorio);
+    //             setQuestionario(dataQuestionario);
+    //             setLoading(false)
+    //         } catch (error) {
+    //             console.error('Erro ao buscar questionario da API:', error);
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     // Condição para verificar se idRelatorio existe
+    //     if (idRelatorio) {
+    //         fetchData();
+    //     }
+    // }, [idRelatorio]);
+
+
+
+
 
     const onFinishMadeQuestionario = async (values) => {
+
+        console.log(4774574, idRelatorio);
         try {
             setLoading(true)
             for (const dadosPergunta of pergunta.perguntas) {
-                const questionario = {
+                const jsonQuestionario = {
                     "id_pergunta": dadosPergunta.id,
-                    "id_relatorio": idRelatorio.relatorio.id,
+                    "id_relatorio": idRelatorio,
                     "resposta": respostas[dadosPergunta.id]
                 };
+                console.log('questionario', jsonQuestionario);
 
                 // Chama a API para criar o questionário
-                await createQuestionarioRelatorio(questionario);
+                await createQuestionarioRelatorio(jsonQuestionario);
             }
 
             // Todas as perguntas foram enviadas, exibe a mensagem de sucesso
@@ -142,10 +167,13 @@ console.log('====================================');
             ErrorMessage("Erro ao criar Questionário");
             setLoading(false)
             console.error('Erro ao criar Questionário:', error);
-        }
-    };
+
+        };
+
+    }
 
 
+    console.log(paciente);
 
     return (
         <div>
@@ -180,7 +208,7 @@ console.log('====================================');
                                 <MadeQuestionarioScreen
                                     loadingParameterUseState={loading}
                                     setLoadingParameterUseState={setLoading}
-                                    perguntaParameterUseState={pergunta}
+                                    questionarioParameterUseState={questionario}
                                     respostasParameterUseState={respostas}
                                     toggleModoQuestionarioFunction={toggleModoQuestionario}
                                     idRelatorioParameterUseState={idRelatorio}

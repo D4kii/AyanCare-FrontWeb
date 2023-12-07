@@ -7,7 +7,7 @@ import { createPerguntaQuestionarioRelatorio } from "../../../services/api";
 
 function MadeQuestionarioScreen(
     {
-        perguntaParameterUseState,
+        questionarioParameterUseState,
         loadingParameterUseState,
         setLoadingParameterUseState,
         respostasParameterUseState,
@@ -29,17 +29,18 @@ function MadeQuestionarioScreen(
     const handleChange = (perguntaId, value) => {
         // Atualize o estado respostas com os novos valores
         const newRespostas = { ...respostas, [perguntaId]: value };
+        console.log('LALALA',newRespostas);
         // Atualize o estado com as novas respostas
         setRespostasParameterUseState(newRespostas);
     };
 
 
-    const pergunta = perguntaParameterUseState;
+    const questionario = questionarioParameterUseState;
     const loading = loadingParameterUseState;
     const respostas = respostasParameterUseState;
     const onFinishQuestionario = onFinishQuestionarioFunction;
     const toggleModoQuestionario = toggleModoQuestionarioFunction;
-    console.log(respostas[perguntas.id]);
+    console.log(questionario);
     return (
         <div>
             {loading ? (
@@ -77,7 +78,7 @@ function MadeQuestionarioScreen(
 
                         <Loading />
                     ) : (
-                        pergunta.perguntas.map((perguntas) => (
+                        questionario?.questionario.map((perguntas) => (
                             <Form.Item
                                 style={{
                                     width: '50vw',

@@ -77,6 +77,7 @@ const Relatorios = () => {
                             placeholder="Pesquisar"
                             style={{
                                 width: '40vw',
+                                height: '3rem',
                                 maxWidth: '800px',
                                 fontFamily: 'manrope',
                                 fontSize: '1rem',
