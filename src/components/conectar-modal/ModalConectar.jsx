@@ -107,7 +107,15 @@ function ModalConectar({ onOpen, onCancel }) {
                     height: '30vh'
                 }}>
                 <h3>Conectar contas</h3>
-                <p>Insira o código de conexao do seu paciente, por favor.</p>
+                <p
+                    style={{
+                        textAlign: 'center',
+                        fontFamily: 'Manrope',
+                        fontSize: '1rem',
+                        fontWeight: '400',
+                        color: 'var(--neutral-500, #64748B)'
+                    }}
+                >Insira o código de conexao do seu paciente, por favor.</p>
 
                 <Form.Item
                     name={'idPaciente'}

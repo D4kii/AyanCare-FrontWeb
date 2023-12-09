@@ -9,6 +9,7 @@ import { getModificacoesByIDCuidador } from '../../../services/api';
 import Loading from '../../../components/loading/Loading';
 import { Divider, Empty, List } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
+import NotFoundMessage from '../../../components/not-found/NotFound';
 
 // //Pegando o json do cuidador e o token como string do localStorage
 const cuidadorLocalStorage = localStorage.getItem('cuidador')
@@ -68,7 +69,14 @@ const Home = () => {
           </div>
           <Divider />
 
-            <div>
+            <div
+            style={{
+              display:'flex',
+              flexDirection:'column',
+              justifyContent:'center',
+              alignItems:'center'
+            }}
+            >
               {
                 loading?
                 <Loading />
@@ -84,7 +92,10 @@ const Home = () => {
                       ))}
                     </div>
                   ) : (
-                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Você ainda não tem nenhuma atividade. Vincule-se para movimentar sua conta!'} />
+                    <NotFoundMessage 
+                    description={'Você ainda não tem nenhuma atividade. Vincule-se para movimentar sua conta!'}
+                    />
+                    
                   )
               }
             </div>

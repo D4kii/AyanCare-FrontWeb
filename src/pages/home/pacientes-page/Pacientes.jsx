@@ -10,6 +10,7 @@ import { Avatar, Empty, Input, List, Modal, Skeleton, Button } from 'antd';
 import { getPacientesByIDCuidador, getPacienteById, getConexaoByIDCuidadorAndPacientName } from '../../../services/api';
 import Loading from '../../../components/loading/Loading';
 import ModalPacienteProfile from '../../../components/modal-paciente-profile/ModalPacienteProfile';
+import NotFoundMessage from '../../../components/not-found/NotFound';
 
 const Pacientes = ({ }) => {
     // //Pegando o json do cuidador e o token como string do localStorage
@@ -128,7 +129,11 @@ const Pacientes = ({ }) => {
                                 className="demo-loadmore-list"
                                 itemLayout="horizontal"
                                 locale={{
-                                    emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Nenhum Teste feito ainda'} />
+                                    emptyText: <NotFoundMessage 
+                                    title={'Você não tem conexões ainda :('}
+                                    description={'Clique em "Conectar" no menu, e insira o código do seu paciente para criar um vínculo.'}
+                                    />
+
                                 }}
                                 dataSource={(isSearching ? filteredPacientes.conexao : paciente.conexao)}
                                 renderItem={(item) => (

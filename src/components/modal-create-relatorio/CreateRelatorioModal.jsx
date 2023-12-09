@@ -7,7 +7,7 @@ import MadeQuestionarioScreen from "./tela-fazer-questionario/MadeQuestionarioSc
 import MadeRelatorioScreen from "./tela-fazer-relatorio/MadeRelatorioScreen";
 
 //API
-import { getPacientesByIDCuidador, createRelatorio, createQuestionarioRelatorio, getQuestionarioByRelatorio } from "../../services/api";
+import { getPacientesByIDCuidador, createRelatorio, getQuestionarioByRelatorio, putQuestionarioRelatorio } from "../../services/api";
 
 
 
@@ -89,11 +89,10 @@ function CreateRelatorioModal(
 
             console.log('ID RELATORIO',response);
 
-            console.log('AQUIII', response.data.relatorio.id);
             setIdRelatorio(response.data.relatorio.id)
             try {
                 // Api de perguntas
-                const dataQuestionario = await getQuestionarioByRelatorio(idRelatorio);
+                const dataQuestionario = await getQuestionarioByRelatorio(response.data.relatorio.id);
                 setQuestionario(dataQuestionario);
                 setLoading(false)
             } catch (error) {
@@ -110,46 +109,23 @@ function CreateRelatorioModal(
     };
 
     console.log(12, idRelatorio); // Removido ".relatorio.id" daqui
-    // useEffect(() => {
-    //     console.log(3333333333333, idRelatorio);
-    //     const fetchData = async () => {
-    //         setLoading(true)
-    //         try {
-    //             // Api de perguntas
-    //             const dataQuestionario = await getQuestionarioByRelatorio(idRelatorio);
-    //             setQuestionario(dataQuestionario);
-    //             setLoading(false)
-    //         } catch (error) {
-    //             console.error('Erro ao buscar questionario da API:', error);
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     // Condição para verificar se idRelatorio existe
-    //     if (idRelatorio) {
-    //         fetchData();
-    //     }
-    // }, [idRelatorio]);
-
-
-
 
 
     const onFinishMadeQuestionario = async (values) => {
 
-        console.log(4774574, idRelatorio);
+        console.log(4774574, questionario);
         try {
             setLoading(true)
-            for (const dadosPergunta of pergunta.perguntas) {
+            for (const dadosPergunta of questionario.questionario) {
+                console.log('finalizando e imprimindo o idRelatorio:', idRelatorio);
                 const jsonQuestionario = {
-                    "id_pergunta": dadosPergunta.id,
-                    "id_relatorio": idRelatorio,
+                    "id": dadosPergunta.id,
                     "resposta": respostas[dadosPergunta.id]
                 };
                 console.log('questionario', jsonQuestionario);
 
                 // Chama a API para criar o questionário
-                await createQuestionarioRelatorio(jsonQuestionario);
+                await putQuestionarioRelatorio(jsonQuestionario);
             }
 
             // Todas as perguntas foram enviadas, exibe a mensagem de sucesso

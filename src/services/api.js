@@ -25,12 +25,7 @@ export const createRelatorio = async (relatorio) => {
         await api.post("/relatorio", relatorio)
     )
 }
-export const createQuestionarioRelatorio = async (questionario) => {
 
-    return (
-        await api.post("/questionario", questionario)
-    )
-}
 
 export const createPerguntaQuestionarioRelatorio = async (dados) => {
     console.log('dados', dados);
@@ -496,4 +491,16 @@ export const desativarContasVinculadas = async (idCuidador, idPaciente) => {
         throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
     }
 
+}
+
+export const putQuestionarioRelatorio = async (data) => {
+    try {
+        console.log('data api:', data);
+        const response = await api.put(`/questionario`, data);
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na atualização do questionario por relatorio:', error);
+        throw error;
+    }
 }

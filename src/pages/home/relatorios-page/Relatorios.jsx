@@ -9,10 +9,13 @@ import { Empty, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import CardRelatorio from '../../../components/card-relatorio/CardRelatorio';
 import RelatorioDrawer from '../../../components/drawer-relatorio/DrawerRelatorio';
+import notFoundImage from '../../../images/not-found.svg'
 
 //API
 import { getRelatorioByIDCuidador } from '../../../services/api';
 import { useEffect } from 'react';
+import NotFoundMessage from '../../../components/not-found/NotFound';
+import Loading from '../../../components/loading/Loading';
 
 
 // //Pegando o json do cuidador e o token como string do localStorage
@@ -21,8 +24,8 @@ const cuidadorLocalStorage = localStorage.getItem('cuidador')
 
 
 const Relatorios = () => {
-    const [openDrawer, setOpenDrawer] = useState(false);  
-    const [dadosRelatorio, setDadosRelatorio] = useState({});  
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [dadosRelatorio, setDadosRelatorio] = useState({});
 
 
     const [openModal, setOpenModal] = useState(false);
@@ -96,7 +99,7 @@ const Relatorios = () => {
 
                 <div className="column">
                     {loading ? (
-                        <p>Carregando...</p>
+                        <Loading/>
                     ) : (
                         relatorio && relatorio.length > 0 ? (
                             relatorio.map((relatorioItem) => (
@@ -109,7 +112,10 @@ const Relatorios = () => {
                                 />
                             ))
                         ) : (
-                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}  description={'Nenhum relatório encontrado'} />
+                            <NotFoundMessage 
+                            title={'Sem relatórios por aqui'}
+                            description={'Você ainda não realizou nenhum relatório :(. Clicando em "Criar" você será encaminhado faze-lo se tiver conexão com algum paciente. Se não tiver conexões, se vincule clicando em "Conectar"!'}
+                            />
                         )
                     )}
                 </div>
@@ -120,11 +126,11 @@ const Relatorios = () => {
                 />
             </div>
             <RelatorioDrawer
-            dadosRelatorio={dadosRelatorio}
-            open={openDrawer}
-            setOpen={setOpenDrawer}
-            loading={loading}
-            setLoading={setLoading}
+                dadosRelatorio={dadosRelatorio}
+                open={openDrawer}
+                setOpen={setOpenDrawer}
+                loading={loading}
+                setLoading={setLoading}
             />
         </div>
     );

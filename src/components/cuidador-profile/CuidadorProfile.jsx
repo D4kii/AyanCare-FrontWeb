@@ -3,10 +3,9 @@ import './cuidador-profile.css'
 import perfil from '../../images/background-image.png'
 
 //COMPONENTES
-import Button from "../button/Button";
 import ProfilePicture from "../profile-picture/ProfilePicture";
 import Input from "antd/es/input/Input";
-import { Avatar, List } from "antd";
+import { Avatar, Button, List } from "antd";
 import CuidadorEditarProfile from "./cuidador-editar-profile/CuidadorEditarProfile";
 
 
@@ -40,14 +39,16 @@ function CuidadorProfile({
                     }}
                 >
                     <Button
-                        heigthButton={'30px'}
-                        widthButton={'7.5rem'}
-                        color={'#FAF0ED'}
-                        nameButton={'Editar Perfil'}
-                        contentColor={'#35225F'}
-                        textSize={'14px'}
+                        style={{
+                            color:'#35225F',
+                            fontSize:'1rem',
+                            fontWeight:'200',
+                            height:'2rem'
+                        }}
                         onClick={handleEditarPerfil}
-                    />
+                    >
+                        Editar Perfil
+                    </Button>
                 </div>
 
             </div>
