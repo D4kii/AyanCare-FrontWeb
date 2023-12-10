@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const api = axios.create({
     // baseURL: "https://ayancare-api.cyclic.cloud/v1/ayan",
-    baseURL: "http://localhost:8080/v1/ayan",
-    // baseURL: "https://ayan-backend.azurewebsites.net/v1/ayan",
+    // baseURL: "http://localhost:8080/v1/ayan",
+    baseURL: "https://ayan-backend.azurewebsites.net/v1/ayan",
 });
 
 // POST

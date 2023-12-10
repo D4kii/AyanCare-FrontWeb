@@ -53,13 +53,15 @@ function ModalConectar({ onOpen, onCancel }) {
 
     const onFinishMadeConection = async (values) => {
         try {
-            const pacienteID = values.idPaciente;
+            const pacienteID = JSON.parse(values.idPaciente);
             const cuidadorID = idCuidador;
 
-            if (pacienteID && typeof pacienteID === 'string') {
+            if (pacienteID ) {
+                console.log({pacienteID, cuidadorID});
                 const response = await createConexaoUsuarios(cuidadorID, pacienteID);
+                console.log('A Q U I : ', response);
 
-                if (response.response.status === 200) {
+                if (response.status === 200 || response.status === 201) {
                     // Conexão bem-sucedida
                     Modal.success({
                         content: 'Conexão feita com sucesso',
@@ -77,11 +79,12 @@ function ModalConectar({ onOpen, onCancel }) {
 
                     onOk: onCancel,
                 });
-            } else if (error.response.status === 400) {
+            } else {
                 console.log(400);
-                messageApi.open({
-                    type: 'warning',
-                    content: 'Erro na conexão de contas, tente novamente mais tarde.',
+                Modal.error({
+                    content: 'Erro na conexão de contas, tente mais tarde!',
+
+                    onOk: onCancel,
                 });
             }
         }
@@ -104,7 +107,8 @@ function ModalConectar({ onOpen, onCancel }) {
                     justifyContent: 'space-evenly',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    height: '30vh'
+                    height: '40vh',
+                    gap:'2rem'
                 }}>
                 <h3>Conectar contas</h3>
                 <p
@@ -129,6 +133,7 @@ function ModalConectar({ onOpen, onCancel }) {
                             textAlign: 'center',
                             fontSize: '1.2rem'
                         }}
+                        placeholder="Código"
                     />
                 </Form.Item>
 

@@ -8,7 +8,7 @@
 .forms-check-field{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .form_inputs-field{

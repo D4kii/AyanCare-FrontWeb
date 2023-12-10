@@ -29,7 +29,7 @@ function MadeQuestionarioScreen(
     const handleChange = (perguntaId, value) => {
         // Atualize o estado respostas com os novos valores
         const newRespostas = { ...respostas, [perguntaId]: value };
-        console.log('LALALA',newRespostas);
+        console.log('LALALA', newRespostas);
         // Atualize o estado com as novas respostas
         setRespostasParameterUseState(newRespostas);
     };
@@ -63,14 +63,14 @@ function MadeQuestionarioScreen(
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '.5rem'
+                            gap: '.1rem'
                         }}
                     >
                         <h2 className="create-relatorio-modal_title">
                             Questionário
                         </h2>
                         <h4 className="create-relatorio_description">
-                            Registre informações importantes sobre o dia do paciente com o Questionário do Relatório. Personalize-o adicionando perguntas conforme necessário para um acompanhamento preciso e adaptado às suas necessidades. Sua participação é fundamental para um cuidado mais eficiente.
+                            Registre informações importantes sobre o dia do paciente com o Questionário do Relatório. Sua participação é fundamental para um cuidado mais eficiente.
                         </h4>
                         <Divider />
                     </div>
@@ -79,14 +79,7 @@ function MadeQuestionarioScreen(
                         <Loading />
                     ) : (
                         questionario?.questionario.map((perguntas) => (
-                            <Form.Item
-                                style={{
-                                    width: '50vw',
-                                    marginLeft: '1rem'
-                                }}
-                                key={perguntas.id}
-                                name={perguntas.id}
-                            >
+                            <>
                                 <span>{perguntas.pergunta}</span>
                                 <div
                                     style={{
@@ -96,19 +89,35 @@ function MadeQuestionarioScreen(
                                         gap: '.5rem',
                                     }}
                                 >
-                                    <Radio.Group
-                                        onChange={(e) => handleChange(perguntas.id, e.target.value)}
+                                    <Form.Item
                                         style={{
-                                            display: 'flex'
+                                            width: '50vw',
+                                            marginLeft: '1rem'
                                         }}
-                                        value={respostas[perguntas.id]}
+                                        key={perguntas.id}
+                                        name={perguntas.id}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Você esqueceu de responder uma pergunta. Responda a todas por favor!'
+                                            }
+                                        ]}
                                     >
-                                        <Radio value={true}>Sim</Radio>
-                                        <Radio value={false}>Não</Radio>
-                                    </Radio.Group>
+                                        <Radio.Group
+                                            onChange={(e) => handleChange(perguntas.id, e.target.value)}
+                                            style={{
+                                                display: 'flex'
+                                            }}
+                                            value={respostas[perguntas.id]}
+                                        >
+                                            <Radio value={true}>Sim</Radio>
+                                            <Radio value={false}>Não</Radio>
+                                        </Radio.Group>
 
+                                    </Form.Item>
                                 </div>
-                            </Form.Item>
+
+                            </>
                         ))
                     )}
 

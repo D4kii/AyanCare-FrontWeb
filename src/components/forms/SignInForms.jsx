@@ -105,7 +105,6 @@ function SignInForms({
                 </Form.Item>
             </div>
             <div className="forms-check-field">
-                <CheckboxField checkBoxName={checkboxText} />
                 <ForgotPassword />
             </div>
             <Form.Item>
