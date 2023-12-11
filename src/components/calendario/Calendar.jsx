@@ -4,6 +4,7 @@ import './calendar.css';
 import moment from 'moment/moment';
 
 const CalendarComponent = ({ value, onSelect, onPanelChange, calendarioData }) => {
+  console.log(calendarioData?.calendario);
 
 
   const dateCellRender = (value) => {

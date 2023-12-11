@@ -365,6 +365,36 @@ export const getEventosAlarmesByCuidadorAndMes = async (id_cuidador, mes, id_pac
     }
 }
 
+export const getEventosAlarmesByPacienteAndMes = async (mes, id_paciente) => {
+    try {
+        const response = await api.get(`/calendario`, {
+            params: {
+                mes: mes,
+                idPaciente: id_paciente,
+            }
+        });
+        console.log('getEventosAlarmesByPacienteAndMes====================================');
+        console.log({mes, id_paciente });
+        console.log('====================================');
+        return response.data
+
+    } catch (error) {
+        console.error('Erro na solicitação GET de calendario:', error);
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+    }
+}
+
 export const getEventosAlarmesByCuidadorAndDate = async (id_cuidador, dia, id_paciente, dia_semana) => {
     try {
         const response = await api.get(`/calendario`, {
@@ -377,6 +407,37 @@ export const getEventosAlarmesByCuidadorAndDate = async (id_cuidador, dia, id_pa
         });
         console.log('getEventosAlarmesByCuidadorAndDate====================================');
         console.log({ id_cuidador, dia, id_paciente, dia_semana });
+        console.log('====================================');
+        console.log('DADOS: ', response);
+        return response.data
+
+    } catch (error) {
+        if (error.response) {
+            // O servidor retornou uma resposta com um status diferente de 2xx
+            console.error('Status do erro:', error.response.status);
+            console.error('Dados do erro:', error.response.data);
+        } else if (error.request) {
+            // A requisição foi feita, mas não recebeu uma resposta
+            console.error('Erro na requisição, sem resposta do servidor');
+        } else {
+            // Algo aconteceu durante a configuração da requisição que desencadeou um erro
+            console.error('Erro ao configurar a requisição:', error.message);
+        }
+        throw error; // Você pode ou não querer lançar o erro novamente para o código que chamou essa função.
+
+    }
+}
+export const getEventosAlarmesByPacienteAndDate = async ( dia, id_paciente, dia_semana) => {
+    try {
+        const response = await api.get(`/calendario`, {
+            params: {
+                idPaciente: id_paciente,
+                dia: dia,
+                diaSemana: dia_semana,
+            }
+        });
+        console.log('getEventosAlarmesByPacienteAndDate====================================');
+        console.log({dia, id_paciente, dia_semana });
         console.log('====================================');
         return response.data
 
