@@ -10,9 +10,13 @@ function MenuLandingPage() {
             <nav>
                 <ul className="menu">
                     <div className="menu_logo">
-                        <img src={image} alt="AyanCare" />
-                        <span className="nome-logo">AyanCare</span>
                     </div>
+                    <div
+                    style={{
+                        display:'flex',
+                        gap:'2.5rem'
+                    }}>
+
                     <li>
                         <a href="#about-us">Sobre Nós</a>
                     </li>
@@ -22,6 +26,8 @@ function MenuLandingPage() {
                     <li>
                         <a href="#contacts">Contato</a>
                     </li>
+                    </div>
+                        <img src={image} alt="AyanCare" />
                 <ButtonsLandingPage nameButtonLogin={'Fazer Login'} nameButtonSignup={'Cadastrar-se'} />
                 </ul>
             </nav>

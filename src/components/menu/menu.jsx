@@ -16,43 +16,12 @@ import { getNotificacoesByIdCuidador } from "../../services/api";
 import Loading from "../loading/Loading";
 
 function Menu() {
+    const [api, contextHolder] = notification.useNotification();
     const location = useLocation();
     const [openModalSetting, setOpenModalSetting] = useState(false);
     const [openModalConexao, setOpenModalConexao] = useState(false);
     const [loading, setLoading] = useState(true);
     const [notificacoes, setNotificacoes] = useState([]);
-
-    const fetchNotificacoes = async () => {
-        try {
-            const cuidadorLocalStorage = localStorage.getItem('cuidador');
-            const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
-            const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
-            const dadosNotificacoes = await getNotificacoesByIdCuidador(idCuidador);
-            setNotificacoes(dadosNotificacoes);
-            setLoading(false);
-        } catch (error) {
-            console.error('Erro ao buscar dados de notificações:', error);
-            // Lidar com erros, se necessário
-        }
-    };
-
-    useEffect(() => {
-        setLoading(true);
-        const initialNotificacoes = fetchNotificacoes();
-
-        // Atualiza notificações a cada 30s
-        const intervalId = setInterval(() => {
-            const newNotificacoes = fetchNotificacoes();
-            if (newNotificacoes.length > initialNotificacoes.length) {
-                const novaNotificacao = newNotificacoes[newNotificacoes.length - 1];
-                openNotification('topRight', novaNotificacao);
-            }
-        }, 60 * 1000);
-
-        return () => {
-            clearInterval(intervalId); // Limpa o intervalo quando o componente for desmontado
-        };
-    }, []); // O array vazio garante que o useEffect seja executado apenas uma vez
 
     const openNotification = (placement, novaNotificacao) => {
         notification.info({
@@ -61,6 +30,58 @@ function Menu() {
             placement,
         });
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+
+                const cuidadorLocalStorage = localStorage.getItem('cuidador');
+                const cuidadorJSON = cuidadorLocalStorage ? JSON.parse(cuidadorLocalStorage) : null;
+                const idCuidador = cuidadorJSON ? cuidadorJSON.id : null;
+
+                const dadosNotificacoes = await getNotificacoesByIdCuidador(idCuidador);
+                console.log(dadosNotificacoes);
+
+                if (!Array.isArray(dadosNotificacoes)) {
+                    // Se não for um array, trata de acordo com a lógica do seu aplicativo
+                    console.error('Erro: getNotificacoesByIdCuidador não retornou um array:', dadosNotificacoes);
+                    setLoading(false);
+                    return;
+                }
+
+                const novasNotificacoes = dadosNotificacoes
+                    .filter(notificacao => !notificacoes.some(existing => existing.id === notificacao.id));
+
+                if (novasNotificacoes.length > 0) {
+                    // Exibir notificação apenas se houver novas notificações
+                    const novaNotificacao = novasNotificacoes[novasNotificacoes.length - 1];
+                    openNotification('topRight', novaNotificacao);
+                }
+
+                setNotificacoes(dadosNotificacoes);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erro ao buscar dados de notificações:', error);
+                // Lidar com erros, se necessário
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+
+        // Update notifications every 30 seconds
+        const intervalId = setInterval(async () => {
+            fetchData(); // Chama a função fetchData para atualizar as notificações
+        }, 30 * 1000);
+
+        return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
+
+    }, []);
+    console.log('NOTIFICAÇÃO: ', notificacoes);
+    // O array vazio garante que o useEffect seja executado apenas uma vez
+
+
 
     const showModalSetting = () => {
         setOpenModalSetting(true);
@@ -145,18 +166,18 @@ function Menu() {
                                     ) : (
 
                                         <div className="notification-field">
-                                            {notificacoes.notificacao?
-                                            notificacoes.notificacao.map((notificacao) => (
-                                                <PopoverCardNotifications
-                                                    key={notificacao.id}
-                                                    title={notificacao.nome}
-                                                    description={notificacao.descricao}
-                                                    time={notificacao.hora_criacao}
-                                                />
-                                            ))
-                                            :
-                                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Sem notificações'}/>
-                                        }
+                                            {notificacoes.notificacao ?
+                                                notificacoes.notificacao.map((notificacao) => (
+                                                    <PopoverCardNotifications
+                                                        key={notificacao.id}
+                                                        title={notificacao.nome}
+                                                        description={notificacao.descricao}
+                                                        time={notificacao.hora_criacao}
+                                                    />
+                                                ))
+                                                :
+                                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={'Sem notificações'} />
+                                            }
                                         </div>
                                     )}
                                 </>

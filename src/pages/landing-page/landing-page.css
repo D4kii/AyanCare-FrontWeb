@@ -1,18 +1,14 @@
 .landing-page_section {
     width: 100vw;
-    background-color: #35225F;
+    background-color: #fff;
 }
 
 .landing-page_home {
-    background-image: url('../../images/background-image.png');
-    background-repeat: no-repeat;
-    background-size: cover;
     height: 140vh;
     width: 100vw;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: end;
+    align-items: flex-start;
 }
 
 .landing-page_about-us,
@@ -34,11 +30,13 @@
 
 .landing-page_sections-aboutus-field {
     width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 15rem;
+    background-color: #35225F;
+    position: relative;
+    margin-top: -25rem;
 }
 
 .landing-page_section-border {
@@ -49,14 +47,42 @@
     flex-direction: column;
 }
 
-.landing-page_section-about-us_title {
-    color: #FFF;
+.landing-page_sections-aboutus-field-title {
+    color: #F9F1ED;
     text-align: center;
-    font-family: Poppins;
-    font-size: 36px;
+    font-family: Manrope;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px;
+    /* 114.286% */
+}
+
+.landing-page_sections-aboutus-field-carousel {
+    height: 75vh;
+    width: 100vw;
+    background-color: #F9F1ED;
+}
+
+.landing-page_sections-aboutus-field-carousel-title {
+    color: #000;
+    text-align: center;
+    font-family: Manrope;
+    font-size: 64px;
     font-style: normal;
     font-weight: 600;
-    line-height: 44px;
+    line-height: 32px;
+    /* 50% */
+}
+
+.landing-page_sections-aboutus-field-carousel-description {
+    color: #35225F;
+    font-family: Manrope;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    /* 187.5% */
 }
 
 .landing-page_section-about-us_text {
@@ -78,13 +104,13 @@
     width: 80vw;
 }
 
-.landing-page_about-us{
+.landing-page_about-us {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.landing-page_valores-text-field{
+.landing-page_valores-text-field {
     display: flex;
     align-items: flex-start;
     text-align: start;

@@ -6,6 +6,7 @@ import './drawer-eventos.css'
 import dayjs from 'dayjs';
 
 function DrawerEvento({ open, setOpen, dadosEvento, loading }) {
+    console.log('DRGLJNWRGJRTGJETJGTJ', dadosEvento);
 
     const fotoPaciente = '';
 

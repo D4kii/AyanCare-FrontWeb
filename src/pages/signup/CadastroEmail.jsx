@@ -39,7 +39,8 @@ function Signup() {
         };
         ;
 
-        fetch('http://localhost:8080/v1/ayan/cuidador', {
+        // fetch('http://localhost:8080/v1/ayan/cuidador', {
+        fetch('https://ayan-backend.azurewebsites.net/v1/ayan/cuidador', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

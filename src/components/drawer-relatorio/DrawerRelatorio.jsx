@@ -21,7 +21,7 @@ function RelatorioDrawer({ open, setOpen, dadosRelatorio, loading, setLoading })
     const hasData = Object.keys(dadosRelatorio).length > 0
 
     const madePDF = async () => {
-        const url = `http://localhost:8080/v1/ayan/relatorio/pdf/${relatorio.id}`;
+        const url = `https://ayan-backend.azurewebsites.net/v1/ayan/relatorio/pdf/${relatorio.id}`;
 
         fetch(url)
             .then(response => {

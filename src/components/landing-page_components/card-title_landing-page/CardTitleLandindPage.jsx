@@ -1,5 +1,7 @@
 import React from "react";
 import './card-title_landing-page.css'
+import { Button } from "antd";
+import { RightOutlined } from "@ant-design/icons";
 
 function CardTitleLandinPage({ titleCard, textCard }) {
 
@@ -16,6 +18,9 @@ function CardTitleLandinPage({ titleCard, textCard }) {
                     <span>{texto}</span>
                 </div>
             </div>
+            <Button
+            className="landing-page_home-card-button"
+            >Começar{<RightOutlined />}</Button>
         </div>
     )
 

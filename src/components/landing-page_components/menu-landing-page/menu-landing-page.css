@@ -10,7 +10,7 @@
     justify-content: space-between;
     gap: 50px;
     font-size: 3.5rem;
-    background: rgba(51, 27, 106, 0.60);
+    background: rgba(51, 27, 106, 1);
     backdrop-filter: blur(2px);
     width: 100vw;
     height: 10vh;
@@ -36,7 +36,6 @@
     font-size: 1rem;
     align-items: end;
     height: max-content;
-    margin-left: 1.2rem;
 }
 
 .menu_logo img {
