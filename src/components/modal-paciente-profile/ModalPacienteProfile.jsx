@@ -64,7 +64,7 @@ function ModalPacienteProfile({ openModal, onCancel, dataPaciente }) {
                                     )}
                                 </Space>
                                 <Divider orientation="left">Medicamentos</Divider>
-                                {dataPaciente.paciente.comorbidades && dataPaciente.paciente.comorbidades[0].id ? (
+                                {dataPaciente.paciente.medicamentos && dataPaciente.paciente.medicamentos[0].id ? (
                                     <List
                                         header={null}
                                         footer={null}
