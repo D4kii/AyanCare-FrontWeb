@@ -87,7 +87,7 @@ function RelatorioHumorScreen() {
 
     return (
         <div>
-            {humorSelected ? (
+            {humorSelected && humorSelectedData ? (
                 <div
                 >
                     {loading ?
@@ -95,21 +95,20 @@ function RelatorioHumorScreen() {
                         :
                         (
                             <div>
-                                {humorSelectedData ? (
-                                    <div>
-                                        <LeftOutlined
-                                            style={{
-                                                margin: '1rem'
-                                            }}
-                                            onClick={cancelCardClick} />
-                                        <div className="teste-humor_selecionado">
-                                            <div className="teste-humor_selecionado-title">
-                                                <h2 className="relatorio-humor_screen-title paciente-name">
-                                                    {humorSelectedData.teste.paciente}
-                                                </h2>
-                                                <Descriptions 
-                                                title={null} 
-                                                layout="horizontal" 
+                                <div>
+                                    <LeftOutlined
+                                        style={{
+                                            margin: '1rem'
+                                        }}
+                                        onClick={cancelCardClick} />
+                                    <div className="teste-humor_selecionado">
+                                        <div className="teste-humor_selecionado-title">
+                                            <h2 className="relatorio-humor_screen-title paciente-name">
+                                                {humorSelectedData.teste.paciente}
+                                            </h2>
+                                            <Descriptions
+                                                title={null}
+                                                layout="horizontal"
                                                 items={[
                                                     {
                                                         label: 'Data',
@@ -120,9 +119,9 @@ function RelatorioHumorScreen() {
                                                         children: humorSelectedData.teste.horario
                                                     }
                                                 ]} />
-                                                <Descriptions 
-                                                title={null} 
-                                                layout="vertical" 
+                                            <Descriptions
+                                                title={null}
+                                                layout="vertical"
                                                 style={{
                                                     width: '80%',
                                                     height: 'max-content',
@@ -131,117 +130,115 @@ function RelatorioHumorScreen() {
                                                 }}
                                                 items={[
                                                     {
-                                                        label:'Descrição',
+                                                        label: 'Descrição',
                                                         children: humorSelectedData.teste.observacao
                                                     }
                                                 ]} />
-                                                
 
-                                            </div>
-                                            <div className="column-Humor"
-                                                style={{
-                                                    margin: '1rem'
-                                                }}
-                                            >
-                                                <Divider orientation="left">Humor</Divider>
-                                                <Space size={[0, 8]} wrap>
-                                                    {
-                                                        humorSelectedData.teste.humores.map((item) => (
-
-                                                            <Tag
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    alignItems: 'center'
-                                                                }}
-                                                                key={item.id} icon={
-                                                                    <img src={item.icone}
-                                                                        style={
-                                                                            {
-                                                                                height: '19px',
-                                                                                width: '19px',
-                                                                                filter: 'invert(100%)'
-                                                                            }
-                                                                        } />
-
-                                                                } color="#C8BEDB">
-                                                                {item.nome}
-                                                            </Tag>
-
-
-                                                        ))
-                                                    }
-                                                </Space>
-                                            </div>
-                                            <div className="column-exercicios"
-                                                style={{
-                                                    margin: '1rem'
-                                                }}
-                                            >
-                                                <Divider orientation="left">Exercicios realizados</Divider>
-                                                <div className="column-exercicios_area"
-
-                                                >
-                                                    <Space size={[20, 0]}
-                                                        style={{ width: 'max-content' }}
-                                                    >
-                                                        {
-
-                                                            // restante do código
-                                                            <>
-                                                                {humorSelectedData.teste.exercicios && humorSelectedData.teste.exercicios.map((item) => (
-
-
-                                                                    <Card
-                                                                        hoverable
-                                                                        style={{
-                                                                            width: 160,
-                                                                        }}
-                                                                        cover={<img alt="example" src={item.icone} style={
-                                                                            {
-                                                                                height: '100%',
-                                                                                width: '100%'
-                                                                            }
-                                                                        } />}
-                                                                    >
-                                                                        <Meta
-                                                                            title={item.nome} />
-                                                                    </Card>
-
-
-                                                                ))}
-                                                            </>
-                                                        }
-                                                    </Space>
-
-                                                </div>
-                                            </div>
-                                            <div className="column-sintomas"
-                                                style={{
-                                                    margin: '1rem'
-                                                }}
-                                            >
-                                                <Divider orientation="left">Sintomas</Divider>
-                                                <Space size={[0, 8]} wrap>
-                                                    {
-                                                        humorSelectedData.teste.sintomas.map((item) => (
-                                                            <Tag key={item.id} color="#C8BEDB"
-                                                                style={{
-                                                                    fontSize: '16px'
-                                                                }}
-                                                            >
-                                                                {item.nome}
-                                                            </Tag>
-                                                        ))
-                                                    }
-                                                </Space>
-                                            </div>
 
                                         </div>
+                                        <div className="column-Humor"
+                                            style={{
+                                                margin: '1rem'
+                                            }}
+                                        >
+                                            <Divider orientation="left">Humor</Divider>
+                                            <Space size={[0, 8]} wrap>
+                                                {
+                                                    humorSelectedData.teste.humores.map((item) => (
+
+                                                        <Tag
+                                                            style={{
+                                                                display: 'flex',
+                                                                alignItems: 'center'
+                                                            }}
+                                                            key={item.id} icon={
+                                                                <img src={item.icone}
+                                                                    style={
+                                                                        {
+                                                                            height: '19px',
+                                                                            width: '19px',
+                                                                            filter: 'invert(100%)'
+                                                                        }
+                                                                    } />
+
+                                                            } color="#C8BEDB">
+                                                            {item.nome}
+                                                        </Tag>
 
 
-                                    </div>) : (
-                                    <p>Dados do humor não carregados</p>
-                                )}
+                                                    ))
+                                                }
+                                            </Space>
+                                        </div>
+                                        <div className="column-exercicios"
+                                            style={{
+                                                margin: '1rem'
+                                            }}
+                                        >
+                                            <Divider orientation="left">Exercicios realizados</Divider>
+                                            <div className="column-exercicios_area"
+
+                                            >
+                                                <Space size={[20, 0]}
+                                                    style={{ width: 'max-content' }}
+                                                >
+                                                    {
+
+                                                        // restante do código
+                                                        <>
+                                                            {humorSelectedData.teste.exercicios && humorSelectedData.teste.exercicios.map((item) => (
+
+
+                                                                <Card
+                                                                    hoverable
+                                                                    style={{
+                                                                        width: 160,
+                                                                    }}
+                                                                    cover={<img alt="example" src={item.icone} style={
+                                                                        {
+                                                                            height: '100%',
+                                                                            width: '100%'
+                                                                        }
+                                                                    } />}
+                                                                >
+                                                                    <Meta
+                                                                        title={item.nome} />
+                                                                </Card>
+
+
+                                                            ))}
+                                                        </>
+                                                    }
+                                                </Space>
+
+                                            </div>
+                                        </div>
+                                        <div className="column-sintomas"
+                                            style={{
+                                                margin: '1rem'
+                                            }}
+                                        >
+                                            <Divider orientation="left">Sintomas</Divider>
+                                            <Space size={[0, 8]} wrap>
+                                                {
+                                                    humorSelectedData.teste.sintomas.map((item) => (
+                                                        <Tag key={item.id} color="#C8BEDB"
+                                                            style={{
+                                                                fontSize: '16px'
+                                                            }}
+                                                        >
+                                                            {item.nome}
+                                                        </Tag>
+                                                    ))
+                                                }
+                                            </Space>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
                             </div>
                         )
                     }
@@ -291,8 +288,8 @@ function RelatorioHumorScreen() {
                                     dataSource={humorData.testes}
                                     renderItem={(item) => (
                                         <List.Item
-                                            actions={[<a key="list-loadmore-more" 
-                                            onClick={() => handleCardClick(item.id_teste_humor)}>ver mais</a>]}
+                                            actions={[<a key="list-loadmore-more"
+                                                onClick={() => handleCardClick(item.id_teste_humor)}>ver mais</a>]}
                                             key={item.id_teste_humor}
                                         >
                                             <Skeleton avatar title={item.paciente} loading={item.loading} active>
