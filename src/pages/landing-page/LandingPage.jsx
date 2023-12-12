@@ -7,6 +7,9 @@ import desktopAndMobileImage from '../../images/desktop-mobile.svg'
 import relatorioImage from '../../images/relatorio-image.svg'
 import agendaImage from '../../images/agenda-imagem.svg'
 import vinculoImage from '../../images/vinculo-imagem.svg'
+import propostaAplicacaoImage from '../../images/proposta-aplicacao-maos.svg'
+import multipataformaImage from '../../images/multiplataforma.svg'
+import logoImage from '../../images/logo-roxa.svg'
 import { Carousel } from 'antd';
 
 const LandingPage = () => {
@@ -168,9 +171,132 @@ const LandingPage = () => {
                 </div>
 
             </div>
-            <section className='landing-page_contacts' id='contacts'>
+            <section
+                style={{
+                    backgroundImage: `URL(${propostaAplicacaoImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    height: '100vh',
+                    width: '100vw',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'self-start',
+                    justifyContent: 'center'
+                }}
+                className='landing-page_contacts' id='contacts'>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '2rem',
+                        width: '50vw',
+                        justifyContent: 'center',
+                        alignItems: 'self-start',
+                        marginLeft: '4rem'
+                    }}
+                >
+                    <img src={logoImage}
+                        style={{
+                            width: '10rem',
+                            display: 'flex'
+                        }} />
+                    <h2
+                        style={{
+                            fontFamily: 'manrope',
+                            fontSize: '2.5rem',
+                            color: '#35225F',
+                            fontWeight: '700'
+                        }}
+                    >Proposta da Aplicação</h2>
+                    <span
+                        style={{
+                            fontFamily: 'manrope',
+                            fontSize: '1.2re',
+                            color: '#35225F',
+                            fontWeight: '400',
+                            lineHeight: '2rem'
+                        }}
+                    >A missão da AyanCare é simplificar e melhorar a vida dos cuidadores e enfermeiros domiciliares, usando a tecnologia para tornar o cuidado em casa mais eficiente e humano. Oferece ferramentas para planejamento, comunicação e permitir que os profissionais dediquem mais tempo aos pacientes. Estamos empenhados em transformar o cuidado domiciliar em uma experiência mais gratificante e significativa.</span>
+                </div>
 
             </section>
+            <section
+                style={{
+                    backgroundColor: '#fff',
+                    height: '100vh',
+                    width: '100vw',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <div
+                    style={{
+                        width: '40vw',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div>
+                        <img
+                            style={{
+                                width: '30rem'
+                            }}
+                            src={multipataformaImage} alt="" />
+                    </div>
+                </div>
+                <div
+                    style={{
+                        width: '60vw',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '2rem'
+                    }}
+                >
+                    <h2
+                        style={{
+                            fontFamily: 'manrope',
+                            fontSize: '2.5rem',
+                            color: '#35225F',
+                            fontWeight: '700'
+                        }}
+                    >Multiplataformas</h2>
+                    <div
+                        style={{
+                            width: '50vw'
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontFamily: 'manrope',
+                                fontSize: '1.2rem',
+                                color: '#35225F',
+                                width: '30vw',
+                                fontWeight: '400',
+                                lineHeight: '2rem'
+                            }}
+                        >Cuidadores e Pacientes podem ter acesso a todas as funcionalidades via Mobile. E somente o cuidador via desktop.
+                        </span>
+
+                    </div>
+                </div>
+            </section>
+            <footer
+                style={{
+                    background: '#2E214B',
+                    width: '100vw',
+                    height: '200px',
+                    display:'flex',
+                    alignItems:'center',
+                    justifyContent:'center',
+                    color:'#fff',
+                    fontFamily:'manrope'
+                }}
+            >
+                © 2023 Ayan Corp. Todos os direitos reservados.
+            </footer>
         </div>
     );
 }

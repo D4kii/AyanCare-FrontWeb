@@ -19,7 +19,10 @@ function CardTitleLandinPage({ titleCard, textCard }) {
                 </div>
             </div>
             <Button
-            className="landing-page_home-card-button"
+            className="landing-page_home-card-button"  href="/signup"
+            style={{
+                textDecoration:'none'
+            }}
             >Começar{<RightOutlined />}</Button>
         </div>
     )
